@@ -1,0 +1,13 @@
+[project]
+name = "razprox"
+version = "0.1.0"
+description = "A project for bioclimatic clasification using fuzzy logic"
+readme = "README.md"
+dependencies = [
+    "numpy>=2.3.3",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["bioclas"]
+
