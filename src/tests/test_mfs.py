@@ -3,10 +3,12 @@ import numpy as np
 
 import bioclas.fuzzylogic.mem_functions
 
-def plotting(x ,y, title="Membership Function"):
-    plt.plot(x,y)
+
+def plotting(x, y, title="Membership Function"):
+    plt.plot(x, y)
     plt.title(title)
     plt.show()
+
 
 if __name__ == "__main__":
     x = np.linspace(0, 10, 101)

@@ -7,12 +7,13 @@ if SRC not in __import__("sys").path:
 from fuzzylogic.FuzzySet import FuzzySet
 import fuzzylogic as fuzzy
 
+
 class TestFuzzySet:
     def test_initialization(self):
         name = "TestSet"
         membership_function = fuzzy.trimf(0, 5, 10)
         fuzzy_set = FuzzySet(name, membership_function)
-        
+
         assert fuzzy_set.name == name
         assert fuzzy_set._membership_function == membership_function
 
@@ -32,7 +33,7 @@ class TestFuzzySet:
         name = "TestSet"
         membership_function = fuzzy.sets.Triangular(0, 5, 10)
         fuzzy_set = FuzzySet(name, membership_function)
-        
+
         assert fuzzy_set.get_membership_degree(5) == 1.0
         assert fuzzy_set.get_membership_degree(0) == 0.0
         assert fuzzy_set.get_membership_degree(10) == 0.0
@@ -42,13 +43,15 @@ class TestFuzzySet:
         name = "TestSet"
         membership_function = fuzzy.sets.Triangular(0, 5, 10)
         fuzzy_set = FuzzySet(name, membership_function)
-        
+
         assert fuzzy_set.support == (0, 10)
 
     def test_repr(self):
         name = "TestSet"
         membership_function = fuzzy.sets.Triangular(0, 5, 10)
         fuzzy_set = FuzzySet(name, membership_function)
-        
-        expected_repr = f"FuzzySet(name={name}, membership_function={membership_function})"
+
+        expected_repr = (
+            f"FuzzySet(name={name}, membership_function={membership_function})"
+        )
         assert repr(fuzzy_set) == expected_repr

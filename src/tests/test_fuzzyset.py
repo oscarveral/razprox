@@ -4,9 +4,10 @@ import numpy as np
 from bioclas.fuzzylogic.fuzzy_set import FuzzySet
 from bioclas.fuzzylogic.mem_functions import trimf, trapmf, sigmf
 
+
 class TestFuzzySet:
     world = np.linspace(0, 10, 101)
-    mf = lambda _,x: trimf(x, 2, 5, 8)
+    mf = lambda _, x: trimf(x, 2, 5, 8)
 
     def test_initialization(self):
         fuzzy_set = FuzzySet("FS1", self.mf)
@@ -24,7 +25,7 @@ class TestFuzzySet:
 
     def test_get_membership_degree(self):
         fuzzy_set = FuzzySet("FS3", self.mf)
-        
+
         assert fuzzy_set.mf(5) == np.array([1.0])
         assert fuzzy_set.mf(0) == np.array([0.0])
         assert fuzzy_set.mf(10) == np.array([0.0])
