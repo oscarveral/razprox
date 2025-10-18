@@ -1,0 +1,304 @@
+% Archivo: informe1.tex
+
+\documentclass[11pt,a4paper]{article}
+
+% Idioma y tipografías
+\usepackage[spanish, es-noquoting, es-lcroman, es-tabla]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% Maquetación y tipografía fina
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+
+% Utilidades
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=*,labelsep=0.5em}
+
+% Hipervínculos
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    pdftitle={Informe de Ontología Bioclimática},
+    pdfauthor={Autor},
+    pdfsubject={Ontología Bioclimática},
+    pdfkeywords={ontologías, OWL, bioclimática, conocimiento, SPARQL}
+}
+
+% Bibliografía
+\usepackage[
+    backend=biber,
+    style=ieee,
+    sorting=nyt,
+    maxbibnames=99
+]{biblatex}
+\addbibresource{bibliography.bib}
+
+% Subfiguras
+\usepackage{subcaption}
+
+% Código (Turtle/SPARQL/OWL)
+\usepackage{listings}
+\lstdefinestyle{ontostyle}{
+    basicstyle=\ttfamily\small,
+    numbers=left,
+    numberstyle=\tiny,
+    frame=lines,
+    breaklines=true,
+    tabsize=2,
+    columns=fullflexible,
+    showstringspaces=false,
+    keywordstyle=\color{blue!70!black}\bfseries,
+    commentstyle=\color{gray!70},
+    stringstyle=\color{green!50!black}
+}
+\lstdefinelanguage{Turtle}{
+    morekeywords={@prefix,@base,a},
+    sensitive=true,
+    morecomment=[l]{\#},
+    morestring=[b]{"}
+}
+\lstdefinelanguage{SPARQL}{
+    morekeywords={SELECT,CONSTRUCT,ASK,DESCRIBE,WHERE,FROM,NAMED,PREFIX,BASE,OPTIONAL,FILTER,GRAPH,UNION,MINUS,BIND,VALUES,ORDER,BY,LIMIT,OFFSET,GROUP,HAVING,AS,SERVICE,UNDEF,DISTINCT,REDUCED},
+    sensitive=true,
+    morecomment=[l]{\#},
+    morestring=[b]{"}
+}
+\lstdefinelanguage{RDFXML}{
+    morestring=[b]",
+    morecomment=[s]{<!--}{-->}
+}
+\lstset{style=ontostyle}
+
+% Comandos útiles
+\newcommand{\ontologyname}{Ontología Bioclimática}
+\newcommand{\iri}[1]{\texttt{#1}}
+\newcommand{\term}[1]{\textsf{#1}}
+
+\begin{document}
+\begin{titlepage}
+    \centering
+    % \includegraphics[height=2cm]{logo.png}\par\vspace{1cm} % Descomentar si hay logo
+    {\Large Informe Técnico 1}\par\vspace{0.5cm}
+    {\huge\bfseries \ontologyname\par}\vspace{0.5cm}
+    \begin{tabular}{@{}ll@{}}
+        Autor 1: & Juan Diego Gallego Nicolás \\
+        Contacto 1: & jdiego.gallego@um.es \\
+        Autor 2: & Óscar Vera López \\
+        Contacto 2: & oscar.veral@um.es \\
+        Profesor: & Rodrigo Martínez Béjar \\
+        Asignatura: & Conocimiento y Razonamiento Aproximado \\
+    \end{tabular}
+    \vfill
+    {\large \today}\par
+\end{titlepage}
+
+\pagenumbering{roman}
+\begin{abstract}
+Este informe presenta el diseño, implementación y evaluación de una ontología bioclímatica centrada entorno
+al Sistema de Zonas de Vida de Holdridge. La ontología está orientada hacia la clasificación de zonas bioclimáticas
+a partir de datos geográficos y climáticos de diferentes estaciones especializadas ubicadas en diversas localidades
+del territorio español. Se detallan los requisitos, alcance y metodología seguida, así como las decisiones de diseño
+conceptual y técnica.
+\end{abstract}
+
+\paragraph{Palabras clave:} ontologías; OWL; bioclimática; conocimiento; zonas de vida;
+\clearpage
+
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\section{Introducción}
+\color{blue!70!black} TODO
+\color{black}
+
+\section{Metodología}
+Decidimos seguir la metodología de Ontology Development 101 \cite{NoyMcGuinness2001Ontology101} para la creación de nuestra ontología bioclimática. 
+Esta metodología nos proporcionó una guía clara y estructurada para abordar el desarrollo de la ontología, 
+desde la definición de los requisitos hasta la implementación y evaluación final.
+
+\subsection{Dominio y alcance}
+\subsubsection{Competency Questions (CQs)}
+Liste preguntas que la ontología debe responder:
+\begin{enumerate}
+    \item ¿Cómo influye la situación geográfica en el clima de una región?
+    \item ¿Qué magnitudes climáticas son necesarias para clasificar una zona bioclimática según el sistema de Holdridge?
+    \item ¿Alguna zona de la Región de Murcia se clasifica como "monte espiniso" según el sistema de Holdridge?
+    \item ¿En qué rango de valores se puede encontrar la ABT (biotemperatura media anual)?
+    \item Dada una ABT x y una APP z, ¿cuál es el PER (relación de evapotranspiración potencial) correspondiente?
+    \item ¿Cuáles son los tipos de regiones latitudinales que existen?
+    \item Si una estación climática en la región tropical está a una altitud de 4200 metros, ¿cuál sería su piso altitudinal correspondiente?
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Trabajos relacionados}
+
+Resumen de ontologías previas, vocabularios y estándares relevantes (por ejemplo, SSN/SOSA, Darwin Core, GeoSPARQL). Discuta fortalezas y limitaciones, y justifique el reuso y/o alineación.
+% Ejemplo de cita: \cite{smith2020ontology}
+
+
+
+\subsection{Casos de uso}
+Describa escenarios de uso, fuentes de datos y actores.
+
+\section{Metodología}
+Describa el proceso (p.~ej., METHONTOLOGY/NeOn): especificación de requisitos, conceptualización, formalización, implementación, evaluación, mantenimiento y publicación.
+
+\section{Diseño conceptual}
+\subsection{Alcance y límites}
+Defina contexto, granularidad espacial/temporal y supuestos.
+
+\subsection{Clases principales}
+Ejemplos: \term{ZonaBioclimática}, \term{VariableClimática}, \term{Indicador}, \term{Observación}, \term{Estación}, \term{Región}, \term{Taxón}.
+
+\subsection{Propiedades y restricciones}
+Cardinalidades, dominios/rangos, axiomas clave (disjunción, equivalencias).
+
+\section{Reuso y alineación}
+Alinee con vocabularios externos (p.~ej., \textit{SOSA/SSN}, \textit{GeoSPARQL}). Documente mapeos y decisiones.
+
+\section{Implementación en OWL}
+\subsection{Prefijos y espacios de nombres}
+\noindent
+\begin{lstlisting}[language=Turtle,caption={Prefijos base en Turtle.}]
+@prefix :      <https://ejemplo.org/bioclima#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix sosa:  <http://www.w3.org/ns/sosa/> .
+@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
+\end{lstlisting}
+
+\subsection{Clases y propiedades}
+\begin{lstlisting}[language=Turtle,caption={Fragmento de clases y propiedades.}]
+:ZonaBioclimatica a owl:Class ;
+    rdfs:label "Zona bioclimatica"@es .
+
+:VariableClimatica a owl:Class ;
+    rdfs:label "Variable climatica"@es .
+
+:Indicador a owl:Class ;
+    rdfs:label "Indicador bioclimatico"@es .
+
+:observaVariable a owl:ObjectProperty ;
+    rdfs:domain sosa:Observation ;
+    rdfs:range  :VariableClimatica ;
+    rdfs:label "observa variable"@es .
+
+:valorIndicador a owl:DatatypeProperty ;
+    rdfs:domain :Indicador ;
+    rdfs:range  xsd:decimal ;
+    rdfs:label "valor de indicador"@es .
+\end{lstlisting}
+
+\subsection{Individuos de ejemplo}
+\begin{lstlisting}[language=Turtle,caption={Individuos ilustrativos.}]
+:Aridez a :Indicador ;
+    rdfs:label "Indice de Aridez"@es .
+
+:ZB_Mediterranea a :ZonaBioclimatica ;
+    rdfs:label "Zona Bioclimatica Mediterranea"@es .
+\end{lstlisting}
+
+\section{Consultas SPARQL}
+\begin{lstlisting}[language=SPARQL,caption={Zonas bioclimáticas por región.}]
+PREFIX :    <https://ejemplo.org/bioclima#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?zona ?nombre WHERE {
+    ?zona a :ZonaBioclimatica ;
+                rdfs:label ?nombre .
+    # Agregue filtros geoespaciales si aplica (GeoSPARQL)
+}
+ORDER BY ?nombre
+\end{lstlisting}
+
+\begin{lstlisting}[language=SPARQL,caption={Indicadores y valores promedio.}]
+PREFIX :   <https://ejemplo.org/bioclima#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?indicador (AVG(?valor) AS ?promedio) WHERE {
+    ?i a :Indicador ;
+         rdfs:label ?indicador ;
+         :valorIndicador ?valor .
+}
+GROUP BY ?indicador
+\end{lstlisting}
+
+\section{Evaluación}
+Verificación (consistencia, coherencia, competencia) y validación (con expertos). Use reasoners (HermiT, Pellet) y pruebas contra CQs.
+
+\section{Publicación y acceso}
+Estrategia FAIR: documentación, serializaciones (TTL, RDF/XML), resolución de URIs, endpoint SPARQL, metadatos VoID/DCAT, versionado.
+
+\section{Resultados y discusión}
+Análisis de cobertura, utilidad en casos de uso, limitaciones y amenazas a la validez.
+
+\section{Conclusiones y trabajo futuro}
+Síntesis de aportes, líneas de mejora, mantenimiento y extensiones planificadas.
+
+\section*{Agradecimientos}
+Reconocimientos a colaboradores, instituciones y fuentes de datos.
+
+\appendix
+\section{Anexo A: Figuras y tablas}
+% Ejemplo de figura (descomente e incluya un recurso válido)
+% \begin{figure}[h]
+%   \centering
+%   \includegraphics[width=0.8\linewidth]{figuras/mapa_zonas.png}
+%   \caption{Mapa de zonas bioclimáticas.}
+%   \label{fig:mapa-zonas}
+% \end{figure}
+
+\appendix
+\section{Anexo B: Variables climáticas}
+Tabla con variables climáticas modeladas en la ontología. Se indica nombre, abreviatura y unidad.
+\begin{table}[h]
+    \centering
+    \caption{Variables climáticas modeladas.}
+    \begin{tabular}{@{}lll@{}}
+        \toprule
+        Variable & Abreviatura & Unidad \\
+        \midrule
+        Latitud & & \si{\degree} \\
+        Longitud & & \si{\degree} \\
+        Altitud (sobre el nivel del mar) & & \si{\meter} \\
+        Biotemperatura media anual & ABT & \si{\degreeCelsius} \\
+        Precipitación media anual & APP & \si{\milli\metre} \\
+        Relación de evapotranspiración potencial & PER & \textit{adimensional} \\
+        Evapotranspiración potencial & APE & \si{\milli\metre} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\clearpage
+\printbibliography
+
+\end{document}
