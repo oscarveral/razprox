@@ -124,11 +124,16 @@ conceptual y técnica.
 \section{Metodología}
 Decidimos seguir la metodología de Ontology Development 101 \cite{NoyMcGuinness2001Ontology101} para la creación de nuestra ontología bioclimática. 
 Esta metodología nos proporcionó una guía clara y estructurada para abordar el desarrollo de la ontología, 
-desde la definición de los requisitos hasta la implementación y evaluación final.
+desde la definición de los requisitos hasta la implementación y evaluación final con Protégé.
 
 \subsection{Dominio y alcance}
-\subsubsection{Competency Questions (CQs)}
-Liste preguntas que la ontología debe responder:
+El primer paso para la elaboración de la ontología es definir el dominio y alcance. En nuestro caso, el dominio es la bioclimatología, 
+con un enfoque específico en el Sistema de Zonas de Vida de Holdridge. Un paso clave para determinar el alcance es plantear las preguntas 
+de competencia que la ontología debe ser capaz de responder. Estas preguntas guían el diseño y aseguran que la ontología cubra los 
+aspectos esenciales del dominio, permitiendo ser unos "tests" para su validación.
+
+\subsubsection{Preguntas de competencia (CQs)}
+Algunas de las preguntas que nuestra ontología debe ser capaz de responder son las siguientes:
 \begin{enumerate}
     \item ¿Cómo influye la situación geográfica en el clima de una región?
     \item ¿Qué magnitudes climáticas son necesarias para clasificar una zona bioclimática según el sistema de Holdridge?
@@ -138,29 +143,156 @@ Liste preguntas que la ontología debe responder:
     \item ¿Cuáles son los tipos de regiones latitudinales que existen?
     \item Si una estación climática en la región tropical está a una altitud de 4200 metros, ¿cuál sería su piso altitudinal correspondiente?
 \end{enumerate}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Si bien la lista no es exhaustiva, estas preguntas de competencia cubren aspectos fundamentales del dominio bioclimático y guían el desarrollo de la ontología.
 
 \subsection{Trabajos relacionados}
 
-Resumen de ontologías previas, vocabularios y estándares relevantes (por ejemplo, SSN/SOSA, Darwin Core, GeoSPARQL). Discuta fortalezas y limitaciones, y justifique el reuso y/o alineación.
-% Ejemplo de cita: \cite{smith2020ontology}
+\subsubsection{WorldClim}
+
+WorldClim \cite{FickHijmans2017WorldClim} \cite{WorldClimWebsite} es un conjunto de datos climáticos globales que proporciona información sobre variables climáticas a diferentes resoluciones espaciales. 
+Estos datos son útiles para la validación y calibración de modelos bioclimáticos, así como para la identificación de patrones climáticos en diferentes regiones. 
+A pesar de ser una base de datos y no una ontología per se, WorlClim define 19 variables bioclimáticas derivadas de datos mensuales de temperatura y precipitación, 
+inspirando la utilizacizón de una taxonomía de variables climáticas para este proyecto.
+
+\subsection{ENVO}
+
+ENVO \cite{Buttigieg2013} es un volcabulario formal y estandarizado diseñado para describir de manera inequívoca el entorno de cualquier organismo o muestra biológica
+Contiene miles de terminos/clases organizados jerarquicamente y representando biomas, características ambientales, y materiales presentes en 
+la naturaleza. En ENVO, se definen biomas propios de la clasificación de de zonas de vida de Holdridge, lo que nos permite explorar las relaciones de estos
+biomas con el resto del universo de conocimiento de las ciencias ambientales.
+
+\section{Terminos relevantes}
+
+\begin{itemize}
+    \item Latitud
+    \item Superficie Terrestre
+    \item Linea del ecuador
+    \item Unidad de medida de la latitud
+    \item Paralelos
+    \item Franja clímatica
+    \item Zona cálida o trópical
+    \item Trópico de Cancer
+    \item Trópico de Capricornio
+    \item Zona templada
+    \item Circulo Polar
+    \item Zona fria
+    \item Polos terrestres
+    \item Circulo Polar Ártico
+    \item Circulo Polar Antártico
+    \item Estación Meteorológica o Climática
+    \item Variables climáticas o atmosféricas
+    \item Temperatura
+    \item Precipitación
+    \item Viento (Dirección y Fuerza)
+    \item Presión
+    \item Humedad
+    \item Radiación solar
+    \item Coordenadas Geográficas
+    \item Longitud
+    \item Altitud
+    \item Meridiano de Greenwich
+    \item Unidad de Medida de Longitud
+    \item Direcciónes Cardinalidades (Norte, Sur, Este, Oeste)
+    \item Meridiano
+    \item Unidad de Medida de Altitud
+    \item Nivel del Mar
+    \item Sofisticación de la Estación Climática (mucho, poco)
+    \item Equipamiento de la Estación Bioclimática
+    \item Objetivo de la Estación bioclímatica
+    \item Sensores Climáticos
+    \item Termómetro
+    \item Higrómetro
+    \item Pluviómetro
+    \item Anemómetro
+    \item Barómetro
+    \item Piranómetro
+    \item Sensor UV
+    \item Unidades de Medida de los sensores y variables climáticas.
+    \item PONER TODAS LAS ESTACIONES DE ESPAÑA COMO INSTANCIAS (AÑADIR IDENTIFICADORES COMO PROPIEDAD)
+    \item Registros de estación climática
+    \item Registro de valor medio anual
+    \item Registro de valor medio mensual
+    \item Tipo de variable climática
+    \item Variable climatica de medición directa
+    \item Variable climática derivada
+    \item Clima
+    \item Vegetación
+    \item Fauna
+    \item territorio
+    \item Ecosistema
+    \item Clasificación Bioclimática
+    \item Factores ecoloógicos
+    \item Mapa
+    \item Modelo de elevación digital
+    \item Zona Ecológica
+    \item Sistema de Clasificación Bioclimatica
+    \item Sistema de Zonas de Vida de Holdridge
+    \item Variable Climática fundamental
+    \item (Como relacíon, se requiren de registros de estaciones climaticas para su aplicación)
+    \item Zonas de Vida
+    \item Parámetros climáticos
+    \item Tipo de suelo
+    \item Acción humana
+    \item (Relación explícita entre vegetacióon y clima)
+    \item Biotemperatura media anual (ABT)
+    \item Promedio de Precipitación anual (APP)
+    \item Relación de Evapotranspiración Potencial (PER) (relacionado humedad ambiental)
+    \item Región Latitudinal (POENR TODA LA LISTA)
+    \item Provincias de Humedad (PONER TODA LA LISTA)
+    \item Pisos altitudinales (PONER TODA LA LISTA) (Alturas de caracter local)
+    \item LISTA DE ZONAS DE VIDA (PONER TODA LA LISTA)
+    \item Restricciones sobre los parámetros climáticos en cada zona
+    \item Biotemperatura
+    \item Calor efectivo
+    \item Rangos de Biotemperatura
+    \item Relación Latitud-Temperatura-ABT -> Regiones latitudinales
+    \item Relación Altitud-Temperatura-ABT -> Pisos altitudinales
+    \item Piso Basal
+    \item Relación Piso Basal - Region Latitudinal - Cantidad de Pisos Altitudinales (y zonas de vida) posibles
+    \item Tipo de precipitación (Agua, Nieve o Granizo)
+    \item Formula cálculo APP
+    \item Evapotranspiración
+    \item Evapotranspiración Potencial (APE) (relación humedad ambiental)
+    \item Formulas relación APE = 58,93 x ABT y PER = APE/APP
+
+
+\end{itemize}
+
+\subsection{Definición de las clases (conceptos) y su jerarquía.}
+Para el diseño de la jerarquía conceptual, vamos a seguir un enfoque top-down,
+partiendo de conceptos generales hacia conceptos más específicos. 
+A continuación, se presentan las clases principales y su jerarquía:
+
+\subsubsection{Taxonomía: Zona de Vida de Holdridge}
+El concepto clave de nuestra ontología es la Zona de Vida de Holdridge, una clasificación bioclimática
+que categoriza las regiones del mundo según su clima y posición geográfica. No obstante,
+como el una ontología debe aspirar a ser reutilizable y extensible, hemos decidido no establecer directamente
+este concepto como raíz, sino que vamos a definir una jerarquía más amplia que permita incorporar otros conceptos relacionados.
+Así pues, proponemos el concepto raíz ZonaBioclimática, que engloba todas las zonas bioclimáticas, incluyendo las de Holdridge.
+Como especialización, definimos la clase ZonaVidaHoldridge como subclase de ZonaBioclimática.
+A su vez, ZonaVidaHoldridge se divide en los diferentes tipos de zonas de vida, tales como:
+\begin{tabular}{@{}llll@{}}
+    \toprule
+    \term{Desierto} & \term{TundraSeca} & \term{TundraHumeda} & \term{TundraPluvial} \\
+    \term{BosquePluvial} & \term{BosqueHumedo} & \term{MatorralDesertico} & \term{Estepa} \\
+    \bottomrule
+\end{tabular}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -218,3 +218,4 @@ __marimo__/
 *.synctex.gz
 *.toc
 *.pdf
+*.bbl-SAVE-ERROR
