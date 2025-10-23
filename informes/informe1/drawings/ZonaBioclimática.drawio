@@ -1,0 +1,165 @@
+<mxfile host="65bd71144e">
+    <diagram id="jTHhOmLXEBmSodUIUg7h" name="Page-1">
+        <mxGraphModel dx="1192" dy="622" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="ZonaBioclimática" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="365" y="40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="edgeStyle=none;html=1;endArrow=block;endFill=0;" parent="1" source="3" target="2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="ZonaDeVidaDeHoldridge" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="130" width="150" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="5" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="425" y="220" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="165" y="220"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="5" value="Desierto" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="105" y="250" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="6" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="425" y="220" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="295" y="220"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6" value="Tundra Seca" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="235" y="250" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="" style="edgeStyle=none;html=1;endArrow=block;endFill=0;" parent="1" source="7" target="3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="Tundra Húmeda" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="365" y="250" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="8" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="425" y="220" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="555" y="220"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="8" value="Tundra Muy Húmeda" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="495" y="250" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="9" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="425" y="220" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="685" y="220"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="9" value="Tundra Pluvial" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="625" y="250" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="10" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="115" y="340" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="165" y="340"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="10" value="Matorral Desértico" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="105" y="370" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="11" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="425" y="220" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="295" y="340"/>
+                            <mxPoint x="75" y="340"/>
+                            <mxPoint x="75" y="280"/>
+                            <mxPoint x="75" y="220"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="11" value="Bosque Húmedo" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="235" y="370" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="12" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="605" y="340" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="425" y="340"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="Bosque Muy Húmedo" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="365" y="370" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="13" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="735" y="340" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="555" y="340"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="Bosque Pluvial" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="495" y="370" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="14" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="425" y="220" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="685" y="340"/>
+                            <mxPoint x="775" y="340"/>
+                            <mxPoint x="775" y="280"/>
+                            <mxPoint x="775" y="220"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="14" value="Estepa" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="625" y="370" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="15" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="205" y="460" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="295" y="460"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="15" value="Monte Espinoso" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="235" y="490" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="16" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="75" y="250" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="425" y="460"/>
+                            <mxPoint x="75" y="460"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="16" value="Bosque Seco" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="365" y="490" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" style="edgeStyle=none;html=1;endArrow=none;endFill=0;" parent="1" source="17" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="775" y="260" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="555" y="460"/>
+                            <mxPoint x="775" y="460"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="17" value="Bosque Muy Seco" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="495" y="490" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
