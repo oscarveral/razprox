@@ -161,7 +161,8 @@ Contiene miles de terminos/clases organizados jerarquicamente y representando bi
 la naturaleza. En ENVO, se definen biomas propios de la clasificación de de zonas de vida de Holdridge, lo que nos permite explorar las relaciones de estos
 biomas con el resto del universo de conocimiento de las ciencias ambientales.
 
-\section{Terminos relevantes}
+
+\subsection{Terminos relevantes}
 
 A continuación, hemos realizado un analisis exhaustivo de los términos clave relacionados con el dominio bioclimático y el Sistema de Zonas de Vida de Holdridge.
 Estos términos son fundamentales para la construcción de la ontología y su correcta representación del conocimiento en este ámbito. La lista incluye conceptos geográficos, climáticos y bioclimáticos esenciales para entender y modelar el dominio.
@@ -265,25 +266,102 @@ Estos términos son fundamentales para la construcción de la ontología y su co
 
 \end{itemize}
 
+\subsubsection{BabelNet}
+BabelNet \cite{navigli-ponzetto-2010-babelnet} es una red semántica multilingüe que integra información léxica y enciclopédica de diversas fuentes.
+Aunque BabelNet no es una ontología específica del dominio bioclimático, su amplia cobertura de términos y conceptos puede ser útil para enriquecer la ontología, 
+además de ser su uso obligatorio para la elaboración de la práctica. 
+
+Como primera aproximación, utilizamos su buscador para introducir uno de los términos de nuestro dominio: "Life Zone" \ref{fig:babelnet-life-zone}. 
+El término se muestra como el centro de un grafo radial cuyos vecinos se encuentran conectados mediante aristas de mayor o menor longitud dependiendo
+de un criterio de similitud semántica. En este caso, se observa que "Life Zone" está relacionado con conceptos como "vegetation zone" o, 
+de manera íntima con "Holdridge life zone", que es precisamente el núcleo de nuestro dominio.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/bbn_lifezone.png}
+    \caption{Resultado de la búsqueda del término ''Life Zone'' en BabelNet.}
+    \label{fig:babelnet-life-zone}
+\end{figure}
+
+Haciendo clic en el nodo, se muestran los conceptos relacionados con la teoría de las Zonas de Vida de Holdridge \ref{fig:babelnet-holdridge}, como pueden ser
+"altitudinal zonation", "vaporization", "humidity", "polar desert"... 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/bbn_holdridge.png}
+    \caption{Conceptos relacionados con ''Holdridge life zone'' en BabelNet.}
+    \label{fig:babelnet-holdridge}
+\end{figure}
+
 \subsection{Definición de las clases (conceptos) y su jerarquía.}
 Para el diseño de la jerarquía conceptual, vamos a seguir un enfoque top-down,
 partiendo de conceptos generales hacia conceptos más específicos. 
 A continuación, se presentan las clases principales y su jerarquía:
 
-\subsubsection{Taxonomía: Zona de Vida de Holdridge}
+\subsubsection{Taxonomía: ZonaVidaHoldridge}
 El concepto clave de nuestra ontología es la Zona de Vida de Holdridge, una clasificación bioclimática
-que categoriza las regiones del mundo según su clima y posición geográfica. No obstante,
-como el una ontología debe aspirar a ser reutilizable y extensible, hemos decidido no establecer directamente
-este concepto como raíz, sino que vamos a definir una jerarquía más amplia que permita incorporar otros conceptos relacionados.
-Así pues, proponemos el concepto raíz ZonaBioclimática, que engloba todas las zonas bioclimáticas, incluyendo las de Holdridge.
-Como especialización, definimos la clase ZonaVidaHoldridge como subclase de ZonaBioclimática.
-A su vez, ZonaVidaHoldridge se divide en los diferentes tipos de zonas de vida, tales como:
+que categoriza las regiones del mundo según su clima y posición geográfica. 
+A su vez, ZonaVidaHoldridge es una taxonomía que agrupa las diferentes zonas bioclimáticas definidas por Holdridge tales como: \\ \\
 \begin{tabular}{@{}llll@{}}
     \toprule
     \term{Desierto} & \term{TundraSeca} & \term{TundraHumeda} & \term{TundraPluvial} \\
     \term{BosquePluvial} & \term{BosqueHumedo} & \term{MatorralDesertico} & \term{Estepa} \\
+    \term{BosqueMuyHumedo} & \term{BosqueSeco} & \term{MonteEspinoso} & \term{} \\
     \bottomrule
-\end{tabular}
+\end{tabular} \\ \\
+Cada una de estas clases viene determinada por tres magnitudes climáticas fundamentales:
+\begin{itemize}
+    \item Biotemperatura Media Anual (ABT).
+    \item Precipitación Media Anual (APP).
+    \item Relación de Evapotranspiración Potencial (PER).
+\end{itemize}
+Estas magnitudes definen los límites y características de cada zona bioclimática y están estrechamente relacionadas con la ubicación geográfica y las condiciones climáticas de la región.
+
+\subsubsection{Taxonomía: MagnitudBioclimatica}
+Este concepto abstracto engloba las diferentes magnitudes bioclimáticas y que se utilizan para definir y clasificar las zonas de vida de Holdridge.
+Encontramos:
+
+\begin{itemize}
+    \item Biotemperatura Media Anual (ABT).
+    \item Precipitación Media Anual (APP).
+    \item Relación de Evapotranspiración Potencial (PER).
+\end{itemize}
+
+También consideramos, por su relación con las anteriores, la magnitud de Evapotranspiración Potencial (APE).
+Todas estas magnitudes se instanciarán como variables difusas en nuestra ontología, permitiendo representar la incertidumbre inherente a los datos climáticos y geográficos.
+
+No incluimos aquí magnitudes climáticas directas como Temperatura o Precipitación, ya que estas se modelarán como atributos de las estaciones climáticas.
+
+\subsubsection{Taxonomía/Topología: RegionLatitudinal}
+Este concepto agrupa las diferentes regiones latitudinales que influyen en la clasificación bioclimática según el sistema de Holdridge. 
+Las regiones latitudinales son categorías geográficas divididas según paralelos específicos. Estas regiones mantinenen una relación 
+topológica entre sí, ya que están organizadas de norte a sur en función de su latitud.
+Las regiones latitudinales consideradas son:
+\begin{itemize}
+    \item Tropical
+    \item Subtropical
+    \item TempladaCaliente
+    \item TempladaFria
+    \item Boreal
+    \item Subpolar
+    \item Polar
+\end{itemize}
+
+\subsubsection{PisoAltitudinal}
+Piso altitudinal es el otro concepto geográfico clave en la clasificación bioclimática de Holdridge.
+Los pisos altitudinales son zonas definidas por rangos trapezoidales de altitud y longitud y que Holdridge asoció
+a diferentes rangos de ABT. Los pisos altitudinales considerados son:
+\begin{itemize}
+    \item Basal
+    \item Premontano
+    \item Montano 
+    \item Subalpino
+    \item Alpino
+    \item Nival
+\end{itemize}
+
+\subsection{Atributos}
+Cada clase definida anteriormente tendrá atributos específicos que describen sus características y propiedades.
+
 
 
 
