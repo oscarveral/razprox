@@ -25,6 +25,14 @@
     
 
 
+    <!-- http://www.owl-ontologies.com/bio.owl#esAdyacente -->
+
+    <owl:ObjectProperty rdf:about="http://www.owl-ontologies.com/bio.owl#esAdyacente">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal -->
 
     <owl:ObjectProperty rdf:about="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal">
@@ -42,6 +50,12 @@
     <!-- http://www.owl-ontologies.com/bio.owl#estáEnRegiónLatitudinal -->
 
     <owl:ObjectProperty rdf:about="http://www.owl-ontologies.com/bio.owl#estáEnRegiónLatitudinal"/>
+    
+
+
+    <!-- http://www.owl-ontologies.com/bio.owl#estáEnZonaDeVidaDeHoldridge -->
+
+    <owl:ObjectProperty rdf:about="http://www.owl-ontologies.com/bio.owl#estáEnZonaDeVidaDeHoldridge"/>
     
 
 
@@ -191,6 +205,19 @@
                         <owl:intersectionOf rdf:parseType="Collection">
                             <owl:Restriction>
                                 <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                                <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
                                 <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#Subalpino"/>
                             </owl:Restriction>
                             <owl:Restriction>
@@ -296,6 +323,19 @@
                         <owl:intersectionOf rdf:parseType="Collection">
                             <owl:Restriction>
                                 <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                                <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
                                 <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#Subalpino"/>
                             </owl:Restriction>
                             <owl:Restriction>
@@ -381,6 +421,39 @@
 
     <owl:Class rdf:about="http://www.owl-ontologies.com/bio.owl#BosqueMuySeco">
         <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/bio.owl#ZonaDeVidaDeHoldridge"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                        <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                        <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnProvinciaDeHumedad"/>
+                <owl:hasValue rdf:resource="http://www.owl-ontologies.com/bio.owl#Semiárido"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tienePromedioDePrecipitaciónAnualMáximo"/>
+                <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1000.0</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tienePromedioDePrecipitaciónAnualMínimo"/>
+                <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -402,6 +475,19 @@
                                 <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
                                 <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
                                 <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Montano"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                                <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
                             </owl:Restriction>
                         </owl:intersectionOf>
                     </owl:Class>
@@ -478,6 +564,92 @@
 
     <owl:Class rdf:about="http://www.owl-ontologies.com/bio.owl#BosqueSeco">
         <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/bio.owl#ZonaDeVidaDeHoldridge"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                                        <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoBajo"/>
+                                    </owl:Restriction>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                                        <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                                    </owl:Restriction>
+                                </owl:unionOf>
+                            </owl:Class>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:allValuesFrom>
+                                    <owl:Class>
+                                        <owl:unionOf rdf:parseType="Collection">
+                                            <rdf:Description rdf:about="http://www.owl-ontologies.com/bio.owl#MontanoBajo"/>
+                                            <rdf:Description rdf:about="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                                        </owl:unionOf>
+                                    </owl:Class>
+                                </owl:allValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                                <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnProvinciaDeHumedad"/>
+                <owl:hasValue rdf:resource="http://www.owl-ontologies.com/bio.owl#Subhúmedo"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tienePromedioDePrecipitaciónAnualMáximo"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange>
+                    <rdfs:Datatype>
+                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+                        <owl:withRestrictions rdf:parseType="Collection">
+                            <rdf:Description>
+                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2000.0</xsd:maxInclusive>
+                            </rdf:Description>
+                        </owl:withRestrictions>
+                    </rdfs:Datatype>
+                </owl:onDataRange>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tienePromedioDePrecipitaciónAnualMínimo"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange>
+                    <rdfs:Datatype>
+                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+                        <owl:withRestrictions rdf:parseType="Collection">
+                            <rdf:Description>
+                                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</xsd:minInclusive>
+                            </rdf:Description>
+                        </owl:withRestrictions>
+                    </rdfs:Datatype>
+                </owl:onDataRange>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -566,6 +738,19 @@
                         <owl:intersectionOf rdf:parseType="Collection">
                             <owl:Restriction>
                                 <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                                <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
                                 <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#Subalpino"/>
                             </owl:Restriction>
                             <owl:Restriction>
@@ -640,6 +825,33 @@
 
     <owl:Class rdf:about="http://www.owl-ontologies.com/bio.owl#EstaciónBioclimática">
         <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnZonaDeVidaDeHoldridge"/>
+                        <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#ZonaDeVidaDeHoldridge"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnZonaDeVidaDeHoldridge"/>
+                        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                        <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#ZonaDeVidaDeHoldridge"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#PisoAltitudinal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnRegiónLatitudinal"/>
+                <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#RegionLatitudinal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tieneNivelEspecialización"/>
                 <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
@@ -670,6 +882,39 @@
 
     <owl:Class rdf:about="http://www.owl-ontologies.com/bio.owl#Estepa">
         <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/bio.owl#ZonaDeVidaDeHoldridge"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                        <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#Montano"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                        <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Montano"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnProvinciaDeHumedad"/>
+                <owl:hasValue rdf:resource="http://www.owl-ontologies.com/bio.owl#Subhúmedo"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tienePromedioDePrecipitaciónAnualMáximo"/>
+                <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tienePromedioDePrecipitaciónAnualMínimo"/>
+                <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">250.0</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -691,6 +936,19 @@
                                 <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
                                 <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
                                 <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Montano"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                                <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
                             </owl:Restriction>
                         </owl:intersectionOf>
                     </owl:Class>
@@ -883,6 +1141,80 @@
 
     <owl:Class rdf:about="http://www.owl-ontologies.com/bio.owl#MonteEspinoso">
         <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/bio.owl#ZonaDeVidaDeHoldridge"/>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                                        <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoBajo"/>
+                                    </owl:Restriction>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                                        <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                                    </owl:Restriction>
+                                </owl:unionOf>
+                            </owl:Class>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:allValuesFrom>
+                                    <owl:Class>
+                                        <owl:unionOf rdf:parseType="Collection">
+                                            <rdf:Description rdf:about="http://www.owl-ontologies.com/bio.owl#MontanoBajo"/>
+                                            <rdf:Description rdf:about="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                                        </owl:unionOf>
+                                    </owl:Class>
+                                </owl:allValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnPisoAltitudinal"/>
+                                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                                <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#Premontano"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnProvinciaDeHumedad"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onClass>
+                    <owl:Class>
+                        <owl:oneOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.owl-ontologies.com/bio.owl#Semiárido"/>
+                            <rdf:Description rdf:about="http://www.owl-ontologies.com/bio.owl#Árido"/>
+                        </owl:oneOf>
+                    </owl:Class>
+                </owl:onClass>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tienePromedioDePrecipitaciónAnualMáximo"/>
+                <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tienePromedioDePrecipitaciónAnualMínimo"/>
+                <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">250.0</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -950,6 +1282,9 @@
                             <rdf:Description>
                                 <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</xsd:minInclusive>
                             </rdf:Description>
+                            <rdf:Description>
+                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#float">30.0</xsd:maxInclusive>
+                            </rdf:Description>
                         </owl:withRestrictions>
                     </rdfs:Datatype>
                 </owl:onDataRange>
@@ -965,6 +1300,9 @@
                         <owl:withRestrictions rdf:parseType="Collection">
                             <rdf:Description>
                                 <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</xsd:minInclusive>
+                            </rdf:Description>
+                            <rdf:Description>
+                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#float">30.0</xsd:maxInclusive>
                             </rdf:Description>
                         </owl:withRestrictions>
                     </rdfs:Datatype>
@@ -1070,6 +1408,21 @@
     <!-- http://www.owl-ontologies.com/bio.owl#RegionLatitudinal -->
 
     <owl:Class rdf:about="http://www.owl-ontologies.com/bio.owl#RegionLatitudinal">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#esAdyacente"/>
+                        <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#RegionLatitudinal"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#esAdyacente"/>
+                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+                        <owl:onClass rdf:resource="http://www.owl-ontologies.com/bio.owl#RegionLatitudinal"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tieneParaleloInferior"/>
@@ -1319,6 +1672,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#Boreal">
         <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#RegionLatitudinal"/>
+        <esAdyacente rdf:resource="http://www.owl-ontologies.com/bio.owl#TempladaFria"/>
         <tieneParaleloInferior rdf:datatype="http://www.w3.org/2001/XMLSchema#float">56.5</tieneParaleloInferior>
         <tieneParaleloSuperior rdf:datatype="http://www.w3.org/2001/XMLSchema#float">63.75</tieneParaleloSuperior>
     </owl:NamedIndividual>
@@ -1437,6 +1791,18 @@
     
 
 
+    <!-- http://www.owl-ontologies.com/bio.owl#BosqueMuySecoSemiárido -->
+
+    <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#BosqueMuySecoSemiárido">
+        <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#BosqueMuySeco"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoSubtropical"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoTropical"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1000.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</tienePromedioDePrecipitaciónAnualMínimo>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.owl-ontologies.com/bio.owl#BosquePluvialMontano -->
 
     <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#BosquePluvialMontano">
@@ -1487,6 +1853,33 @@
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#SubalpinoTempladoCálido"/>
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#SubalpinoTempladoFrio"/>
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#SubalpinoTropical"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2000.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1000.0</tienePromedioDePrecipitaciónAnualMínimo>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/bio.owl#BosqueSecoMontanoBajo -->
+
+    <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#BosqueSecoMontanoBajo">
+        <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#BosqueSeco"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoBajoSubtropical"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoBajoTempladoCálido"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoSubtropical"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoTropical"/>
+        <estáEnRegiónLatitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoBajoTropical"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1000.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</tienePromedioDePrecipitaciónAnualMínimo>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/bio.owl#BosqueSecoPremontano -->
+
+    <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#BosqueSecoPremontano">
+        <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#BosqueSeco"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoSubtropical"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoTropical"/>
         <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2000.0</tienePromedioDePrecipitaciónAnualMáximo>
         <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1000.0</tienePromedioDePrecipitaciónAnualMínimo>
     </owl:NamedIndividual>
@@ -1553,6 +1946,8 @@
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoBajoTropical"/>
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoSubtropical"/>
         <estáEnProvinciaDeHumedad rdf:resource="http://www.owl-ontologies.com/bio.owl#Perárido"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">125.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">62.5</tienePromedioDePrecipitaciónAnualMínimo>
     </owl:NamedIndividual>
     
 
@@ -1567,6 +1962,8 @@
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#SubalpinoTempladoFrio"/>
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#SubalpinoTropical"/>
         <estáEnProvinciaDeHumedad rdf:resource="http://www.owl-ontologies.com/bio.owl#Semiárido"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">125.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">62.5</tienePromedioDePrecipitaciónAnualMínimo>
     </owl:NamedIndividual>
     
 
@@ -1578,6 +1975,8 @@
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoSubtropical"/>
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoTropical"/>
         <estáEnProvinciaDeHumedad rdf:resource="http://www.owl-ontologies.com/bio.owl#Superárido"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">125.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">62.5</tienePromedioDePrecipitaciónAnualMínimo>
     </owl:NamedIndividual>
     
 
@@ -1591,6 +1990,22 @@
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoTempladoFrio"/>
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoTropical"/>
         <estáEnProvinciaDeHumedad rdf:resource="http://www.owl-ontologies.com/bio.owl#Árido"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">125.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">62.5</tienePromedioDePrecipitaciónAnualMínimo>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/bio.owl#EstepaSubhúmeda -->
+
+    <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#EstepaSubhúmeda">
+        <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#Estepa"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoSubtropical"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoTempladoCálido"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoTempladoFrio"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoTropical"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">250.0</tienePromedioDePrecipitaciónAnualMínimo>
     </owl:NamedIndividual>
     
 
@@ -1611,6 +2026,8 @@
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoSubtropical"/>
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoTropical"/>
         <estáEnProvinciaDeHumedad rdf:resource="http://www.owl-ontologies.com/bio.owl#Perárido"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">250.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">125.0</tienePromedioDePrecipitaciónAnualMínimo>
     </owl:NamedIndividual>
     
 
@@ -1624,6 +2041,8 @@
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoTempladoFrio"/>
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoTropical"/>
         <estáEnProvinciaDeHumedad rdf:resource="http://www.owl-ontologies.com/bio.owl#Semiárido"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">250.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">125.0</tienePromedioDePrecipitaciónAnualMínimo>
     </owl:NamedIndividual>
     
 
@@ -1638,6 +2057,8 @@
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#SubalpinoTempladoFrio"/>
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#SubalpinoTropical"/>
         <estáEnProvinciaDeHumedad rdf:resource="http://www.owl-ontologies.com/bio.owl#Subhúmedo"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">250.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">125.0</tienePromedioDePrecipitaciónAnualMínimo>
     </owl:NamedIndividual>
     
 
@@ -1652,6 +2073,8 @@
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoSubtropical"/>
         <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoTropical"/>
         <estáEnProvinciaDeHumedad rdf:resource="http://www.owl-ontologies.com/bio.owl#Árido"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">250.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">125.0</tienePromedioDePrecipitaciónAnualMínimo>
     </owl:NamedIndividual>
     
 
@@ -1715,6 +2138,35 @@
     <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#MontanoTropical">
         <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#Montano"/>
         <estáEnRegiónLatitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#Tropical"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/bio.owl#MonteEspinosoSemiárido -->
+
+    <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#MonteEspinosoSemiárido">
+        <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#MonteEspinoso"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoBajoSubtropical"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoBajoTempladoCálido"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoBajoTropical"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoSubtropical"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoTropical"/>
+        <estáEnProvinciaDeHumedad rdf:resource="http://www.owl-ontologies.com/bio.owl#Semiárido"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">250.0</tienePromedioDePrecipitaciónAnualMínimo>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/bio.owl#MonteEspinosoÁrido -->
+
+    <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#MonteEspinosoÁrido">
+        <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#MonteEspinoso"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoSubtropical"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#PremontanoTropical"/>
+        <estáEnProvinciaDeHumedad rdf:resource="http://www.owl-ontologies.com/bio.owl#Árido"/>
+        <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</tienePromedioDePrecipitaciónAnualMáximo>
+        <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">250.0</tienePromedioDePrecipitaciónAnualMínimo>
     </owl:NamedIndividual>
     
 
@@ -1795,6 +2247,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#Polar">
         <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#RegionLatitudinal"/>
+        <esAdyacente rdf:resource="http://www.owl-ontologies.com/bio.owl#Subpolar"/>
         <tieneParaleloInferior rdf:datatype="http://www.w3.org/2001/XMLSchema#float">67.375</tieneParaleloInferior>
         <tieneParaleloSuperior rdf:datatype="http://www.w3.org/2001/XMLSchema#float">90.0</tieneParaleloSuperior>
     </owl:NamedIndividual>
@@ -1886,6 +2339,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#Subpolar">
         <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#RegionLatitudinal"/>
+        <esAdyacente rdf:resource="http://www.owl-ontologies.com/bio.owl#Boreal"/>
         <tieneParaleloInferior rdf:datatype="http://www.w3.org/2001/XMLSchema#float">63.75</tieneParaleloInferior>
         <tieneParaleloSuperior rdf:datatype="http://www.w3.org/2001/XMLSchema#float">67.375</tieneParaleloSuperior>
     </owl:NamedIndividual>
@@ -1896,6 +2350,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#Subtropical">
         <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#RegionLatitudinal"/>
+        <esAdyacente rdf:resource="http://www.owl-ontologies.com/bio.owl#Tropical"/>
         <tieneParaleloInferior rdf:datatype="http://www.w3.org/2001/XMLSchema#float">13.0</tieneParaleloInferior>
         <tieneParaleloSuperior rdf:datatype="http://www.w3.org/2001/XMLSchema#float">27.5</tieneParaleloSuperior>
     </owl:NamedIndividual>
@@ -1924,6 +2379,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#TempladaCálida">
         <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#RegionLatitudinal"/>
+        <esAdyacente rdf:resource="http://www.owl-ontologies.com/bio.owl#Subtropical"/>
         <tieneParaleloInferior rdf:datatype="http://www.w3.org/2001/XMLSchema#float">27.5</tieneParaleloInferior>
         <tieneParaleloSuperior rdf:datatype="http://www.w3.org/2001/XMLSchema#float">42.0</tieneParaleloSuperior>
     </owl:NamedIndividual>
@@ -1934,6 +2390,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#TempladaFria">
         <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#RegionLatitudinal"/>
+        <esAdyacente rdf:resource="http://www.owl-ontologies.com/bio.owl#TempladaCálida"/>
         <tieneParaleloInferior rdf:datatype="http://www.w3.org/2001/XMLSchema#float">42.0</tieneParaleloInferior>
         <tieneParaleloSuperior rdf:datatype="http://www.w3.org/2001/XMLSchema#float">56.5</tieneParaleloSuperior>
     </owl:NamedIndividual>
@@ -2014,6 +2471,18 @@
         <estáEnProvinciaDeHumedad rdf:resource="http://www.owl-ontologies.com/bio.owl#Subhúmedo"/>
         <tienePromedioDePrecipitaciónAnualMáximo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">125.0</tienePromedioDePrecipitaciónAnualMáximo>
         <tienePromedioDePrecipitaciónAnualMínimo rdf:datatype="http://www.w3.org/2001/XMLSchema#float">62.5</tienePromedioDePrecipitaciónAnualMínimo>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.owl-ontologies.com/bio.owl#Zaragoza -->
+
+    <owl:NamedIndividual rdf:about="http://www.owl-ontologies.com/bio.owl#Zaragoza">
+        <rdf:type rdf:resource="http://www.owl-ontologies.com/bio.owl#EstaciónBioclimática"/>
+        <estáEnPisoAltitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#MontanoTempladoFrio"/>
+        <estáEnRegiónLatitudinal rdf:resource="http://www.owl-ontologies.com/bio.owl#TempladaFria"/>
+        <estáEnZonaDeVidaDeHoldridge rdf:resource="http://www.owl-ontologies.com/bio.owl#BosqueHúmedoMontano"/>
+        <tieneNivelEspecialización>Alta</tieneNivelEspecialización>
     </owl:NamedIndividual>
     
 
