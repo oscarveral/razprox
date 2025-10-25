@@ -30,7 +30,6 @@ def trimf(x: np.ndarray, a: float, b: float, c: float) -> np.ndarray:
     return np.clip(np.minimum(left, right), 0, 1)
 
 
-
 def trapmf(
     x: np.ndarray, a: float, b: float, c: float, d: float
 ) -> np.ndarray:
@@ -79,6 +78,82 @@ def sigmf(x: np.ndarray, a: float, c: float) -> np.ndarray:
         x.dtype, np.number
     ), "Input array must contain numeric values."
     return 1 / (1 + np.exp(-a * (x - c)))
+
+
+def smf(x: np.ndarray, a: float, b) -> np.ndarray:
+    """S-shaped membership function.
+
+    Args:
+        x (np.ndarray): Input values.
+        a (float): Start of the S-shape.
+        b (float): End of the S-shape.
+
+    Returns:
+        np.ndarray: Membership values.
+    """
+    assert (
+        a < b
+    ), "Invalid parameters for S-shaped membership function. Must satisfy a < b."
+    assert isinstance(x, np.ndarray), "Input must be a numpy array."
+    assert x.ndim == 1, "Input array must be one-dimensional."
+    assert np.issubdtype(
+        x.dtype, np.number
+    ), "Input array must contain numeric values."
+
+    y = np.zeros_like(x)
+    idx1 = x <= a
+    idx2 = (x > a) & (x < (a + b) / 2)
+    idx3 = (x >= (a + b) / 2) & (x < b)
+    idx4 = x >= b
+
+    y[idx1] = 0
+    y[idx2] = 2 * ((x[idx2] - a) / (b - a)) ** 2
+    y[idx3] = 1 - 2 * ((b - x[idx3]) / (b - a)) ** 2
+    y[idx4] = 1
+
+    return y
+
+
+def pimf(x: np.ndarray, a: float, b: float, c: float, d: float) -> np.ndarray:
+    """Pi-shaped membership function.
+
+    Args:
+        x (np.ndarray): Input values.
+        a (float): Left foot of the Pi-shape.
+        b (float): Left shoulder of the Pi-shape.
+        c (float): Right shoulder of the Pi-shape.
+        d (float): Right foot of the Pi-shape.
+
+    Returns:
+        np.ndarray: Membership values.
+    """
+    assert (
+        a <= b <= c <= d
+    ), "Invalid parameters for Pi-shaped membership function. Must satisfy a <= b <= c <= d."
+    assert isinstance(x, np.ndarray), "Input must be a numpy array."
+    assert x.ndim == 1, "Input array must be one-dimensional."
+    assert np.issubdtype(
+        x.dtype, np.number
+    ), "Input array must contain numeric values."
+
+    y = np.zeros_like(x)
+    idx1 = x <= a
+    idx2 = (x > a) & (x < (a + b) / 2)
+    idx3 = (x >= (a + b) / 2) & (x < b)
+    idx4 = (x >= b) & (x <= c)
+    idx5 = (x > c) & (x < (c + d) / 2)
+    idx6 = (x >= (c + d) / 2) & (x < d)
+    idx7 = x >= d
+
+    y[idx1] = 0
+    y[idx2] = 2 * ((x[idx2] - a) / (b - a)) ** 2
+    y[idx3] = 1 - 2 * ((b - x[idx3]) / (b - a)) ** 2
+    y[idx4] = 1
+    y[idx5] = 1 - 2 * ((x[idx5] - c) / (d - c)) ** 2
+    y[idx6] = 2 * ((d - x[idx6]) / (d - c)) ** 2
+    y[idx7] = 0
+
+    return y
 
 
 if __name__ == "__main__":

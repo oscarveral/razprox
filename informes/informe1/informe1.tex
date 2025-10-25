@@ -161,7 +161,8 @@ Contiene miles de terminos/clases organizados jerarquicamente y representando bi
 la naturaleza. En ENVO, se definen biomas propios de la clasificación de de zonas de vida de Holdridge, lo que nos permite explorar las relaciones de estos
 biomas con el resto del universo de conocimiento de las ciencias ambientales.
 
-\section{Terminos relevantes}
+
+\subsection{Terminos relevantes}
 
 A continuación, hemos realizado un analisis exhaustivo de los términos clave relacionados con el dominio bioclimático y el Sistema de Zonas de Vida de Holdridge.
 Estos términos son fundamentales para la construcción de la ontología y su correcta representación del conocimiento en este ámbito. La lista incluye conceptos geográficos, climáticos y bioclimáticos esenciales para entender y modelar el dominio.
@@ -265,163 +266,232 @@ Estos términos son fundamentales para la construcción de la ontología y su co
 
 \end{itemize}
 
+\subsubsection{BabelNet}
+BabelNet \cite{navigli-ponzetto-2010-babelnet} es una red semántica multilingüe que integra información léxica y enciclopédica de diversas fuentes.
+Aunque BabelNet no es una ontología específica del dominio bioclimático, su amplia cobertura de términos y conceptos puede ser útil para enriquecer la ontología, 
+además de ser su uso obligatorio para la elaboración de la práctica. 
+
+Como primera aproximación, utilizamos su buscador para introducir uno de los términos de nuestro dominio: "Life Zone" \ref{fig:babelnet-life-zone}. 
+El término se muestra como el centro de un grafo radial cuyos vecinos se encuentran conectados mediante aristas de mayor o menor longitud dependiendo
+de un criterio de similitud semántica. En este caso, se observa que "Life Zone" está relacionado con conceptos como "vegetation zone" o, 
+de manera íntima con "Holdridge life zone", que es precisamente el núcleo de nuestro dominio.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/bbn_lifezone.png}
+    \caption{Resultado de la búsqueda del término ''Life Zone'' en BabelNet.}
+    \label{fig:babelnet-life-zone}
+\end{figure}
+
+Haciendo clic en el nodo, se muestran los conceptos relacionados con la teoría de las Zonas de Vida de Holdridge \ref{fig:babelnet-holdridge}, como pueden ser
+"altitudinal zonation", "vaporization", "humidity", "polar desert"... 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/bbn_holdridge.png}
+    \caption{Conceptos relacionados con ''Holdridge life zone'' en BabelNet.}
+    \label{fig:babelnet-holdridge}
+\end{figure}
+
 \subsection{Definición de las clases (conceptos) y su jerarquía.}
 Para el diseño de la jerarquía conceptual, vamos a seguir un enfoque top-down,
 partiendo de conceptos generales hacia conceptos más específicos. 
 A continuación, se presentan las clases principales y su jerarquía:
 
-\subsubsection{Taxonomía: Zona de Vida de Holdridge}
+\subsubsection{ZonaVidaHoldridge}
 El concepto clave de nuestra ontología es la Zona de Vida de Holdridge, una clasificación bioclimática
-que categoriza las regiones del mundo según su clima y posición geográfica. No obstante,
-como el una ontología debe aspirar a ser reutilizable y extensible, hemos decidido no establecer directamente
-este concepto como raíz, sino que vamos a definir una jerarquía más amplia que permita incorporar otros conceptos relacionados.
-Así pues, proponemos el concepto raíz ZonaBioclimática, que engloba todas las zonas bioclimáticas, incluyendo las de Holdridge.
-Como especialización, definimos la clase ZonaVidaHoldridge como subclase de ZonaBioclimática.
-A su vez, ZonaVidaHoldridge se divide en los diferentes tipos de zonas de vida, tales como:
-\begin{tabular}{@{}llll@{}}
-    \toprule
-    \term{Desierto} & \term{TundraSeca} & \term{TundraHumeda} & \term{TundraPluvial} \\
-    \term{BosquePluvial} & \term{BosqueHumedo} & \term{MatorralDesertico} & \term{Estepa} \\
-    \bottomrule
-\end{tabular}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Casos de uso}
-Describa escenarios de uso, fuentes de datos y actores.
-
-\section{Metodología}
-Describa el proceso (p.~ej., METHONTOLOGY/NeOn): especificación de requisitos, conceptualización, formalización, implementación, evaluación, mantenimiento y publicación.
-
-\section{Diseño conceptual}
-\subsection{Alcance y límites}
-Defina contexto, granularidad espacial/temporal y supuestos.
-
-\subsection{Clases principales}
-Ejemplos: \term{ZonaBioclimática}, \term{VariableClimática}, \term{Indicador}, \term{Observación}, \term{Estación}, \term{Región}, \term{Taxón}.
-
-\subsection{Propiedades y restricciones}
-Cardinalidades, dominios/rangos, axiomas clave (disjunción, equivalencias).
-
-\section{Reuso y alineación}
-Alinee con vocabularios externos (p.~ej., \textit{SOSA/SSN}, \textit{GeoSPARQL}). Documente mapeos y decisiones.
-
-\section{Implementación en OWL}
-\subsection{Prefijos y espacios de nombres}
-\noindent
-\begin{lstlisting}[language=Turtle,caption={Prefijos base en Turtle.}]
-@prefix :      <https://ejemplo.org/bioclima#> .
-@prefix owl:   <http://www.w3.org/2002/07/owl#> .
-@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-@prefix sosa:  <http://www.w3.org/ns/sosa/> .
-@prefix geo:   <http://www.opengis.net/ont/geosparql#> .
-\end{lstlisting}
-
-\subsection{Clases y propiedades}
-\begin{lstlisting}[language=Turtle,caption={Fragmento de clases y propiedades.}]
-:ZonaBioclimatica a owl:Class ;
-    rdfs:label "Zona bioclimatica"@es .
-
-:VariableClimatica a owl:Class ;
-    rdfs:label "Variable climatica"@es .
-
-:Indicador a owl:Class ;
-    rdfs:label "Indicador bioclimatico"@es .
-
-:observaVariable a owl:ObjectProperty ;
-    rdfs:domain sosa:Observation ;
-    rdfs:range  :VariableClimatica ;
-    rdfs:label "observa variable"@es .
-
-:valorIndicador a owl:DatatypeProperty ;
-    rdfs:domain :Indicador ;
-    rdfs:range  xsd:decimal ;
-    rdfs:label "valor de indicador"@es .
-\end{lstlisting}
-
-\subsection{Individuos de ejemplo}
-\begin{lstlisting}[language=Turtle,caption={Individuos ilustrativos.}]
-:Aridez a :Indicador ;
-    rdfs:label "Indice de Aridez"@es .
-
-:ZB_Mediterranea a :ZonaBioclimatica ;
-    rdfs:label "Zona Bioclimatica Mediterranea"@es .
-\end{lstlisting}
-
-\section{Consultas SPARQL}
-\begin{lstlisting}[language=SPARQL,caption={Zonas bioclimáticas por región.}]
-PREFIX :    <https://ejemplo.org/bioclima#>
-PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
-
-SELECT ?zona ?nombre WHERE {
-    ?zona a :ZonaBioclimatica ;
-                rdfs:label ?nombre .
-    # Agregue filtros geoespaciales si aplica (GeoSPARQL)
-}
-ORDER BY ?nombre
-\end{lstlisting}
-
-\begin{lstlisting}[language=SPARQL,caption={Indicadores y valores promedio.}]
-PREFIX :   <https://ejemplo.org/bioclima#>
-PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
-
-SELECT ?indicador (AVG(?valor) AS ?promedio) WHERE {
-    ?i a :Indicador ;
-         rdfs:label ?indicador ;
-         :valorIndicador ?valor .
-}
-GROUP BY ?indicador
-\end{lstlisting}
-
-\section{Evaluación}
-Verificación (consistencia, coherencia, competencia) y validación (con expertos). Use reasoners (HermiT, Pellet) y pruebas contra CQs.
-
-\section{Publicación y acceso}
-Estrategia FAIR: documentación, serializaciones (TTL, RDF/XML), resolución de URIs, endpoint SPARQL, metadatos VoID/DCAT, versionado.
-
-\section{Resultados y discusión}
-Análisis de cobertura, utilidad en casos de uso, limitaciones y amenazas a la validez.
-
-\section{Conclusiones y trabajo futuro}
-Síntesis de aportes, líneas de mejora, mantenimiento y extensiones planificadas.
-
-\section*{Agradecimientos}
-Reconocimientos a colaboradores, instituciones y fuentes de datos.
-
-\appendix
-\section{Anexo A: Figuras y tablas}
-% Ejemplo de figura (descomente e incluya un recurso válido)
-% \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=0.8\linewidth]{figuras/mapa_zonas.png}
-%   \caption{Mapa de zonas bioclimáticas.}
-%   \label{fig:mapa-zonas}
-% \end{figure}
-
-\appendix
-\section{Anexo B: Variables climáticas}
-Tabla con variables climáticas modeladas en la ontología. Se indica nombre, abreviatura y unidad.
+que categoriza las regiones del mundo según su clima y posición geográfica. 
+A su vez, ZonaVidaHoldridge es una taxonomía que agrupa las diferentes zonas bioclimáticas definidas por Holdridge tales como:
 \begin{table}[h]
     \centering
-    \caption{Variables climáticas modeladas.}
+    \caption{Zonas de vida de Holdridge.}
+    \begin{tabular}{@{}llll@{}}
+        \toprule
+        \term{Desierto} & \term{TundraSeca} & \term{TundraHumeda} & \term{TundraPluvial} \\
+        \term{BosquePluvial} & \term{BosqueHumedo} & \term{MatorralDesertico} & \term{Estepa} \\
+        \term{BosqueMuyHumedo} & \term{BosqueSeco} & \term{MonteEspinoso} & \term{} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+Cada una de estas clases viene determinada por tres magnitudes climáticas fundamentales:
+\begin{itemize}
+    \item Biotemperatura Media Anual (ABT).
+    \item Precipitación Media Anual (APP).
+    \item Relación de Evapotranspiración Potencial (PER).
+\end{itemize}
+Estas magnitudes definen los límites y características de cada zona bioclimática y están estrechamente relacionadas con la ubicación geográfica y las condiciones climáticas de la región.
+A futuro, tendría sentido ampliar la ontología para incluir relaciones con el tipo de suelo, vegetación y fauna que se puede encontrar en cada zona de vida.
+También, inspirados por BabelNet, dejamos abierta la posibilidad de incluir otros tipos de zonas bioclimáticas.
+Así pues, ZonaVidaHoldridge podría considerarse una subclase de un concepto más general como ZonaBioclimatica.
+
+\subsubsection{Topología: RegionLatitudinal}
+Este concepto agrupa las diferentes regiones latitudinales que influyen en la clasificación bioclimática según el sistema de Holdridge. 
+Las regiones latitudinales son categorías geográficas divididas según paralelos específicos. Estas regiones mantienen una relación 
+topológica entre sí, ya que están organizadas de norte a sur en función de su latitud.
+
+\subsubsection{Taxonomía: PisoAltitudinal}
+Piso altitudinal es el otro concepto geográfico clave en la clasificación bioclimática de Holdridge.
+Los pisos altitudinales son zonas definidas por áreas trapezoidales en el plano altitud/longitud y que Holdridge asoció
+a diferentes rangos de ABT. Los pisos altitudinales considerados son:
+\begin{itemize}
+    \item Basal
+    \item Premontano
+    \item Montano 
+    \item Subalpino
+    \item Alpino
+    \item Nival
+\end{itemize}
+
+\subsubsection{ProvinciaDeHumedad}
+La provincia de humedad es un concepto que agrupa áreas geográficas con características climáticas similares en términos de humedad. Las provincias de humedad se definen en función de la relación de evapotranspiración potencial (PER).
+
+\subsubsection{EstaciónBioclimática}
+Identificamos una estación climática como una entidad física que recopila datos meteorológicos y climáticos en una ubicación geográfica específica.
+Estas estaciones están equipadas con diversos sensores que miden variables climáticas como temperatura, precipitación, humedad, entre otras.
+Las estaciones climáticas son fundamentales para obtener los datos necesarios para clasificar las zonas bioclimáticas según el sistema de Holdridge.
+Asociaremos cada estación climática con su piso altitudinal, región latitudinal y zona vida de Holdridge correspondiente.
+
+\subsection{Atributos}
+Cada clase definida anteriormente tendrá atributos específicos que describen sus características y propiedades.
+Estos atributos estarán limitados a un cierto rango de valores.
+
+\subsubsection{ZonaVidaHoldridge}
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\centering
+\captionof{table}{Atributos de ZonaVidaHoldridge.}
+\begin{tabular}{@{}lll@{}}
+    \toprule
+    Atributo & Unidad & Rango \\
+    \midrule
+    tienePromedioDePrecipitacionAnualMáximo & \si{\milli\metre} & [0, 16000] \\
+    tienePromedioDePrecipitacionAnualMínimo & \si{\milli\metre} & [0, 16000] \\
+    estaEnPisoAltitudinal & no aplica & 1..1 PisoAltitudinal \\
+    estaEnProvinciaDeHumedad & no aplica & 1..1 ProvinciaDeHumedad \\
+    \bottomrule
+\end{tabular}
+\end{minipage}
+\end{center}
+
+\subsubsection{RegionLatitudinal}
+
+\begin{table}[h]
+    \centering
+    \caption{Atributos de RegionLatitudinal.}
+    \begin{tabular}{@{}lll@{}}
+        \toprule
+        Atributo & Unidad & Rango \\
+        \midrule
+        esAdyacente & no aplica & 1..2 RegionLatitudinal \\
+        tieneParaleloInferior & \si{\degree} & [0, 90] \\
+        tieneParaleloSuperior & \si{\degree} & [0, 90] \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{PisoAltitudinal}
+
+\begin{table}[h]
+    \centering
+    \caption{Atributos de PisoAltitudinal.}
+    \begin{tabular}{@{}lll@{}}
+        \toprule
+        Atributo & Unidad & Rango \\
+        \midrule
+        estáEnRegiónLatitudinal & no aplica & 1..1 RegionLatitudinal \\
+        tieneAltitudMáximaAsociada & \si{\meter} & [0, $\infty$] \\
+        tieneBiotemperaturaAnualMáximaAsociada & \si{\degreeCelsius} & [0, 30] \\
+        tieneBiotemperaturaAnualMínimaAsociada & \si{\degreeCelsius} & [0, 30] \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Para cada piso altitudinal, se definen restricciones más específicas para los atributos relacionados con la ABT.
+Por ejemplo, para un piso Nival ambos atributos tendrían que ser exactamente 0°C y 1.5°C, mientras que para un piso Premontano serían 18°C y 24°C respectivamente.
+
+\subsubsection{ProvinciaDeHumedad}
+
+\begin{table}[h]
+    \centering
+    \caption{Atributos de ProvinciaDeHumedad.}
+    \begin{tabular}{@{}lll@{}}
+        \toprule
+        Atributo & Unidad & Rango \\
+        \midrule
+        tieneRelaciónDeEvapotranspiraciónPotencial & no aplica & * \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+* Valores PER asociados a cada provincia de humedad: "Casi Nula", "Muy Baja", "Baja", "Media-baja", "Media-alta", "Alta", "Muy Alta", "Extrema".
+
+\subsubsection{EstacionBiolimática}
+
+\begin{center}
+\begin{minipage}{\linewidth}
+\centering
+\captionof{table}{Atributos de Estación Bioclimática.}
+\begin{tabular}{@{}lll@{}}
+    \toprule
+    Atributo & Unidad & Rango \\
+    \midrule
+    estáEnZonaDeVidaDeHoldridge & no aplica & 1..1 ZonaVidaHoldridge \\
+    estáEnPisoAltitudinal & no aplica & 1..1 PisoAltitudinal \\
+    estáEnRegiónLatitudinal & no aplica & 1..1 RegionLatitudinal \\
+    tieneNivelEspecialización & no aplica & \{"Bajo", "Alto"\} \\
+    mideTemperaturaMediaAnual & \si{\degreeCelsius} & [-50, $\infty$] \\
+    midePrecipitaciónMediaAnual & \si{\milli\metre} & [0, $\infty$] \\
+    tieneAltitud & \si{\meter} & [0, $\infty$] \\
+    tieneLatitud & \si{\degree} & [-90, 90] \\
+    tieneLongitud & \si{\degree} & [-180, 180] \\
+    \bottomrule
+\end{tabular}
+\end{minipage}
+\end{center}
+
+\subsection{Axiomática general}
+En el subapartado anterior, se han definido los atributos y sus rangos para cada clase principal.
+El documento de la práctica especifica un requisito mínimo de cincuenta axiomas para la ontología, 
+expresados en lógica de prediciados. No obstante, debido a la representación de la ontología en protégé,
+que representa todas estas restricciones, nos abstenemos de representar estos axiomas en este informe.
+
+Sin embargo, sí dejamos un par de axiomas más específicos que consideramos relevantes para la ontología: \\
+
+La relación esAdyacente entre regiones latitudinales es simétrica:
+$$
+\forall r_1, r_2 (RegionLatitudinal(r_1) \land RegionLatitudinal(r_2) \land esAdyacente(r_1, r_2) \rightarrow esAdyacente(r_2, r_1))
+$$
+
+Coherencia entre ZonaVidaHoldridge, PisoAltitudinal y ProvinciaDeHumedad para una EstaciónBioclimática
+$$
+\begin{aligned}
+\forall e, z, p, h\;(
+    &EstacionBioclimática(e) \land\; ZonaVidaHoldridge(z) \\
+    &\land\; PisoAltitudinal(p) \land\; ProvinciaDeHumedad(h) \\
+    &\Rightarrow \\
+    &((estáEnZonaDeVidaDeHoldridge(e, z) \Rightarrow estáEnPisoAltitudinal(e, p) \\
+    &\land\; estáEnPisoAltitudinal(e, h)) \rightarrow estáEnRegiónLatitudinal(p, h))
+)
+\end{aligned}
+$$
+
+\subsection{Instanciación}
+Hemos instanciado la ontología con las regiones latitudinales, pisos altitudinales, provincias de humedad y zonas de vida definidas por Holdridge.
+Asimismo, hemos introducido artificialmente una estación climática de ejemplo con datos ficticios para validar la ontología.
+Para más detalles, ver sección de Protégé.
+
+\section{Protégé}
+Protégé es una herramienta de código abierto ampliamente utilizada para la creación y gestión de ontologías.
+Nosotros la hemos empleado para implementar la ontología bioclimática siguiendo la metodología y diseño conceptual previamente descritos.
+Protégé tiene el concepto básico "Thing" que representa cualquier entidad en la ontología. A partir de este concepto, hemos definido nuestras clases principales como subclases de "Thing".
+Esta herramienta resulta especialmente útil para visualizar la jerarquía de conceptos, las propiedades y las restricciones asociadas a cada clase.
+
+\appendix
+\section{Anexo: Magnitudes}
+Tabla con magnitudes presentes en la ontología. Se indica nombre, abreviatura y unidad.
+\begin{table}[h]
+    \centering
+    \caption{Magnitudes presentes en la ontología.}
     \begin{tabular}{@{}lll@{}}
         \toprule
         Variable & Abreviatura & Unidad \\

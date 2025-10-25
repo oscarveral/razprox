@@ -2,18 +2,28 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from bioclas.fuzzylogic.fuzzy_set import FuzzySet
+from bioclas.fuzzylogic.fuzzy_variable import FuzzyVariable
 
 
 class FuzzyPlotter:
     """A class for plotting fuzzy sets and membership functions."""
 
     def __init__(self):
+        self._fvars = []
         self._fsets = []
         self._domain = (0, 1)  # Default domain
 
     def add_fuzzy_set(self, fuzzy_set: FuzzySet) -> None:
         """Add a fuzzy set to the plotter."""
         self._fsets.append(fuzzy_set)
+
+    def add_fuzzy_sets(self, fuzzy_sets: list[FuzzySet]) -> None:
+        """Add multiple fuzzy sets to the plotter."""
+        self._fsets.extend(fuzzy_sets)
+
+    def add_fuzzy_variable(self, fuzzy_var: FuzzyVariable) -> None:
+        """Add a fuzzy variable to the plotter."""
+        self._fvars.append(fuzzy_var)
 
     @property
     def domain(self) -> tuple[float, float]:
@@ -38,7 +48,7 @@ class FuzzyPlotter:
 
     def plot(
         self,
-        num_points: int = 100,
+        step: float = 0.1,
         title: str = "Fuzzy Sets",
         xlabel: str = "Universe of Discourse",
         ylabel: str = "Membership Degree",
@@ -46,7 +56,7 @@ class FuzzyPlotter:
         """Plot all added fuzzy sets over the specified domain.
 
         Args:
-            num_points (int): Number of points to use for plotting.
+            step (float): Step size for the x-axis.
             title (str): Title of the plot.
             xlabel (str): Label for the x-axis.
             ylabel (str): Label for the y-axis.
@@ -54,12 +64,18 @@ class FuzzyPlotter:
         Returns:
             None
         """
-        x = np.linspace(self._domain[0], self._domain[1], num_points)
+        x = np.arange(self._domain[0], self._domain[1], step)
         plt.figure()
 
         for fset in self._fsets:
             y = fset.mf(x)
             plt.plot(x, y, label=fset.name)
+
+        for fvar in self._fvars:
+            for fset_name in fvar.fuzzyset_names():
+                fset = fvar.get_fuzzyset(fset_name)
+                y = fset.mf(x)
+                plt.plot(x, y, label=f"{fvar.name} - {fset.name}")
 
         plt.title(title)
         plt.xlabel(xlabel)
