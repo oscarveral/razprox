@@ -70,6 +70,54 @@
     
 
 
+    <!-- http://www.owl-ontologies.com/bio.owl#mideFuerzaViento -->
+
+    <owl:DatatypeProperty rdf:about="http://www.owl-ontologies.com/bio.owl#mideFuerzaViento">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/bio.owl#mideHumedad -->
+
+    <owl:DatatypeProperty rdf:about="http://www.owl-ontologies.com/bio.owl#mideHumedad">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/bio.owl#midePrecipitacionesAcumuladaAnual -->
+
+    <owl:DatatypeProperty rdf:about="http://www.owl-ontologies.com/bio.owl#midePrecipitacionesAcumuladaAnual">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/bio.owl#midePresion -->
+
+    <owl:DatatypeProperty rdf:about="http://www.owl-ontologies.com/bio.owl#midePresion">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/bio.owl#mideRaciaciónSolar -->
+
+    <owl:DatatypeProperty rdf:about="http://www.owl-ontologies.com/bio.owl#mideRaciaciónSolar">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.owl-ontologies.com/bio.owl#mideTemperaturaMediaAnual -->
+
+    <owl:DatatypeProperty rdf:about="http://www.owl-ontologies.com/bio.owl#mideTemperaturaMediaAnual">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.owl-ontologies.com/bio.owl#tieneAltitudMáximaAsociada -->
 
     <owl:DatatypeProperty rdf:about="http://www.owl-ontologies.com/bio.owl#tieneAltitudMáximaAsociada">
@@ -849,6 +897,42 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#estáEnRegiónLatitudinal"/>
                 <owl:allValuesFrom rdf:resource="http://www.owl-ontologies.com/bio.owl#RegionLatitudinal"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#mideFuerzaViento"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#mideHumedad"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#midePrecipitacionesAcumuladaAnual"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#midePresion"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#mideRaciaciónSolar"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#mideTemperaturaMediaAnual"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
