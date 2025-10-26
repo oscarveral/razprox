@@ -22,6 +22,7 @@
 \usepackage{siunitx}
 \usepackage{amsmath,amssymb}
 \usepackage{enumitem}
+\usepackage{float}
 \setlist{nosep,leftmargin=*,labelsep=0.5em}
 
 % Hipervínculos
@@ -126,7 +127,7 @@ Concretamente, este sistema utiliza tres magnitudes climáticas principales: la 
 la precipitación media anual (APP) y la relación de evapotranspiración potencial (PER). En la siguiente imagen \ref{fig:holdridge-triangle}
 se muestra un diagrama representativo del sistema de Holdridge, donde se visualizan las diferentes zonas de vida en función de las tres magnitudes climáticas mencionadas.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/triangle.png}
     \caption{Diagrama del Sistema de Zonas de Vida de Holdridge \cite{WikiHoldridge}}
@@ -292,7 +293,7 @@ Como primera aproximación, utilizamos su buscador para introducir uno de los t�
 El término se muestra como el centro de un grafo radial cuyos vecinos se encuentran conectados mediante aristas de mayor o menor longitud dependiendo
 de un criterio de similitud semántica. En este caso, se observa que "Life Zone" está relacionado con conceptos como "vegetation zone" o, 
 de manera íntima con "Holdridge life zone", que es precisamente el núcleo de nuestro dominio.
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/bbn_lifezone.png}
     \caption{Resultado de la búsqueda del término ''Life Zone'' en BabelNet.}
@@ -302,7 +303,7 @@ de manera íntima con "Holdridge life zone", que es precisamente el núcleo de n
 Haciendo clic en el nodo, se muestran los conceptos relacionados con la teoría de las Zonas de Vida de Holdridge \ref{fig:babelnet-holdridge}, como pueden ser
 "altitudinal zonation", "vaporization", "humidity", "polar desert"... 
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{images/bbn_holdridge.png}
     \caption{Conceptos relacionados con ''Holdridge life zone'' en BabelNet.}
@@ -318,7 +319,7 @@ A continuación, se presentan las clases principales y su jerarquía:
 El concepto clave de nuestra ontología es la Zona de Vida de Holdridge, una clasificación bioclimática
 que categoriza las regiones del mundo según su clima y posición geográfica. 
 A su vez, ZonaVidaHoldridge es una taxonomía que agrupa las diferentes zonas bioclimáticas definidas por Holdridge tales como:
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \caption{Zonas de vida de Holdridge.}
     \begin{tabular}{@{}llll@{}}
@@ -392,7 +393,7 @@ Estos atributos estarán limitados a un cierto rango de valores.
 
 \subsubsection{RegionLatitudinal}
 
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \caption{Atributos de RegionLatitudinal.}
     \begin{tabular}{@{}lll@{}}
@@ -408,7 +409,7 @@ Estos atributos estarán limitados a un cierto rango de valores.
 
 \subsubsection{PisoAltitudinal}
 
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \caption{Atributos de PisoAltitudinal.}
     \begin{tabular}{@{}lll@{}}
@@ -428,7 +429,7 @@ Por ejemplo, para un piso Nival ambos atributos tendrían que ser exactamente 0�
 
 \subsubsection{ProvinciaDeHumedad}
 
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \caption{Atributos de ProvinciaDeHumedad.}
     \begin{tabular}{@{}lll@{}}
@@ -544,7 +545,7 @@ Finalmente, la ontología desarrollada no solo cumple con los requisitos inicial
 \appendix
 \section{Magnitudes}
 Tabla con magnitudes presentes en la ontología. Se indica nombre, abreviatura y unidad.
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \caption{Magnitudes presentes en la ontología.}
     \begin{tabular}{@{}lll@{}}
@@ -565,7 +566,7 @@ Tabla con magnitudes presentes en la ontología. Se indica nombre, abreviatura y
 \clearpage
 \section{Capturas de pantalla de Protégé}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \setkeys{Gin}{angle=180,origin=c}
     \includegraphics[angle=90, width=0.36\linewidth]{images/grafo.png}
@@ -573,7 +574,7 @@ Tabla con magnitudes presentes en la ontología. Se indica nombre, abreviatura y
     \label{fig:protege-graph}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \setkeys{Gin}{angle=180,origin=c}
     \includegraphics[width=0.8\linewidth]{images/class_hierarchy.png}
@@ -581,49 +582,49 @@ Tabla con magnitudes presentes en la ontología. Se indica nombre, abreviatura y
     \label{fig:protege-hierarchy}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{images/ontology_metrics.png}
     \caption{Métricas de la ontología en Protégé.}
     \label{fig:protege-metrics}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{images/zonadevida.png}
     \caption{Concepto zona de vida en Protégé.}
     \label{fig:protege-lifezone}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{images/estacionbioclimatica.png}
     \caption{Concepto estación bioclimática en Protégé.}
     \label{fig:protege-bioclimatic}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{images/regionlatitudinal.png}
     \caption{Concepto región latitudinal en Protégé.}
     \label{fig:protege-rl}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{images/pisoaltitudinal.png}
     \caption{Concepto piso altitudinal en Protégé.}
     \label{fig:protege-pa}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{images/nival.png}
     \caption{Concepto nival en Protégé.}
     \label{fig:protege-nival}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{images/instancia.png}
     \caption{Instancia de Bosque Pluvial en Protégé.}
