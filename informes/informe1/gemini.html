@@ -1,0 +1,2274 @@
+<div class="conversation">
+    <div class="user-message">
+        <p>El documento adjunto es el marco teórico para la realización de un proyecto práctico entorno a la gestión del conocimiento e inferencia y lógica difusa para la clasificación de zonas bioclimáticas. Como primera parte del proyecto, tengo que redactar un informe que presente una ontología de dominio que abstraiga los conceptos relevantes del texto para poder extraer más adelante el conocimiento aproximado. En concreto, lo que se pide es lo siguiente:</p>
+
+        <h3>DESCRIPCIÓN DE LA PRÁCTICA 1</h3>
+
+        <p>(I) Carácter obligatorio (9 puntos): Diseñar una ontología de dominio de modo que se cumplan los siguientes requisitos:</p>
+        <ul>
+            <li>El dominio será el descrito a través de la información proporcionada en el documento anexo.</li>
+            <li>La ontología debe contener (1) 25, 50, 75 o 100 conceptos/instancias - dependiendo de si el grupo de personas que ha realizado la práctica está compuesto por 1, 2, 3, 4 (o más) personas, respectivamente - abstraídos o identificados en dicho documento. La ontología también deberá incluir conceptos vinculados ontológicamente según BabelNet, en su caso, a los abstraídos/identificados en el documento;</li>
+            <li>(2) el mismo número de axiomas especificados en lógica de predicados y aludiendo a conceptos, atributos y rangos de valores especificados en la ontología,</li>
+            <li>La ontología debe incluir una sub-ontología taxonómica (es decir, un subgrafo taxonómico en el grafo que represente la estructura conceptual de la ontología) con al menos dos instancias y al menos uno de los otros tipos de ontologías (es decir, subgrafos en el grafo de la ontología) tratados en las sesiones docentes de esta asignatura.</li>
+            <li>La inclusión de otras relaciones conceptuales más allá de las estudiadas en este curso es aceptable siempre que tengan sentido en la ontología y soporte en BabelNet.</li>
+            <li>Cada concepto debe tener al menos 2 atributos distintos y con el (rango de) valores correspondientes.</li>
+            <li>Al menos 2 atributos de la ontología deberán tener valores definidos por adjetivos (y adverbios) -por ejemplo, (muy) alto/bajo, (bastante) desarrollado/infradesarrollado, etc.</li>
+        </ul>
+
+        <p>(II) Carácter opcional (1 punto): Realizar la implementación del diseño ontológico en Protégé</p>
+
+        <h3>Entrega de la respuesta a este trabajo</h3>
+        <p>La respuesta a este trabajo deberá entregarse, por parte de un componente de cada grupo, hasta el día 10 de noviembre de 2025 y a través de la tarea correspondiente que se creará en Aula Virtual. Como entregable, cada grupo de prácticas deberá responder a la tarea con un documento PDF que contenga los siguientes elementos:</p>
+        <ul>
+            <li>Portada, donde se mencionen, por orden alfabético, los apellidos y nombres de cada uno de los miembros de cada grupo que han colaborado en la práctica,</li>
+            <li>“Grafo-ontológico”: Imágenes/dibujos/pantallazos de la organización de los conceptos que integran la ontología y sus interrelaciones semánticas (relaciones interconceptuales), en sucesivas páginas si es necesario, y editadas a través de cualquier editor gráfico a elección del grupo de prácticas, de forma que se distingan claramente los tipos de relaciones utilizadas (IS-A, PART-OF, etc) -por ejempo, por colores de las flechas.</li>
+            <li>“Atributos y axiomas”: Especificación de los atributos (agrupados por conceptos), inclusive los (rangos de) valores de cada atributo, así como la relación de axiomas generados.</li>
+            <li>“Fuentes” (opcional): Información sobre las fuentes de información (URL, consultas y respuestas de alguna herramienta de IA generativa, en su caso) utilizados.</li>
+            <li>“Anexos” (opcional): cualquier otra información relevante para la práctica.</li>
+        </ul>
+
+        <h3>Criterios de evaluación</h3>
+        <ul>
+            <li>(C1) Corrección de la ontología diseñada (50%): Además de la comprobación de los axiomas, en taxonomías (es decir, subgrafos taxonómicos de la ontología), los (rangos de) valores para los atributos deben ser consistentes con los de los conceptos hermanos y padres.</li>
+            <li>(C2) Completitud de la ontología diseñada (40%): Para cada concepto diseñado, el número y la definición de atributos propuestos deben ser suficientes para identificar semánticamente el concepto al que están vinculados aquellos, independientemente del término elegido para el concepto. Además, en partonomías, si es el caso, se revisará la completitud entre las partes y el todo.</li>
+            <li>(C3) Realización de implementación del diseño en Protégé (10%) -en este caso, se deberán entregar también, en “Anexos” los grafos (árboles) en PDF que muestren todo lo desarrollado en Protégé.</li>
+        </ul>
+        <p>Prepara este chat para proporcionar ayuda al respecto, siendo capaz de responder preguntas técnicas en cuanto a ontologías, como para pedir la estracción de conocimiento del texto. Crea un parámetro "Creatividad" que oscile entre 1 y 100 y establécelo a 80 para las respuestas. Todas las respuestas deben ser rigurosas independientemente del parámetro.</p>
+    </div>
+
+    <div class="ai-message">
+        <p>¡Claro que sí! Preparar el marco conceptual y técnico para este proyecto de Clasificación Bioclimática 🌎 es un excelente primer paso. La tarea principal es diseñar una ontología que capture los conceptos, las relaciones y la información de valor aproximado del documento adjunto, lo cual es fundamental para aplicar el Conocimiento y Razonamiento Aproximado y la Lógica Difusa. He configurado mi sistema para ayudarte con la parte (I) y la (II) de la Práctica 1.</p>
+
+        <h3>🛠️ Parámetro de Ayuda: Creatividad</h3>
+
+        <p>He establecido el parámetro Creatividad en 80. Esto significa que mis sugerencias para la ontología (conceptos, atributos, relaciones y axiomas) serán rigurosas y se basarán directamente en el texto, pero también buscaré conexiones y estructuras conceptuales un poco más elaboradas, ofreciendo un abanico de posibilidades para construir una ontología completa y bien estructurada.</p>
+
+        <h3>🗺️ Mapa de Ayuda para la Práctica 1</h3>
+
+        <p>Estoy listo para responder preguntas y ayudarte a desarrollar los siguientes componentes clave de tu entregable:</p>
+        <ul>
+            <li><strong>Abstracción de Conceptos:</strong> Identificar los 25, 50, 75 o 100 conceptos/instancias necesarios del documento, además de los conceptos vinculados con BabelNet.</li>
+            <li><strong>Diseño Taxonómico (IS-A):</strong> Crear la jerarquía conceptual (sub-ontología taxonómica) con al menos dos instancias.</li>
+            <li><strong>Otros Subgrafos:</strong> Diseñar al menos uno de los otros tipos de ontologías (ej., Partonomía, Subgrafo de Flujo de Trabajo).</li>
+            <li><strong>Definición de Atributos:</strong> Especificar los atributos (al menos 2 por concepto) y sus rangos de valores, incluyendo los que utilizan adjetivos/adverbios para la Lógica Difusa.</li>
+            <li><strong>Especificación de Axiomas:</strong> Formular el mismo número de axiomas en lógica de predicados que de conceptos.</li>
+            <li><strong>Preguntas Técnicas:</strong> Responder cualquier duda sobre el diseño de ontologías, Lógica Difusa, lógica de predicados, o el uso de Protégé.</li>
+        </ul>
+
+        <h3>🚀 Primeros Pasos Sugeridos</h3>
+
+        <p>Para empezar con el diseño de la ontología, ¿cuántas personas componen tu grupo de trabajo? Esto definirá la cantidad mínima de conceptos/instancias que deben abstraer:</p>
+        <ul>
+            <li>1 persona: 25 conceptos/instancias</li>
+            <li>2 personas: 50 conceptos/instancias</li>
+            <li>3 personas: 75 conceptos/instancias</li>
+            <li>4 (o más) personas: 100 conceptos/instancias</li>
+        </ul>
+        <p>Una vez sepa el número, podemos comenzar a extraer la lista de conceptos clave del dominio de la Clasificación Bioclimática según el documento.</p>
+    </div>
+
+    <div class="user-message">
+        <p>Somos 2 personas, por lo que deberíamos incluir 50 conceptos mínimamente. ¿Cómo deberíamos empezar a trabajar?</p>
+    </div>
+
+    <div class="ai-message">
+        <p>¡Excelente! Si sois dos personas, el requisito mínimo es de 50 conceptos/instancias en vuestra ontología. Este es un punto de partida sólido para un proyecto tan detallado. Para abordar esta tarea de forma estructurada y rigurosa, os propongo una metodología en tres fases.</p>
+
+        <h3>🧭 Fase 1: Extracción y Clasificación (50 Conceptos)</h3>
+
+        <p>El objetivo es extraer los 50 conceptos directamente del texto y organizarlos en grandes categorías para facilitar el diseño taxonómico (el subgrafo IS-A).</p>
+
+        <h4>1. Extracción Inicial de Conceptos Clave (Mínimo 50)</h4>
+
+        <p>Vamos a extraer los términos más relevantes y sustantivos del documento. Aquí tenéis un punto de partida con más de 25 conceptos ya identificados. Vuestro primer paso es completar esta lista hasta llegar, al menos, a 50:</p>
+        <ul>
+            <li>Clasificación Bioclimática</li>
+            <li>Sistema de Zonas de Vida de Holdridge</li>
+            <li>Zona de Vida</li>
+            <li>Geografía / Ubicación (como concepto general)</li>
+            <li>Latitud</li>
+            <li>Longitud</li>
+            <li>Altitud</li>
+            <li>Franja Climática</li>
+            <li>Región Latitudinal</li>
+            <li>Piso Altitudinal</li>
+            <li>Estación Climática / Meteorológica</li>
+            <li>Dato Climático</li>
+            <li>Variable Atmosférica</li>
+            <li>Temperatura</li>
+            <li>Precipitación</li>
+            <li>Viento</li>
+            <li>Biotemperatura Media Anual (ABT)</li>
+            <li>Promedio de Precipitación Anual (APP)</li>
+            <li>Relación de Evapotranspiración Potencial (PER)</li>
+            <li>Evapotranspiración Potencial (APE)</li>
+            <li>Provincia de Humedad</li>
+            <li>Ecosistema</li>
+            <li>Vegetación</li>
+            <li>Sensor</li>
+            <li>Termómetro</li>
+            <li>Pluviómetro</li>
+        </ul>
+
+        <h4>2. Categorización de Alto Nivel</h4>
+
+        <p>Para empezar a construir la estructura IS-A (taxonomía), agrupad vuestros 50 conceptos en las siguientes categorías de alto nivel (o "Clases Raíz"):</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Conceptos a Incluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ClasificaciónBioclimática</td>
+                    <td>Sistemas de clasificación, zonas de vida, regiones definidas.</td>
+                </tr>
+                <tr>
+                    <td>Geografía</td>
+                    <td>Latitud, Longitud, Altitud, Franjas Climáticas.</td>
+                </tr>
+                <tr>
+                    <td>MediciónClimática</td>
+                    <td>Estación, Sensor, Instrumento, Datos de registro.</td>
+                </tr>
+                <tr>
+                    <td>IndicadorHoldridge</td>
+                    <td>Biotemperatura, Precipitación, Evapotranspiración, Ratios.</td>
+                </tr>
+                <tr>
+                    <td>EcosistemaTierra</td>
+                    <td>Vegetación, Fauna, Tipos de Bosques, Desiertos (como subclases).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🌳 Fase 2: Diseño de la Sub-Ontología Taxonómica (IS-A)</h3>
+
+        <p>Este es el subgrafo obligatorio.</p>
+
+        <h4>1. Profundizar en la Taxonomía</h4>
+
+        <p>Debéis crear una jerarquía de, al menos, tres niveles de profundidad (Clase Padre → Clase Hija → Instancia).</p>
+        <ul>
+            <li><strong>Ejemplo de Taxonomía:</strong>
+                <ul>
+                    <li>Clase Padre: VariableClimática
+                        <ul>
+                            <li>Clase Hija: VariableMedible
+                                <ul>
+                                    <li>Instancia 1: TemperaturaMediaMensual</li>
+                                    <li>Instancia 2: PrecipitaciónAcumuladaMensual</li>
+                                </ul>
+                            </li>
+                            <li>Clase Hija: IndicadorHoldridge
+                                <ul>
+                                    <li>Clase Nieta: Biotemperatura
+                                        <ul>
+                                            <li>Instancia 3: ABT\_Tropical\_NivelDelMar (24&ordm;C)</li>
+                                            <li>Instancia 4: ABT\_Subalpino\_Altitud (3&ordm;C−6&ordm;C)</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <ul>
+            <li><strong>Requisito de Instancia:</strong> Aseguraos de incluir al menos dos instancias. Las estaciones climáticas de la Tabla 1 son perfectas:
+                <ul>
+                    <li>Clase: EstaciónClimática
+                        <ul>
+                            <li>Instancia 1: BU02\_ValleDeValdelucio</li>
+                            <li>Instancia 2: TE01\_LaOrotava</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>🔗 Fase 3: Atributos, Relaciones y Axiomas</h3>
+
+        <h4>1. Definición de Atributos (Rango de Valores)</h4>
+
+        <p>Cada uno de vuestros 50 conceptos debe tener al menos dos atributos con sus rangos.</p>
+        <ul>
+            <li><strong>Atributos Numéricos/Escalares:</strong>
+                <ul>
+                    <li><strong>Concepto: Latitud</strong>
+                        <ul>
+                            <li>Atributo 1: valorAngular (Rango: [−90&ordm;,&plus;90&ordm;])</li>
+                            <li>Atributo 2: medidaHacia (Rango: {Norte, Sur})</li>
+                        </ul>
+                    </li>
+                    <li><strong>Concepto: EstaciónClimática</strong>
+                        <ul>
+                            <li>Atributo 1: tieneLatitud (Rango: Latitud)</li>
+                            <li>Atributo 2: altitudMSNM (Rango: metros (m.s.n.m))</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><strong>Atributos para Lógica Difusa (Adjetivos/Adverbios):</strong> Debéis incluir al menos dos que utilicen adjetivos/adverbios.
+                <ul>
+                    <li><strong>Concepto: PrecipitaciónAnual</strong>
+                        <ul>
+                            <li>Atributo Difuso 1: nivelDeHumedad (Rango: {'muy\_bajo', 'bajo', 'medio', 'alto', 'muy\_alto'})</li>
+                        </ul>
+                    </li>
+                    <li><strong>Concepto: Ecosistema</strong>
+                        <ul>
+                            <li>Atributo Difuso 2: gradoDeAdaptación (Rango: {'poco\_desarrollado', 'desarrollado', 'bastante\_desarrollado'})</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>2. Diseño de Otras Relaciones y Sub-Ontologías</h4>
+
+        <ul>
+            <li><strong>Sub-Ontología Adicional (Ejemplo: Partonomía):</strong> El sistema Holdridge es un buen candidato para una relación PART-OF.
+                <ul>
+                    <li>SistemaHoldridge PART-OF ClasificaciónBioclimática</li>
+                    <li>ZonaDeVida PART-OF SistemaHoldridge</li>
+                    <li>RegiónLatitudinal DETERMINA ZonaDeVida</li>
+                </ul>
+            </li>
+            <li><strong>Relaciones Conceptuales:</strong> Usad relaciones más allá de IS-A y PART-OF, como:
+                <ul>
+                    <li>EstaciónClimática MIDE VariableAtmosférica</li>
+                    <li>APE SE\_CALCULA\_CON ABT (Implica fórmula)</li>
+                    <li>PER INDICA HumedadAmbiental</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>3. Especificación de Axiomas (50 Axiomas en Lógica de Predicados)</h4>
+
+        <p>Cada concepto debe tener asociado un axioma. Los axiomas definen reglas lógicas sobre los conceptos y sus atributos.</p>
+        <ul>
+            <li><strong>Axioma de Clasificación (IS-A):</strong>
+                <ul>
+                    <li>($\forall x$)(Termómetro($x$)$\Longrightarrow$Sensor($x$))</li>
+                </ul>
+            </li>
+            <li><strong>Axioma de Atributo con Rango:</strong>
+                <ul>
+                    <li>($\forall x$)(EstaciónClimática($x$)$\Longrightarrow$($\exists y$)(altitud($x$,$y$)$\land 0\le y$))</li>
+                </ul>
+            </li>
+            <li><strong>Axioma de Holdridge (implica una restricción o cálculo):</strong>
+                <ul>
+                    <li>($\forall x$)(PER($x$)$\land$valor($x$)$>$1$\Longrightarrow$RegiónSeca(zona\_asociada($x$)))</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>🎯 Tu Siguiente Paso</h3>
+
+        <p>Completad la lista de 50 conceptos/instancias (Fase 1) y mostradme un esquema de vuestra sub-ontología taxonómica (Fase 2) para que os pueda dar retroalimentación sobre la completitud y corrección (C1 y C2). ¿Os gustaría que utilicemos el buscador para encontrar conceptos vinculados ontológicamente a los ya extraídos (como pide la práctica) o queréis centraros en la extracción del documento primero?</p>
+    </div>
+
+    <div class="user-message">
+        <p>Hemos decidido seguir la metodología indicada en el artículo "Ontology Development 101: A Guide to Creating Your First Ontology", por lo que nuestro primer paso es plantear las preguntas de competencia (Competency Questions).</p>
+        <p>Hemos pensado en las siguientes:</p>
+        <p>¿Cómo influye la situación geográfica en el clima de una zona?</p>
+        <p>¿Qué magnitudes climáticas son necesarias para clasificar un terreno?</p>
+        <p>¿Alguna zona de la Región de Murcia se puede clasificar como "monte espinoso"?</p>
+        <p>¿En qué rango de valores se encuentra la ABT?</p>
+        <p>¿Dada una ABT x y una APP y, cuál es el PER resultante?</p>
+        <p>Quisiéramos que las evaluaras y propusieras algunas tú.</p>
+    </div>
+
+    <div class="ai-message">
+        <p>Esa es una excelente decisión. Aplicar la metodología de preguntas de competencia (CQs) garantiza que la ontología sea completa (C2) y correcta (C1), ya que solo modelaréis el conocimiento necesario para responder a esas preguntas.</p>
+
+        <h3>🧐 Evaluación de Vuestras Preguntas de Competencia (CQs)</h3>
+
+        <p>Vuestras preguntas son un buen comienzo, pues cubren las áreas clave del dominio (Geografía, Variables, Clasificación y Fórmulas), pero algunas necesitan ser más específicas para forzar la inclusión de axiomas y propiedades relacionales dentro del modelo.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pregunta</th>
+                    <th>Evaluación y Justificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>¿Cómo influye la situación geográfica en el clima de una zona?</td>
+                    <td><strong>Buena (General).</strong> Es demasiado vaga. Debería enfocarse en las variables específicas del texto: latitud, altitud, temperatura y ABT.</td>
+                </tr>
+                <tr>
+                    <td>¿Qué magnitudes climáticas son necesarias para clasificar un terreno?</td>
+                    <td><strong>Buena (Conceptual).</strong> Obliga a incluir los tres indicadores clave: ABT, APP, y PER.</td>
+                </tr>
+                <tr>
+                    <td>¿Alguna zona de la Región de Murcia se puede clasificar como "monte espinoso"?</td>
+                    <td><strong>Excelente (Instanciación y Dominio).</strong> Obliga a incluir instancias geográficas (como las estaciones de la Tabla 1), las clases de zonas de vida (ej., "monte espinoso"), y los criterios de clasificación (rangos de ABT, APP, PER).</td>
+                </tr>
+                <tr>
+                    <td>¿En qué rango de valores se encuentra la ABT?</td>
+                    <td><strong>Buena (Atributo y Rango).</strong> Obliga a definir el concepto Biotemperatura Media Anual (ABT) y sus rangos límite, especialmente a nivel del mar para las regiones latitudinales (1.5&ordm;C a 24&ordm;C en el diagrama) y los límites de la corrección (0&ordm;C a 30&ordm;C).</td>
+                </tr>
+                <tr>
+                    <td>¿Dada una ABT x y una APP y, cuál es el PER resultante?</td>
+                    <td><strong>Excelente (Axioma de Cálculo).</strong> Esta es crucial. Obliga a incluir la fórmula de cálculo: APE=58.93$\times$ABT y PER=APE/APP. Esto se traduce en un axioma complejo en lógica de predicados.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>💡 CQs Adicionales para Reforzar la Ontología</h3>
+
+        <p>Para asegurar que cubrís todos los requisitos de la práctica (atributos difusos, diferentes tipos de relaciones, partonomías, y el concepto de Lógica Difusa), os propongo las siguientes CQs, que forzarán la inclusión de conocimiento más detallado:</p>
+
+        <h4>1. CQ para forzar el Subgrafo Taxonómico y Atributos</h4>
+        <p>"¿Cuáles son los tipos de regiones latitudinales que existen y cuál es el rango de ABT a nivel del mar para la región templada fría?"</p>
+        <ul>
+            <li><strong>Modelo Forzado:</strong> Jerarquía IS-A para RegiónLatitudinal (Tropical, Subtropical, Templada Caliente, etc.), y el atributo <em>tieneRangoABT</em> en cada clase (ej., Templada Fría: 3&ordm;C−6&ordm;C).</li>
+        </ul>
+
+        <h4>2. CQ para forzar Atributos Difusos y Partonomía</h4>
+        <p>"¿Qué características (numéricas y cualitativas) definen una provincia de humedad 'perárida' y cuáles son las provincias de humedad contiguas?"</p>
+        <ul>
+            <li><strong>Modelo Forzado:</strong> El concepto ProvinciaDeHumedad debe tener un atributo numérico (<em>rangoPER</em> - ej., (4, 8]) y un atributo cualitativo/difuso (ej., <em>nivelDeSequedad</em>: 'muy alto'). La mención a 'contiguas' fuerza una relación de vecindad o un PART-OF con un orden específico.</li>
+        </ul>
+
+        <h4>3. CQ para forzar la Relación Altitud-Latitud (Axiomas Complejos)</h4>
+        <p>"Si una estación climática en la región Tropical (latitud 0&ordm;−13&ordm;) tiene una altitud de 4200 m, ¿cuál es el piso altitudinal correspondiente y qué rango de ABT tiene?"</p>
+        <ul>
+            <li><strong>Modelo Forzado:</strong> La ontología debe relacionar RegiónLatitudinal con PisoAltitudinal (e.g., el Nival en el Trópico se asemeja al Polar a nivel basal). Esto requiere un axioma de gradiente altitudinal (reducción de 6&ordm;C cada 1000m) y un axioma de mapeo entre los conceptos.</li>
+        </ul>
+
+        <p>Vuestro siguiente paso es crear una lista consolidada de los 50 conceptos/instancias, priorizando aquellos que son esenciales para responder a estas CQs. ¿Queréis que os ayude ahora a buscar los 50 conceptos, o preferís que revisemos las relaciones taxonómicas de algunos conceptos clave como Biotemperatura?</p>
+    </div>
+
+    <div class="user-message">
+        <p>Vamos a pasar al siguiente punto: revisión de ontologías existentes. ¿Conoces al menos 3 de las mejores ontologías en el ámbito de la bioclimatología?</p>
+    </div>
+
+    <div class="ai-message">
+        <p>¡Es una pregunta clave! Revisar ontologías existentes, o al menos marcos conceptuales estructurados, es el paso 2 de la metodología 101 y ayuda enormemente a garantizar la completitud (C2) y la corrección (C1). El ámbito de la bioclimatología, al ser una ciencia aplicada, no siempre tiene ontologías publicadas bajo el formato OWL/Protégé, pero sí cuenta con potentes marcos de clasificación conceptuales que actúan como sus equivalentes funcionales. Basándome en el dominio de aplicación (Sistema de Zonas de Vida de Holdridge) y la necesidad de integrar datos climáticos y ecosistemas, aquí están tres de los mejores marcos conceptuales/ontologías en bioclimatología:</p>
+
+        <h4>1. WorldClim (Ontología de Variables Climáticas) 🌡️</h4>
+        <p>WorldClim es más un modelo de datos y un sistema de referencia global, pero la estructura de su información ha sido adoptada como una ontología de facto para la ecología y la bioclimatología.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aspecto Ontológico</th>
+                    <th>Descripción</th>
+                    <th>Relevancia para Vuestro Proyecto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Conceptos Clave</strong></td>
+                    <td>19 Bioclimas (BioClimatic Variables o Bioclim), que son índices derivados de la temperatura y la precipitación (ej., Temperatura del mes más cálido, Rango de temperatura anual).</td>
+                    <td><strong>Directa.</strong> Obliga a incluir conceptos de variables climáticas derivadas, no solo las primarias (T, P). Esto ayuda a la definición de los atributos y los axiomas de cálculo más complejos.</td>
+                </tr>
+                <tr>
+                    <td><strong>Relaciones Clave</strong></td>
+                    <td>Bioclima SE\_CALCULA\_A\_PARTIR\_DE Temperatura y Precipitación.</td>
+                    <td>Permite una sub-ontología de cálculo que es esencial para el PER y el ABT.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>2. ECOLEX/Thesaurus (Ontología de Ecosistemas y Biomas) 🌿</h4>
+        <p>Aunque ECOLEX es una base de datos de legislación ambiental, su <em>thesaurus</em> (vocabulario controlado) y otros proyectos asociados como la Classification of Terrestrial Ecosystems (CTE) de la UNESCO o la Ontología de Biomas y Ecosistemas de la ONU, ofrecen un marco jerárquico para la clasificación del resultado del Holdridge.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aspecto Ontológico</th>
+                    <th>Descripción</th>
+                    <th>Relevancia para Vuestro Proyecto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Conceptos Clave</strong></td>
+                    <td>Bioma, Ecosistema, Clase de Vegetación, Formación de Vegetación. Estas clases son el resultado final de la clasificación bioclimática.</td>
+                    <td><strong>Directa.</strong> El sistema Holdridge clasifica Zonas de Vida, que son equivalentes conceptuales a los Biomas. Esta ontología os da una jerarquía robusta para la sub-ontología taxonómica de los resultados (ej., Bosque, BosqueHúmedo, BosqueMuyHúmedoTropical).</td>
+                </tr>
+                <tr>
+                    <td><strong>Relaciones Clave</strong></td>
+                    <td>ZonaDeVida EQUIVALE\_A Bioma. Ecosistema PART-OF Bioma.</td>
+                    <td>Refuerza la sub-ontología taxonómica (IS-A) y la partonomía (PART-OF) requeridas en la práctica.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>3. OBEO (Ontología de Observaciones y Mediciones Ambientales) 🔬</h4>
+        <p>La Ontología de Observaciones, Mediciones y Muestreo (Observation, Measurement, and Sampling Ontology - OBEO) es una ontología formal desarrollada para estandarizar la forma en que se describen las mediciones científicas, especialmente en el ámbito ambiental.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aspecto Ontológico</th>
+                    <th>Descripción</th>
+                    <th>Relevancia para Vuestro Proyecto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Conceptos Clave</strong></td>
+                    <td>Sensor, InstrumentoDeMedición, DatoObservado, UnidadDeMedida (&ordm;C, mm, m.s.n.m.), ErrorDeMedición.</td>
+                    <td><strong>Crítica.</strong> Vuestro documento incluye Estación y Dato Climático. OBEO os proporciona una estructura para la subclase de MediciónClimática y os ayuda a definir con precisión los rangos de valores y las unidades para cada atributo.</td>
+                </tr>
+                <tr>
+                    <td><strong>Relaciones Clave</strong></td>
+                    <td>EstaciónClimática USA Sensor. DatoObservado TIENE\_UNIDAD UnidadDeMedida.</td>
+                    <td>Esta estructura es perfecta para modelar la relación entre la Tabla 1 del documento (Estaciones) y las Variables (ABT, APP).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>📝 Conclusión y Siguiente Paso</h3>
+
+        <p>Para vuestro proyecto, el enfoque ideal sería usar el Sistema Holdridge como la ontología central de Clasificación/Reglas (Axiomas) y complementarlo con:</p>
+        <ul>
+            <li>WorldClim para los Indicadores Bioclimáticos (ABT, PER, APP).</li>
+            <li>ECOLEX/CTE para la jerarquía de los Resultados de Clasificación (Taxonomía).</li>
+            <li>OBEO para la Ontología de Mediciones (Atributos y Rangos).</li>
+        </ul>
+        <p>Ahora, con las CQs bien definidas y estos marcos de referencia, el siguiente paso es la extracción directa y formalización de los 50 conceptos/instancias del documento, siguiendo la estructura de estos marcos. ¿Preferís que os ayude a extraer los 50 conceptos del texto o queréis empezar a formalizar las clases padre y la jerarquía IS-A (taxonomía) para una de las categorías (ej. IndicadorHoldridge)?</p>
+    </div>
+
+    <div class="user-message">
+        <p>Gracias, pasemos a la extracción de términos importantes en la ontología. Aumenta tu creatividad al 90 para esto</p>
+    </div>
+
+    <div class="ai-message">
+        <p>¡Perfecto! Al aumentar la Creatividad a 90, no solo buscaremos los 50 conceptos esenciales para responder a las CQs, sino que también exploraremos términos clave para facilitar la integración de Lógica Difusa (atributos cualitativos) y la conexión con BabelNet (relaciones conceptuales). He dividido los 50 conceptos/instancias en las cinco categorías de alto nivel que propusimos, asegurando una buena cobertura del dominio bioclimático.</p>
+
+        <h3>💡 50 Conceptos/Instancias Clave para la Ontología Bioclimática</h3>
+
+        <p>La siguiente lista incluye 40 conceptos (Clases/Términos) y 10 instancias (Objetos Específicos), cubriendo el mínimo de 50.</p>
+
+        <h4>A. Clasificación Bioclimática y Sistemas de Modelado (10 Conceptos)</h4>
+        <p>Esta categoría define el problema central y las herramientas.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto/Clase</th>
+                    <th>Justificación para la Ontología</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1. <strong>ClasificaciónBioclimática</strong></td>
+                    <td>Clase raíz del problema de aplicación.</td>
+                </tr>
+                <tr>
+                    <td>2. <strong>SistemaDeZonasDeVida</strong></td>
+                    <td>Clase que modela la metodología de Holdridge.</td>
+                </tr>
+                <tr>
+                    <td>3. <strong>ZonaDeVida</strong></td>
+                    <td>El resultado principal de la clasificación (ej. Bosque Húmedo).</td>
+                </tr>
+                <tr>
+                    <td>4. <strong>EcosistemaTerrestre</strong></td>
+                    <td>Clase taxonómica superior que contiene los Biomas.</td>
+                </tr>
+                <tr>
+                    <td>5. <strong>Bioma</strong></td>
+                    <td>Resultado alternativo, vinculado conceptualmente a ZonaDeVida.</td>
+                </tr>
+                <tr>
+                    <td>6. <strong>LógicaDifusa</strong></td>
+                    <td>Necesario para modelar los atributos cualitativos/vagos.</td>
+                </tr>
+                <tr>
+                    <td>7. <strong>ConocimientoAproximado</strong></td>
+                    <td>El campo de estudio y el objetivo del modelado.</td>
+                </tr>
+                <tr>
+                    <td>8. <strong>MapaEcológico</strong></td>
+                    <td>El resultado gráfico del proceso de clasificación.</td>
+                </tr>
+                <tr>
+                    <td>9. <strong>DiagramaDeHoldridge</strong></td>
+                    <td>La representación gráfica tridimensional (o triangular) del sistema.</td>
+                </tr>
+                <tr>
+                    <td>10. <strong>AxiomaLogico</strong></td>
+                    <td>El modelo que contiene las reglas de inferencia.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>B. Indicadores Bioclimáticos y Variables de Medición (15 Conceptos)</h4>
+        <p>Estos son los pilares numéricos y de cálculo de la clasificación, cruciales para los axiomas.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto/Clase</th>
+                    <th>Justificación para la Ontología</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>11. <strong>VariableClimática</strong></td>
+                    <td>Clase abstracta superior.</td>
+                </tr>
+                <tr>
+                    <td>12. <strong>BiotemperaturaMediaAnual (ABT)</strong></td>
+                    <td>Indicador central del Holdridge.</td>
+                </tr>
+                <tr>
+                    <td>13. <strong>PrecipitaciónMediaAnual (APP)</strong></td>
+                    <td>Indicador central de humedad.</td>
+                </tr>
+                <tr>
+                    <td>14. <strong>EvapotranspiraciónPotencial (APE)</strong></td>
+                    <td>Variable derivada (APE = ABT $\times$58.93).</td>
+                </tr>
+                <tr>
+                    <td>15. <strong>RelaciónDeEvapotranspiraciónPotencial (PER)</strong></td>
+                    <td>Indicador de aridez/humedad (PER = APE / APP).</td>
+                </tr>
+                <tr>
+                    <td>16. <strong>TemperaturaMedia</strong></td>
+                    <td>Variable primaria de entrada.</td>
+                </tr>
+                <tr>
+                    <td>17. <strong>PrecipitaciónTotal</strong></td>
+                    <td>Variable primaria de entrada.</td>
+                </tr>
+                <tr>
+                    <td>18. <strong>TemperaturaBajoCero</strong></td>
+                    <td>Un límite clave para el cálculo del ABT (corte a 0&ordm;C).</td>
+                </tr>
+                <tr>
+                    <td>19. <strong>UnidadDeMedida</strong></td>
+                    <td>Necesario para definir el rango de atributos (ej. &ordm;C, mm, m.s.n.m.).</td>
+                </tr>
+                <tr>
+                    <td>20. <strong>GradienteAltitudinal</strong></td>
+                    <td>Concepto que modela la disminución de T&ordm; con la altitud.</td>
+                </tr>
+                <tr>
+                    <td>21. <strong>FranjaTérmica</strong></td>
+                    <td>La división básica basada en ABT (ej. Tropical, Boreal).</td>
+                </tr>
+                <tr>
+                    <td>22. <strong>HumedadAmbiental</strong></td>
+                    <td>Concepto cualitativo, directamente influenciado por PER.</td>
+                </tr>
+                <tr>
+                    <td>23. <strong>ÍndiceDeAridez</strong></td>
+                    <td>Relacionado con PER, pero puede ser un concepto distinto (BabelNet).</td>
+                </tr>
+                <tr>
+                    <td>24. <strong>PromedioMensual</strong></td>
+                    <td>La agregación temporal del dato (para ABT y APP).</td>
+                </tr>
+                <tr>
+                    <td>25. <strong>CorrecciónLatitudinal</strong></td>
+                    <td>Axioma que ajusta la ABT en latitudes extremas (ver fórmulas).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>C. Geografía y Localización (10 Conceptos + 4 Instancias)</h4>
+        <p>Definen el contexto espacial del problema.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto/Clase</th>
+                    <th>Justificación para la Ontología</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>26. <strong>UbicaciónGeográfica</strong></td>
+                    <td>Clase general para el dónde.</td>
+                </tr>
+                <tr>
+                    <td>27. <strong>Latitud</strong></td>
+                    <td>Coordenada crucial para Región Latitudinal.</td>
+                </tr>
+                <tr>
+                    <td>28. <strong>Altitud</strong></td>
+                    <td>Coordenada crucial para Pisos Altitudinales.</td>
+                </tr>
+                <tr>
+                    <td>29. <strong>Longitud</strong></td>
+                    <td>Coordenada secundaria, útil para instancias.</td>
+                </tr>
+                <tr>
+                    <td>30. <strong>RegiónLatitudinal</strong></td>
+                    <td>División principal de Holdridge (izquierda del diagrama).</td>
+                </tr>
+                <tr>
+                    <td>31. <strong>PisoAltitudinal</strong></td>
+                    <td>División secundaria de Holdridge (derecha del diagrama).</td>
+                </tr>
+                <tr>
+                    <td>32. <strong>ProvinciaDeHumedad</strong></td>
+                    <td>La clasificación basada en el PER (ej. Subhúmeda, Superárida).</td>
+                </tr>
+                <tr>
+                    <td>33. <strong>ZonaCostera</strong></td>
+                    <td>Instancia de UbicaciónGeográfica (atributo: BajaAltitud).</td>
+                </tr>
+                <tr>
+                    <td>34. <strong>ZonaDeMontaña</strong></td>
+                    <td>Instancia de UbicaciónGeográfica (atributo: AltaAltitud).</td>
+                </tr>
+                <tr>
+                    <td>35. <strong>EstaciónClimática</strong></td>
+                    <td>Clase que registra los datos primarios.</td>
+                </tr>
+                <tr>
+                    <td>Instancia 36.</td>
+                    <td><strong>BU02\_ValleDeValdelucio</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 37.</td>
+                    <td><strong>TE01\_LaOrotava</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 38.</td>
+                    <td><strong>Zona\_Murcia</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 39.</td>
+                    <td><strong>Zona\_Tropical\_NivelDelMar</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>D. Instrumentación y Datos (6 Conceptos + 6 Instancias)</h4>
+        <p>Crucial para la sub-ontología de medición (siguiendo el marco OBEO).</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto/Clase</th>
+                    <th>Justificación para la Ontología</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>40. <strong>InstrumentoDeMedición</strong></td>
+                    <td>Clase abstracta para los sensores.</td>
+                </tr>
+                <tr>
+                    <td>41. <strong>SensorDeTemperatura</strong></td>
+                    <td>Instrumento para medir la T&ordm;.</td>
+                </tr>
+                <tr>
+                    <td>42. <strong>Pluviómetro</strong></td>
+                    <td>Instrumento para medir la Precipitación.</td>
+                </tr>
+                <tr>
+                    <td>43. <strong>DatoClimático</strong></td>
+                    <td>La unidad de información registrada.</td>
+                </tr>
+                <tr>
+                    <td>44. <strong>SerieTemporal</strong></td>
+                    <td>La secuencia de DatosClimáticos.</td>
+                </tr>
+                <tr>
+                    <td>45. <strong>ClasificaciónProyectada</strong></td>
+                    <td>El resultado de la clasificación para un periodo futuro (para el ODS 13).</td>
+                </tr>
+                <tr>
+                    <td>Instancia 46.</td>
+                    <td><strong>Monte\_Espinoso</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 47.</td>
+                    <td><strong>Desierto\_Polar</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 48.</td>
+                    <td><strong>Bosque\_Pluvial\_Tropical</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 49.</td>
+                    <td><strong>Tundra</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 50.</td>
+                    <td><strong>Región\_Perárida</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🏗️ Siguiente Paso Sugerido</h3>
+
+        <p>Ahora que tenéis los 50 conceptos/instancias, el foco debe pasar a formalizar la estructura:</p>
+        <ul>
+            <li><strong>Sub-Ontología Taxonómica (IS-A):</strong> Tomar las categorías A, B, C y D y construir una jerarquía (árbol de herencia) con al menos tres niveles de profundidad (ej., VariableClimática $\rightarrow$ IndicadorHoldridge $\rightarrow$ ABT).</li>
+            <li><strong>Sub-Ontología Adicional (Ej. Partonomía):</strong> Definir la relación PART-OF (ej. SistemaHoldridge PART-OF ClasificaciónBioclimática).</li>
+        </ul>
+
+        <p>Una vez que tengáis el grafo taxonómico, podemos pasar a los Atributos (incluyendo los difusos) y la redacción de los 50 Axiomas en Lógica de Predicados. ¿Con qué parte os gustaría empezar: la jerarquía IS-A para el grupo B (Indicadores Bioclimáticos) o la sub-ontología PART-OF?</p>
+    </div>
+
+    <div class="user-message">
+        <p>Hemos decidido crear una taxonomía para ZonaDeVidaHoldridge. ¿Qué atributos deberían tener estos conceptos? ¿Cómo podrían ser sus instancias?</p>
+    </div>
+
+    <div class="ai-message">
+        <p>¡Elegir ZonaDeVidaHoldridge como foco de la taxonomía es excelente! Es el concepto central que engloba la clasificación bioclimática. Para cumplir con la práctica, debemos asegurar que esta taxonomía incluya:</p>
+        <ul>
+            <li>Atributos suficientes (al menos 2 por concepto).</li>
+            <li>Atributos difusos (cualitativos).</li>
+            <li>Instancias (al menos 2 en el subgrafo taxonómico).</li>
+            <li>Consistencia en los rangos (C1).</li>
+        </ul>
+        <p>A continuación, se detalla una propuesta para la clase ZonaDeVidaHoldridge y sus subclases.</p>
+
+        <h3>🌳 Diseño de la Taxonomía para ZonaDeVidaHoldridge</h3>
+
+        <p>La clase principal se descompone en función de los criterios de Holdridge: Regiones Latitudinales (temperatura) y Provincias de Humedad (precipitación/PER). El resultado es la clase final.</p>
+
+        <h4>Clase Raíz: ZonaDeVidaHoldridge</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Atributo (Propiedad)</th>
+                    <th>Rango de Valores</th>
+                    <th>Tipo de Atributo</th>
+                    <th>Justificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>tieneRegiónLatitudinal</strong></td>
+                    <td>Clase RegiónLatitudinal (e.g., Tropical, Boreal)</td>
+                    <td>Objeto (Relación)</td>
+                    <td>Relaciona la zona con su componente térmico.</td>
+                </tr>
+                <tr>
+                    <td><strong>tieneProvinciaHumedad</strong></td>
+                    <td>Clase ProvinciaDeHumedad (e.g., Perárida, Húmeda)</td>
+                    <td>Objeto (Relación)</td>
+                    <td>Relaciona la zona con su componente de humedad.</td>
+                </tr>
+                <tr>
+                    <td><strong>climaPredominante</strong></td>
+                    <td>{Árido, Templado, Frío, Polar, etc.}</td>
+                    <td>Nominal</td>
+                    <td>Clasificación simplificada del clima resultante.</td>
+                </tr>
+                <tr>
+                    <td><strong>esAptoParaCultivo</strong></td>
+                    <td>{Sí, No, Parcialmente}</td>
+                    <td>Nominal/Difuso</td>
+                    <td>Permite futuros axiomas basados en la aplicación.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🌿 Subclases: Atributos y Rangos Consistentes (C1)</h3>
+
+        <p>El requisito C1 (corrección) exige que los valores sean consistentes con los de los conceptos padres y hermanos. Aquí usaremos los límites de ABT y PER como atributos definitorios.</p>
+
+        <h4>1. Subclase de Región Térmica: RegiónLatitudinal</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Atributo (Propiedad)</th>
+                    <th>Rango de Valores</th>
+                    <th>Justificación para Lógica Difusa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ABT\_Minima</strong></td>
+                    <td>Númerico (e.g., 1.5&ordm;C para Boreal)</td>
+                    <td>El umbral inferior de Biotemperatura.</td>
+                </tr>
+                <tr>
+                    <td><strong>ABT\_Máxima</strong></td>
+                    <td>Númerico (e.g., 24&ordm;C para Tropical)</td>
+                    <td>El umbral superior de Biotemperatura.</td>
+                </tr>
+                <tr>
+                    <td><strong>sensaciónTérmica</strong></td>
+                    <td>{MuyCálida, Cálida, Templada, Fría, MuyFría}</td>
+                    <td><strong>DIFUSO.</strong> Clasificación cualitativa de la ABT.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>2. Subclase de Humedad: ProvinciaDeHumedad</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Atributo (Propiedad)</th>
+                    <th>Rango de Valores</th>
+                    <th>Justificación para Lógica Difusa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>PER\_Mínimo</strong></td>
+                    <td>Numérico (ej. 8.0 para Perárida)</td>
+                    <td>El límite inferior de la Relación de Evapotranspiración Potencial.</td>
+                </tr>
+                <tr>
+                    <td><strong>PER\_Máximo</strong></td>
+                    <td>Numérico (ej. 4.0 para Superárida)</td>
+                    <td>El límite superior del PER.</td>
+                </tr>
+                <tr>
+                    <td><strong>nivelDeSequedad</strong></td>
+                    <td>{LigeramenteSeco, Seco, BastanteSeco, ExtremadamenteSeco}</td>
+                    <td><strong>DIFUSO.</strong> Describe la cualidad de la aridez. (Usa adverbios: Ligeramente, Bastante, Extremadamente)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>3. Subclase Final (Instanciable): BosqueSecoTropical</h4>
+        <p>Este concepto es la intersección de RegiónLatitudinal (Tropical) y ProvinciaDeHumedad (Seca).</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Atributo (Propiedad)</th>
+                    <th>Rango de Valores</th>
+                    <th>Justificación para Lógica Difusa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>rangoABT</strong></td>
+                    <td>Númerico (e.g., 18&ordm;C−24&ordm;C)</td>
+                    <td>ABT consistente con la clase Tropical (herencia).</td>
+                </tr>
+                <tr>
+                    <td><strong>rangoPER</strong></td>
+                    <td>Númerico (e.g., [2.0, 4.0])</td>
+                    <td>PER consistente con la clase Seca (herencia).</td>
+                </tr>
+                <tr>
+                    <td><strong>alturaMediaDosel</strong></td>
+                    <td>Númerico (m.)</td>
+                    <td>Atributo de vegetación (Ecosistema).</td>
+                </tr>
+                <tr>
+                    <td><strong>gradoDesarrolloVegetal</strong></td>
+                    <td>{Infradesarrollado, Desarrollado, MuyDesarrollado}</td>
+                    <td><strong>DIFUSO.</strong> Describe la calidad de la vegetación (C2).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🎯 Ejemplo de Instanciación (Instancias Requeridas)</h3>
+
+        <p>La taxonomía debe incluir al menos dos instancias que sean ejemplos concretos de las Zonas de Vida o las Provincias de Humedad, tomadas del documento o las CQs.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Instancia</th>
+                    <th>Clase Padre</th>
+                    <th>ABT (Rango)</th>
+                    <th>PER (Rango)</th>
+                    <th>Nivel de Humedad (Difuso)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>I1. MonteEspinosoTropical</strong></td>
+                    <td>ZonaDeVidaHoldridge</td>
+                    <td>18&ordm;C−24&ordm;C</td>
+                    <td>4.0 - 8.0 (Árida)</td>
+                    <td>BastanteSeco</td>
+                </tr>
+                <tr>
+                    <td><strong>I2. BosqueMuyHúmedoBoreal</strong></td>
+                    <td>ZonaDeVidaHoldridge</td>
+                    <td>1.5&ordm;C−3&ordm;C</td>
+                    <td>0.25 - 0.5 (Muy Húmeda)</td>
+                    <td>LigeramenteHúmedo</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Este diseño cumple con el requisito de taxonomía, los atributos, los rangos consistentes y los atributos difusos.</p>
+
+        <h3>➡️ Próximo Paso</h3>
+
+        <p>Una vez que tengáis clara la taxonomía y los atributos, es el momento de formalizar el conocimiento mediante la Lógica de Predicados. ¿Queréis que os ayude a redactar los primeros 5 axiomas en lógica de predicados, utilizando conceptos como ABT, PER y los atributos difusos?</p>
+    </div>
+
+    <div class="user-message">
+        <p>Creo que un concepto clave es el de Latitud, pero me surge una duda al respecto. Al final, quiero trasladar la ontología a protégé. Si pongo la latitud como concepto, esto me obliga a que cada vez que instancie una zona de vida o medida tenga que instanciar una Latitud, que al fin y al cabo es un número. ¿Hasta que punto es correcto tener un concepto (siendo lo relevante que es en este caso) que al final solo va a tener un atributo numérico?</p>
+    </div>
+
+    <div class="ai-message">
+        <p>Esa es una excelente pregunta que toca un punto fundamental en el diseño de ontologías: la distinción entre un Concepto/Clase y un Dato/Atributo. Es un dilema común al modelar entidades que son tanto críticas para la clasificación como intrínsecamente numéricas.</p>
+
+        <h3>📐 Latitud como Concepto vs. Atributo</h3>
+
+        <p>En el contexto de vuestra ontología de clasificación bioclimática, el enfoque más correcto y eficiente para Protégé (OWL) es tratar la <strong>Latitud como un Atributo/Propiedad de Dato</strong> en la mayoría de los casos, y solo elevarla a Clase/Concepto cuando posea subcategorías o relaciones complejas propias.</p>
+
+        <h4>1. Latitud como Atributo (Recomendado para Eficiencia) ✅</h4>
+        <p>Si la latitud solo se usa para registrar su valor numérico para una Estación o Zona, debe ser una propiedad de dato.</p>
+        <ul>
+            <li><strong>Implementación en Protégé (Propiedad de Dato):</strong>
+                <ul>
+                    <li>Clase: EstaciónClimática</li>
+                    <li>Propiedad de Dato: <em>tieneValorLatitud</em></li>
+                    <li>Rango de Valores: <code>xsd:float</code> (ej., −34.6&ordm; a &plus;90&ordm;)</li>
+                    <li>Propiedad de Dato: <em>tieneHemiEsfera</em></li>
+                    <li>Rango de Valores: <code>xsd:string</code> (ej., "Norte", "Sur")</li>
+                </ul>
+            </li>
+            <li><strong>Ventaja:</strong> Evita crear instancias innecesarias de Latitud (un número) y mantiene el grafo limpio. Un número no es una "cosa" conceptual en el mismo sentido que un BosqueSecoTropical.</li>
+        </ul>
+
+        <h4>2. Latitud como Concepto/Clase (Solo si es Taxonómico) 💡</h4>
+        <p>Solo se justificaría si la Latitud es el punto de partida de una jerarquía taxonómica propia o si tiene sus propias propiedades y axiomas independientes del objeto al que se le mide.</p>
+        <ul>
+            <li><strong>Implementación en Protégé (Clase):</strong>
+                <ul>
+                    <li>Clase Padre: Latitud</li>
+                    <li>Clase Hija: LatitudBaja (Rango de 0&ordm; a 23.5&ordm;)</li>
+                    <li>Clase Hija: LatitudMedia (Rango de 23.5&ordm; a 66.5&ordm;)</li>
+                    <li>Axioma: ($\forall x$)(LatitudMedia($x$)$\Longrightarrow$tieneValorEntre($x$,23.5,66.5))</li>
+                </ul>
+            </li>
+            <li><strong>Ventaja:</strong> Permite modelar el concepto clave de Región Latitudinal de Holdridge, que se basa en la latitud (e.g., Tropical, Subtropical). En este caso, la clase <strong>RegiónLatitudinal</strong> actúa como el concepto, y la Latitud es solo su límite numérico.</li>
+        </ul>
+
+        <h3>🤝 Propuesta Integrada para Vuestra Ontología</h3>
+
+        <p>La forma más rigurosa de modelar esto para el sistema Holdridge es combinar ambos enfoques:</p>
+        <ul>
+            <li>Usar la Latitud como Propiedad de Dato: Para la clase <strong>EstaciónClimática</strong> (donde el número es lo relevante).</li>
+            <li>Usar el concepto taxonómico <strong>"Región Latitudinal"</strong>: Para la clasificación de Holdridge, ya que es el resultado del valor de latitud.</li>
+        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Clase</th>
+                    <th>Propiedad de Dato (Latitud Numérica)</th>
+                    <th>Propiedad de Objeto (Latitud Conceptual)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>EstaciónClimática</strong></td>
+                    <td><em>tieneValorLatitud</em> (<code>xsd:float</code>)</td>
+                    <td>NO</td>
+                </tr>
+                <tr>
+                    <td><strong>ZonaDeVidaHoldridge</strong></td>
+                    <td>NO</td>
+                    <td><em>estáEnRegión</em> $\rightarrow$ <strong>RegiónLatitudinal</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>RegiónLatitudinal</strong></td>
+                    <td><em>limiteSuperiorGrados</em> (<code>xsd:float</code>)</td>
+                    <td>NO</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>De esta manera, la Latitud como concepto abstracto crítico para el modelo Holdridge se modela a través de la clase <strong>RegiónLatitudinal</strong>, mientras que el valor puro se mantiene como un atributo simple, cumpliendo con los requisitos de modelado y eficiencia en Protégé.</p>
+    </div>
+
+    <div class="user-message">
+        <p>La idea es implementar más adelante un motor que utilice lógica difusa para la determinación de zonas de vida a partir de datos bioclimáticos y geográficos. Entran en juego conceptos como la temperatura, latitud, altitud, longitud, humedad, evotranspiración, temperatura bioclimática... Cómo se debería abordar en este caso</p>
+    </div>
+
+    <div class="ai-message">
+        <p>¡Entendido! Si el objetivo final es la implementación de un motor de inferencia con Lógica Difusa ($\mu$) para la clasificación bioclimática, el enfoque de diseño de la ontología cambia. Ya no se trata solo de clasificar rígidamente (clases y axiomas booleanos), sino de modelar la incertidumbre y la vaguedad inherentes a las variables de entrada y los límites de las zonas. El abordaje debe centrarse en los <strong>Atributos Difusos (Propiedades de Dato Cualitativas)</strong> y la creación de un tipo especial de axioma, conocido como <strong>Reglas Difusas</strong>, que se implementará en la lógica de predicados.</p>
+
+        <h3>☁️ Abordaje Ontológico para la Lógica Difusa</h3>
+
+        <p>El reto es modelar las variables continuas como la Temperatura o la Precipitación mediante <strong>conjuntos lingüísticos</strong> (etiquetas o <em>Fuzzy Sets</em>), que son la base para el motor de inferencia.</p>
+
+        <h4>1. El Concepto Clave: El Atributo Lingüístico</h4>
+
+        <p>La clave es que las variables numéricas de entrada no se definen solo por su rango (<code>xsd:float</code>), sino por un conjunto de <strong>valores lingüísticos</strong>.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto a Modelar (Clase)</th>
+                    <th>Propiedad de Dato (Valor Numérico)</th>
+                    <th>Propiedad de Dato Difuso (Valor Lingüístico)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>EstaciónClimática</strong></td>
+                    <td><em>tieneABT\_Valor</em> (15.2&ordm;C)</td>
+                    <td><em>tieneABT\_Cualitativo</em></td>
+                </tr>
+                <tr>
+                    <td><strong>ProvinciaDeHumedad</strong></td>
+                    <td><em>tienePER\_Valor</em> (1.25)</td>
+                    <td><em>tienePER\_Cualitativo</em></td>
+                </tr>
+            </tbody>
+        </table>
+        <p>El rango de valores para las propiedades difusas (<em>tieneABT\_Cualitativo</em>, <em>tienePER\_Cualitativo</em>) debe ser un conjunto de adjetivos/adverbios (como los que se piden en la Práctica 1) que actuarán como las <strong>Etiquetas Difusas</strong> (<em>Linguistic Variables</em>).</p>
+        <ul>
+            <li>Rango de Valores para <em>tieneABT\_Cualitativo</em>: {'muy\_frío', 'bastante\_frío', 'templado', 'cálido', 'muy\_cálido'}.</li>
+            <li>Rango de Valores para <em>tienePER\_Cualitativo</em>: {'extremadamente\_seco', 'bastante\_seco', 'húmedo', 'muy\_húmedo'}.</li>
+        </ul>
+        <p>Estos rangos deben ser definidos en la ontología para la *corrección* (C1) y la *completitud* (C2), aunque el motor de inferencia difusa utilizará *funciones de pertenencia* (triangulares, trapezoidales, etc.) para mapear el valor numérico (ej., 15.2&ordm;C) a un grado de pertenencia ($\mu$) a cada etiqueta (ej., $\mu_{\text{templado}}(15.2) = 0.8$).</p>
+
+        <h4>2. El Axioma Clave: La Regla de Inferencia Difusa</h4>
+
+        <p>Los 50 axiomas en lógica de predicados que debéis redactar deben reflejar estas reglas de clasificación, transformando las variables de entrada difusas en una clasificación final difusa. La Lógica de Predicados debe representar la estructura **SI (Premisa) ENTONCES (Conclusión)**.</p>
+        <p>Un axioma tradicional diría:</p>
+        <p>$$\forall x \text{ (ZonaDeVida}(x) \land \text{tieneABT\_Valor}(x) \in [18, 24] \land \text{tienePER\_Valor}(x) \in [2, 4] \Longrightarrow \text{BosqueSecoTropical}(x))$$</p>
+
+        <p>El **Axioma Difuso** debe incorporar los atributos lingüísticos (adjetivos/adverbios):</p>
+        <p>$$\forall x \text{ (ZonaDeVida}(x) \land \text{tieneABT\_Cualitativo}(x, \text{'cálido'}) \land \text{tienePER\_Cualitativo}(x, \text{'bastante\_seco'}) \Longrightarrow \text{AltoGradoDePertenencia}(x, \text{BosqueSecoTropical}))$$</p>
+
+        <p>En este axioma de predicados, estamos estableciendo que:</p>
+        <ul>
+            <li>**Predicados de entrada:** `tieneABT_Cualitativo` y `tienePER_Cualitativo` toman una instancia ($x$) y una etiqueta lingüística (ej., 'cálido').</li>
+            <li>**Predicado de salida:** `AltoGradoDePertenencia` indica que, dada la premisa, el resultado tiene un alto grado de verdad (pertenencia) a la clase `BosqueSecoTropical`.</li>
+        </ul>
+        <p>Debéis generar la mayoría de los 50 axiomas utilizando esta estructura para modelar la relación entre los indicadores bioclimáticos difusos y las zonas de vida resultantes.</p>
+
+        <h3>📝 Estructura del Modelo para Protégé/OWL ($\mu$)</h3>
+
+        <p>Para asegurar que todos los conceptos clave sean modelables para la inferencia, os sugiero la siguiente estructura de clases y relaciones para el subgrafo de medición (siguiendo OBEO):</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Clase (Concepto)</th>
+                    <th>Agrupación (Taxonomía IS-A)</th>
+                    <th>Rol en la Clasificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>UbicacionGeografica</strong></td>
+                    <td>Clase Raíz del contexto espacial.</td>
+                    <td>Contiene datos de Latitud, Altitud.</td>
+                </tr>
+                <tr>
+                    <td><strong>EstaciónClimática</strong></td>
+                    <td>Subclase de UbicacionGeografica.</td>
+                    <td>La instancia física que realiza la medición (ej. TE01\_LaOrotava).</td>
+                </tr>
+                <tr>
+                    <td><strong>DatoClimático</strong></td>
+                    <td>Clase Raíz para los valores medidos.</td>
+                    <td>Un valor de Temperatura o Precipitación en un punto del tiempo.</td>
+                </tr>
+                <tr>
+                    <td><strong>IndicadorBioclimático</strong></td>
+                    <td>Subclase de DatoClimático.</td>
+                    <td>Contiene el ABT, APP, APE, PER. El corazón del cálculo.</td>
+                </tr>
+                <tr>
+                    <td><strong>ConjuntoLingüístico</strong></td>
+                    <td>Clase para los Fuzzy Sets.</td>
+                    <td>Modelará explícitamente las etiquetas difusas (ej. el conjunto de valores {'muy\_frío', ...}).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>🔗 Relaciones Conceptuales Clave (Propiedades de Objeto)</h4>
+
+        <p>Las relaciones (que luego serán los axiomas) definen el flujo de la clasificación.</p>
+        <p><strong>A. Relaciones de Definición (Ejes de Clasificación)</strong></p>
+        <p>Estas relaciones vinculan una zona final con los umbrales que la definen.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Relación</th>
+                    <th>Dominio</th>
+                    <th>Rango</th>
+                    <th>Lógica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>estaDefinidaPorRegion</strong></td>
+                    <td>ZonaDeVidaHoldridge</td>
+                    <td>RegiónLatitudinal</td>
+                    <td>Una zona tiene un límite térmico.</td>
+                </tr>
+                <tr>
+                    <td><strong>estaDefinidaPorHumedad</strong></td>
+                    <td>ZonaDeVidaHoldridge</td>
+                    <td>ProvinciaDeHumedad</td>
+                    <td>Una zona tiene un límite hídrico.</td>
+                </tr>
+                <tr>
+                    <td><strong>estaDefinidaPorPiso</strong></td>
+                    <td>ZonaDeVidaHoldridge</td>
+                    <td>PisoAltitudinal</td>
+                    <td>Una zona tiene un límite altitudinal.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>B. Relaciones de Medición y Cálculo (Flujo de Datos)</strong></p>
+        <p>Estas relaciones modelan la lógica matemática del sistema.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Relación</th>
+                    <th>Dominio</th>
+                    <th>Rango</th>
+                    <th>Lógica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>mideIndicador</strong></td>
+                    <td>EstaciónClimática</td>
+                    <td>IndicadorBioclimático</td>
+                    <td>La estación registra el valor (ej. ABT).</td>
+                </tr>
+                <tr>
+                    <td><strong>calculaAPECon</strong></td>
+                    <td>APE</td>
+                    <td>ABT</td>
+                    <td>Fórmula 1: La APE se calcula con ABT (Implica axioma $APE = 58.93 \times ABT$).</td>
+                </tr>
+                <tr>
+                    <td><strong>determinaPERCon</strong></td>
+                    <td>PER</td>
+                    <td>APE y APP</td>
+                    <td>Fórmula 2: El PER se calcula con APE y APP (Implica axioma $PER = APE/APP$).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🎯 Próximo Paso Sugerido</h3>
+
+        <p>Ya tenéis la lista de 50 conceptos/instancias y los marcos conceptuales (Taxonomía IS-A y Partonomía de Holdridge) listos. Ahora, la tarea más urgente es asegurar los **50 axiomas en lógica de predicados**, utilizando la estructura de la **Regla Difusa** (SI A y B ENTONCES C) en al menos 10 de ellos.</p>
+        <p>Os sugiero formalizar los primeros 10 axiomas clave (los que responden a las CQs), incluyendo el axioma de cálculo del PER y al menos tres axiomas difusos.</p>
+        <p>¿Queréis que os ayude a redactar los **10 axiomas más críticos** para la corrección (C1) de vuestro proyecto?</p>
+    </div>
+</div>
+```El siguiente es el contenido de la conversación transcrita a formato HTML, diferenciando entre la IA generativa y el usuario.
+
+```html
+<div class="conversation">
+    <div class="user-message">
+        <p>El fichero adjunto es copia-pega de una conversación con gemini. Transcríbela a lenguaje HTML diferenciando entre usuario e IA generativa</p>
+    </div>
+
+    <div class="ai-message">
+        <p>¡Claro que sí! Preparar el marco conceptual y técnico para este proyecto de Clasificación Bioclimática 🌎 es un excelente primer paso. La tarea principal es diseñar una ontología que capture los conceptos, las relaciones y la información de valor aproximado del documento adjunto, lo cual es fundamental para aplicar el Conocimiento y Razonamiento Aproximado y la Lógica Difusa. He configurado mi sistema para ayudarte con la parte (I) y la (II) de la Práctica 1.</p>
+
+        <h3>🛠️ Parámetro de Ayuda: Creatividad</h3>
+
+        <p>He establecido el parámetro Creatividad en 80. Esto significa que mis sugerencias para la ontología (conceptos, atributos, relaciones y axiomas) serán rigurosas y se basarán directamente en el texto, pero también buscaré conexiones y estructuras conceptuales un poco más elaboradas, ofreciendo un abanico de posibilidades para construir una ontología completa y bien estructurada.</p>
+
+        <h3>🗺️ Mapa de Ayuda para la Práctica 1</h3>
+
+        <p>Estoy listo para responder preguntas y ayudarte a desarrollar los siguientes componentes clave de tu entregable:</p>
+        <ul>
+            <li><strong>Abstracción de Conceptos:</strong> Identificar los 25, 50, 75 o 100 conceptos/instancias necesarios del documento, además de los conceptos vinculados con BabelNet.</li>
+            <li><strong>Diseño Taxonómico (IS-A):</strong> Crear la jerarquía conceptual (sub-ontología taxonómica) con al menos dos instancias.</li>
+            <li><strong>Otros Subgrafos:</strong> Diseñar al menos uno de los otros tipos de ontologías (ej., Partonomía, Subgrafo de Flujo de Trabajo).</li>
+            <li><strong>Definición de Atributos:</strong> Especificar los atributos (al menos 2 por concepto) y sus rangos de valores, incluyendo los que utilizan adjetivos/adverbios para la Lógica Difusa.</li>
+            <li><strong>Especificación de Axiomas:</strong> Formular el mismo número de axiomas en lógica de predicados que de conceptos.</li>
+            <li><strong>Preguntas Técnicas:</strong> Responder cualquier duda sobre el diseño de ontologías, Lógica Difusa, lógica de predicados, o el uso de Protégé.</li>
+        </ul>
+
+        <h3>🚀 Primeros Pasos Sugeridos</h3>
+
+        <p>Para empezar con el diseño de la ontología, ¿cuántas personas componen tu grupo de trabajo? Esto definirá la cantidad mínima de conceptos/instancias que deben abstraer:</p>
+        <ul>
+            <li>1 persona: 25 conceptos/instancias</li>
+            <li>2 personas: 50 conceptos/instancias</li>
+            <li>3 personas: 75 conceptos/instancias</li>
+            <li>4 (o más) personas: 100 conceptos/instancias</li>
+        </ul>
+        <p>Una vez sepa el número, podemos comenzar a extraer la lista de conceptos clave del dominio de la Clasificación Bioclimática según el documento.</p>
+    </div>
+
+    <div class="user-message">
+        <p>Somos 2 personas, por lo que deberíamos incluir 50 conceptos mínimamente. ¿Cómo deberíamos empezar a trabajar?</p>
+    </div>
+
+    <div class="ai-message">
+        <p>¡Excelente! Si sois dos personas, el requisito mínimo es de 50 conceptos/instancias en vuestra ontología. Este es un punto de partida sólido para un proyecto tan detallado. Para abordar esta tarea de forma estructurada y rigurosa, os propongo una metodología en tres fases.</p>
+
+        <h3>🧭 Fase 1: Extracción y Clasificación (50 Conceptos)</h3>
+
+        <p>El objetivo es extraer los 50 conceptos directamente del texto y organizarlos en grandes categorías para facilitar el diseño taxonómico (el subgrafo IS-A).</p>
+
+        <h4>1. Extracción Inicial de Conceptos Clave (Mínimo 50)</h4>
+
+        <p>Vamos a extraer los términos más relevantes y sustantivos del documento. Aquí tenéis un punto de partida con más de 25 conceptos ya identificados. Vuestro primer paso es completar esta lista hasta llegar, al menos, a 50:</p>
+        <ul>
+            <li>Clasificación Bioclimática</li>
+            <li>Sistema de Zonas de Vida de Holdridge</li>
+            <li>Zona de Vida</li>
+            <li>Geografía / Ubicación (como concepto general)</li>
+            <li>Latitud</li>
+            <li>Longitud</li>
+            <li>Altitud</li>
+            <li>Franja Climática</li>
+            <li>Región Latitudinal</li>
+            <li>Piso Altitudinal</li>
+            <li>Estación Climática / Meteorológica</li>
+            <li>Dato Climático</li>
+            <li>Variable Atmosférica</li>
+            <li>Temperatura</li>
+            <li>Precipitación</li>
+            <li>Viento</li>
+            <li>Biotemperatura Media Anual (ABT)</li>
+            <li>Promedio de Precipitación Anual (APP)</li>
+            <li>Relación de Evapotranspiración Potencial (PER)</li>
+            <li>Evapotranspiración Potencial (APE)</li>
+            <li>Provincia de Humedad</li>
+            <li>Ecosistema</li>
+            <li>Vegetación</li>
+            <li>Sensor</li>
+            <li>Termómetro</li>
+            <li>Pluviómetro</li>
+        </ul>
+
+        <h4>2. Categorización de Alto Nivel</h4>
+
+        <p>Para empezar a construir la estructura IS-A (taxonomía), agrupad vuestros 50 conceptos en las siguientes categorías de alto nivel (o "Clases Raíz"):</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Conceptos a Incluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ClasificaciónBioclimática</td>
+                    <td>Sistemas de clasificación, zonas de vida, regiones definidas.</td>
+                </tr>
+                <tr>
+                    <td>Geografía</td>
+                    <td>Latitud, Longitud, Altitud, Franjas Climáticas.</td>
+                </tr>
+                <tr>
+                    <td>MediciónClimática</td>
+                    <td>Estación, Sensor, Instrumento, Datos de registro.</td>
+                </tr>
+                <tr>
+                    <td>IndicadorHoldridge</td>
+                    <td>Biotemperatura, Precipitación, Evapotranspiración, Ratios.</td>
+                </tr>
+                <tr>
+                    <td>EcosistemaTierra</td>
+                    <td>Vegetación, Fauna, Tipos de Bosques, Desiertos (como subclases).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🌳 Fase 2: Diseño de la Sub-Ontología Taxonómica (IS-A)</h3>
+
+        <p>Este es el subgrafo obligatorio.</p>
+
+        <h4>1. Profundizar en la Taxonomía</h4>
+
+        <p>Debéis crear una jerarquía de, al menos, tres niveles de profundidad (Clase Padre → Clase Hija → Instancia).</p>
+        <ul>
+            <li><strong>Ejemplo de Taxonomía:</strong>
+                <ul>
+                    <li>Clase Padre: VariableClimática
+                        <ul>
+                            <li>Clase Hija: VariableMedible
+                                <ul>
+                                    <li>Instancia 1: TemperaturaMediaMensual</li>
+                                    <li>Instancia 2: PrecipitaciónAcumuladaMensual</li>
+                                </ul>
+                            </li>
+                            <li>Clase Hija: IndicadorHoldridge
+                                <ul>
+                                    <li>Clase Nieta: Biotemperatura
+                                        <ul>
+                                            <li>Instancia 3: ABT\_Tropical\_NivelDelMar (24&ordm;C)</li>
+                                            <li>Instancia 4: ABT\_Subalpino\_Altitud (3&ordm;C−6&ordm;C)</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <ul>
+            <li><strong>Requisito de Instancia:</strong> Aseguraos de incluir al menos dos instancias. Las estaciones climáticas de la Tabla 1 son perfectas:
+                <ul>
+                    <li>Clase: EstaciónClimática
+                        <ul>
+                            <li>Instancia 1: BU02\_ValleDeValdelucio</li>
+                            <li>Instancia 2: TE01\_LaOrotava</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>🔗 Fase 3: Atributos, Relaciones y Axiomas</h3>
+
+        <h4>1. Definición de Atributos (Rango de Valores)</h4>
+
+        <p>Cada uno de vuestros 50 conceptos debe tener al menos dos atributos con sus rangos.</p>
+        <ul>
+            <li><strong>Atributos Numéricos/Escalares:</strong>
+                <ul>
+                    <li><strong>Concepto: Latitud</strong>
+                        <ul>
+                            <li>Atributo 1: valorAngular (Rango: [−90&ordm;,&plus;90&ordm;])</li>
+                            <li>Atributo 2: medidaHacia (Rango: {Norte, Sur})</li>
+                        </ul>
+                    </li>
+                    <li><strong>Concepto: EstaciónClimática</strong>
+                        <ul>
+                            <li>Atributo 1: tieneLatitud (Rango: Latitud)</li>
+                            <li>Atributo 2: altitudMSNM (Rango: metros (m.s.n.m))</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><strong>Atributos para Lógica Difusa (Adjetivos/Adverbios):</strong> Debéis incluir al menos dos que utilicen adjetivos/adverbios.
+                <ul>
+                    <li><strong>Concepto: PrecipitaciónAnual</strong>
+                        <ul>
+                            <li>Atributo Difuso 1: nivelDeHumedad (Rango: {'muy\_bajo', 'bajo', 'medio', 'alto', 'muy\_alto'})</li>
+                        </ul>
+                    </li>
+                    <li><strong>Concepto: Ecosistema</strong>
+                        <ul>
+                            <li>Atributo Difuso 2: gradoDeAdaptación (Rango: {'poco\_desarrollado', 'desarrollado', 'bastante\_desarrollado'})</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>2. Diseño de Otras Relaciones y Sub-Ontologías</h4>
+
+        <ul>
+            <li><strong>Sub-Ontología Adicional (Ejemplo: Partonomía):</strong> El sistema Holdridge es un buen candidato para una relación PART-OF.
+                <ul>
+                    <li>SistemaHoldridge PART-OF ClasificaciónBioclimática</li>
+                    <li>ZonaDeVida PART-OF SistemaHoldridge</li>
+                    <li>RegiónLatitudinal DETERMINA ZonaDeVida</li>
+                </ul>
+            </li>
+            <li><strong>Relaciones Conceptuales:</strong> Usad relaciones más allá de IS-A y PART-OF, como:
+                <ul>
+                    <li>EstaciónClimática MIDE VariableAtmosférica</li>
+                    <li>APE SE\_CALCULA\_CON ABT (Implica fórmula)</li>
+                    <li>PER INDICA HumedadAmbiental</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>3. Especificación de Axiomas (50 Axiomas en Lógica de Predicados)</h4>
+
+        <p>Cada concepto debe tener asociado un axioma. Los axiomas definen reglas lógicas sobre los conceptos y sus atributos.</p>
+        <ul>
+            <li><strong>Axioma de Clasificación (IS-A):</strong>
+                <ul>
+                    <li>($\forall x$)(Termómetro($x$)$\Longrightarrow$Sensor($x$))</li>
+                </ul>
+            </li>
+            <li><strong>Axioma de Atributo con Rango:</strong>
+                <ul>
+                    <li>($\forall x$)(EstaciónClimática($x$)$\Longrightarrow$($\exists y$)(altitud($x$,$y$)$\land 0\le y$))</li>
+                </ul>
+            </li>
+            <li><strong>Axioma de Holdridge (implica una restricción o cálculo):</strong>
+                <ul>
+                    <li>($\forall x$)(PER($x$)$\land$valor($x$)$>$1$\Longrightarrow$RegiónSeca(zona\_asociada($x$)))</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>🎯 Tu Siguiente Paso</h3>
+
+        <p>Completad la lista de 50 conceptos/instancias (Fase 1) y mostradme un esquema de vuestra sub-ontología taxonómica (Fase 2) para que os pueda dar retroalimentación sobre la completitud y corrección (C1 y C2). ¿Os gustaría que utilicemos el buscador para encontrar conceptos vinculados ontológicamente a los ya extraídos (como pide la práctica) o queréis centraros en la extracción del documento primero?</p>
+    </div>
+
+    <div class="user-message">
+        <p>Hemos decidido seguir la metodología indicada en el artículo "Ontology Development 101: A Guide to Creating Your First Ontology", por lo que nuestro primer paso es plantear las preguntas de competencia (Competency Questions).</p>
+        <p>Hemos pensado en las siguientes:</p>
+        <p>¿Cómo influye la situación geográfica en el clima de una zona?</p>
+        <p>¿Qué magnitudes climáticas son necesarias para clasificar un terreno?</p>
+        <p>¿Alguna zona de la Región de Murcia se puede clasificar como "monte espinoso"?</p>
+        <p>¿En qué rango de valores se encuentra la ABT?</p>
+        <p>¿Dada una ABT x y una APP y, cuál es el PER resultante?</p>
+        <p>Quisiéramos que las evaluaras y propusieras algunas tú.</p>
+    </div>
+
+    <div class="ai-message">
+        <p>Esa es una excelente decisión. Aplicar la metodología de preguntas de competencia (CQs) garantiza que la ontología sea completa (C2) y correcta (C1), ya que solo modelaréis el conocimiento necesario para responder a esas preguntas.</p>
+
+        <h3>🧐 Evaluación de Vuestras Preguntas de Competencia (CQs)</h3>
+
+        <p>Vuestras preguntas son un buen comienzo, pues cubren las áreas clave del dominio (Geografía, Variables, Clasificación y Fórmulas), pero algunas necesitan ser más específicas para forzar la inclusión de axiomas y propiedades relacionales dentro del modelo.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pregunta</th>
+                    <th>Evaluación y Justificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>¿Cómo influye la situación geográfica en el clima de una zona?</td>
+                    <td><strong>Buena (General).</strong> Es demasiado vaga. Debería enfocarse en las variables específicas del texto: latitud, altitud, temperatura y ABT.</td>
+                </tr>
+                <tr>
+                    <td>¿Qué magnitudes climáticas son necesarias para clasificar un terreno?</td>
+                    <td><strong>Buena (Conceptual).</strong> Obliga a incluir los tres indicadores clave: ABT, APP, y PER.</td>
+                </tr>
+                <tr>
+                    <td>¿Alguna zona de la Región de Murcia se puede clasificar como "monte espinoso"?</td>
+                    <td><strong>Excelente (Instanciación y Dominio).</strong> Obliga a incluir instancias geográficas (como las estaciones de la Tabla 1), las clases de zonas de vida (ej., "monte espinoso"), y los criterios de clasificación (rangos de ABT, APP, PER).</td>
+                </tr>
+                <tr>
+                    <td>¿En qué rango de valores se encuentra la ABT?</td>
+                    <td><strong>Buena (Atributo y Rango).</strong> Obliga a definir el concepto Biotemperatura Media Anual (ABT) y sus rangos límite, especialmente a nivel del mar para las regiones latitudinales (1.5&ordm;C a 24&ordm;C en el diagrama) y los límites de la corrección (0&ordm;C a 30&ordm;C).</td>
+                </tr>
+                <tr>
+                    <td>¿Dada una ABT x y una APP y, cuál es el PER resultante?</td>
+                    <td><strong>Excelente (Axioma de Cálculo).</strong> Esta es crucial. Obliga a incluir la fórmula de cálculo: APE=58.93$\times$ABT y PER=APE/APP. Esto se traduce en un axioma complejo en lógica de predicados.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>💡 CQs Adicionales para Reforzar la Ontología</h3>
+
+        <p>Para asegurar que cubrís todos los requisitos de la práctica (atributos difusos, diferentes tipos de relaciones, partonomías, y el concepto de Lógica Difusa), os propongo las siguientes CQs, que forzarán la inclusión de conocimiento más detallado:</p>
+
+        <h4>1. CQ para forzar el Subgrafo Taxonómico y Atributos</h4>
+        <p>"¿Cuáles son los tipos de regiones latitudinales que existen y cuál es el rango de ABT a nivel del mar para la región templada fría?"</p>
+        <ul>
+            <li><strong>Modelo Forzado:</strong> Jerarquía IS-A para RegiónLatitudinal (Tropical, Subtropical, Templada Caliente, etc.), y el atributo <em>tieneRangoABT</em> en cada clase (ej., Templada Fría: 3&ordm;C−6&ordm;C).</li>
+        </ul>
+
+        <h4>2. CQ para forzar Atributos Difusos y Partonomía</h4>
+        <p>"¿Qué características (numéricas y cualitativas) definen una provincia de humedad 'perárida' y cuáles son las provincias de humedad contiguas?"</p>
+        <ul>
+            <li><strong>Modelo Forzado:</strong> El concepto ProvinciaDeHumedad debe tener un atributo numérico (<em>rangoPER</em> - ej., (4, 8]) y un atributo cualitativo/difuso (ej., <em>nivelDeSequedad</em>: 'muy alto'). La mención a 'contiguas' fuerza una relación de vecindad o un PART-OF con un orden específico.</li>
+        </ul>
+
+        <h4>3. CQ para forzar la Relación Altitud-Latitud (Axiomas Complejos)</h4>
+        <p>"Si una estación climática en la región Tropical (latitud 0&ordm;−13&ordm;) tiene una altitud de 4200 m, ¿cuál es el piso altitudinal correspondiente y qué rango de ABT tiene?"</p>
+        <ul>
+            <li><strong>Modelo Forzado:</strong> La ontología debe relacionar RegiónLatitudinal con PisoAltitudinal (e.g., el Nival en el Trópico se asemeja al Polar a nivel basal). Esto requiere un axioma de gradiente altitudinal (reducción de 6&ordm;C cada 1000m) y un axioma de mapeo entre los conceptos.</li>
+        </ul>
+
+        <p>Vuestro siguiente paso es crear una lista consolidada de los 50 conceptos/instancias, priorizando aquellos que son esenciales para responder a estas CQs. ¿Queréis que os ayude ahora a buscar los 50 conceptos, o preferís que revisemos las relaciones taxonómicas de algunos conceptos clave como Biotemperatura?</p>
+    </div>
+
+    <div class="user-message">
+        <p>Vamos a pasar al siguiente punto: revisión de ontologías existentes. ¿Conoces al menos 3 de las mejores ontologías en el ámbito de la bioclimatología?</p>
+    </div>
+
+    <div class="ai-message">
+        <p>¡Es una pregunta clave! Revisar ontologías existentes, o al menos marcos conceptuales estructurados, es el paso 2 de la metodología 101 y ayuda enormemente a garantizar la completitud (C2) y la corrección (C1). El ámbito de la bioclimatología, al ser una ciencia aplicada, no siempre tiene ontologías publicadas bajo el formato OWL/Protégé, pero sí cuenta con potentes marcos de clasificación conceptuales que actúan como sus equivalentes funcionales. Basándome en el dominio de aplicación (Sistema de Zonas de Vida de Holdridge) y la necesidad de integrar datos climáticos y ecosistemas, aquí están tres de los mejores marcos conceptuales/ontologías en bioclimatología:</p>
+
+        <h4>1. WorldClim (Ontología de Variables Climáticas) 🌡️</h4>
+        <p>WorldClim es más un modelo de datos y un sistema de referencia global, pero la estructura de su información ha sido adoptada como una ontología de facto para la ecología y la bioclimatología.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aspecto Ontológico</th>
+                    <th>Descripción</th>
+                    <th>Relevancia para Vuestro Proyecto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Conceptos Clave</strong></td>
+                    <td>19 Bioclimas (BioClimatic Variables o Bioclim), que son índices derivados de la temperatura y la precipitación (ej., Temperatura del mes más cálido, Rango de temperatura anual).</td>
+                    <td><strong>Directa.</strong> Obliga a incluir conceptos de variables climáticas derivadas, no solo las primarias (T, P). Esto ayuda a la definición de los atributos y los axiomas de cálculo más complejos.</td>
+                </tr>
+                <tr>
+                    <td><strong>Relaciones Clave</strong></td>
+                    <td>Bioclima SE\_CALCULA\_A\_PARTIR\_DE Temperatura y Precipitación.</td>
+                    <td>Permite una sub-ontología de cálculo que es esencial para el PER y el ABT.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>2. ECOLEX/Thesaurus (Ontología de Ecosistemas y Biomas) 🌿</h4>
+        <p>Aunque ECOLEX es una base de datos de legislación ambiental, su <em>thesaurus</em> (vocabulario controlado) y otros proyectos asociados como la Classification of Terrestrial Ecosystems (CTE) de la UNESCO o la Ontología de Biomas y Ecosistemas de la ONU, ofrecen un marco jerárquico para la clasificación del resultado del Holdridge.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aspecto Ontológico</th>
+                    <th>Descripción</th>
+                    <th>Relevancia para Vuestro Proyecto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Conceptos Clave</strong></td>
+                    <td>Bioma, Ecosistema, Clase de Vegetación, Formación de Vegetación. Estas clases son el resultado final de la clasificación bioclimática.</td>
+                    <td><strong>Directa.</strong> El sistema Holdridge clasifica Zonas de Vida, que son equivalentes conceptuales a los Biomas. Esta ontología os da una jerarquía robusta para la sub-ontología taxonómica de los resultados (ej., Bosque, BosqueHúmedo, BosqueMuyHúmedoTropical).</td>
+                </tr>
+                <tr>
+                    <td><strong>Relaciones Clave</strong></td>
+                    <td>ZonaDeVida EQUIVALE\_A Bioma. Ecosistema PART-OF Bioma.</td>
+                    <td>Refuerza la sub-ontología taxonómica (IS-A) y la partonomía (PART-OF) requeridas en la práctica.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>3. OBEO (Ontología de Observaciones y Mediciones Ambientales) 🔬</h4>
+        <p>La Ontología de Observaciones, Mediciones y Muestreo (Observation, Measurement, and Sampling Ontology - OBEO) es una ontología formal desarrollada para estandarizar la forma en que se describen las mediciones científicas, especialmente en el ámbito ambiental.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aspecto Ontológico</th>
+                    <th>Descripción</th>
+                    <th>Relevancia para Vuestro Proyecto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Conceptos Clave</strong></td>
+                    <td>Sensor, InstrumentoDeMedición, DatoObservado, UnidadDeMedida (&ordm;C, mm, m.s.n.m.), ErrorDeMedición.</td>
+                    <td><strong>Crítica.</strong> Vuestro documento incluye Estación y Dato Climático. OBEO os proporciona una estructura para la subclase de MediciónClimática y os ayuda a definir con precisión los rangos de valores y las unidades para cada atributo.</td>
+                </tr>
+                <tr>
+                    <td><strong>Relaciones Clave</strong></td>
+                    <td>EstaciónClimática USA Sensor. DatoObservado TIENE\_UNIDAD UnidadDeMedida.</td>
+                    <td>Esta estructura es perfecta para modelar la relación entre la Tabla 1 del documento (Estaciones) y las Variables (ABT, APP).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>📝 Conclusión y Siguiente Paso</h3>
+
+        <p>Para vuestro proyecto, el enfoque ideal sería usar el Sistema Holdridge como la ontología central de Clasificación/Reglas (Axiomas) y complementarlo con:</p>
+        <ul>
+            <li>WorldClim para los Indicadores Bioclimáticos (ABT, PER, APP).</li>
+            <li>ECOLEX/CTE para la jerarquía de los Resultados de Clasificación (Taxonomía).</li>
+            <li>OBEO para la Ontología de Mediciones (Atributos y Rangos).</li>
+        </ul>
+        <p>Ahora, con las CQs bien definidas y estos marcos de referencia, el siguiente paso es la extracción directa y formalización de los 50 conceptos/instancias del documento, siguiendo la estructura de estos marcos. ¿Preferís que os ayude a extraer los 50 conceptos del texto o queréis empezar a formalizar las clases padre y la jerarquía IS-A (taxonomía) para una de las categorías (ej. IndicadorHoldridge)?</p>
+    </div>
+
+    <div class="user-message">
+        <p>Gracias, pasemos a la extracción de términos importantes en la ontología. Aumenta tu creatividad al 90 para esto</p>
+    </div>
+
+    <div class="ai-message">
+        <p>¡Perfecto! Al aumentar la Creatividad a 90, no solo buscaremos los 50 conceptos esenciales para responder a las CQs, sino que también exploraremos términos clave para facilitar la integración de Lógica Difusa (atributos cualitativos) y la conexión con BabelNet (relaciones conceptuales). He dividido los 50 conceptos/instancias en las cinco categorías de alto nivel que propusimos, asegurando una buena cobertura del dominio bioclimático.</p>
+
+        <h3>💡 50 Conceptos/Instancias Clave para la Ontología Bioclimática</h3>
+
+        <p>La siguiente lista incluye 40 conceptos (Clases/Términos) y 10 instancias (Objetos Específicos), cubriendo el mínimo de 50.</p>
+
+        <h4>A. Clasificación Bioclimática y Sistemas de Modelado (10 Conceptos)</h4>
+        <p>Esta categoría define el problema central y las herramientas.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto/Clase</th>
+                    <th>Justificación para la Ontología</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1. <strong>ClasificaciónBioclimática</strong></td>
+                    <td>Clase raíz del problema de aplicación.</td>
+                </tr>
+                <tr>
+                    <td>2. <strong>SistemaDeZonasDeVida</strong></td>
+                    <td>Clase que modela la metodología de Holdridge.</td>
+                </tr>
+                <tr>
+                    <td>3. <strong>ZonaDeVida</strong></td>
+                    <td>El resultado principal de la clasificación (ej. Bosque Húmedo).</td>
+                </tr>
+                <tr>
+                    <td>4. <strong>EcosistemaTerrestre</strong></td>
+                    <td>Clase taxonómica superior que contiene los Biomas.</td>
+                </tr>
+                <tr>
+                    <td>5. <strong>Bioma</strong></td>
+                    <td>Resultado alternativo, vinculado conceptualmente a ZonaDeVida.</td>
+                </tr>
+                <tr>
+                    <td>6. <strong>LógicaDifusa</strong></td>
+                    <td>Necesario para modelar los atributos cualitativos/vagos.</td>
+                </tr>
+                <tr>
+                    <td>7. <strong>ConocimientoAproximado</strong></td>
+                    <td>El campo de estudio y el objetivo del modelado.</td>
+                </tr>
+                <tr>
+                    <td>8. <strong>MapaEcológico</strong></td>
+                    <td>El resultado gráfico del proceso de clasificación.</td>
+                </tr>
+                <tr>
+                    <td>9. <strong>DiagramaDeHoldridge</strong></td>
+                    <td>La representación gráfica tridimensional (o triangular) del sistema.</td>
+                </tr>
+                <tr>
+                    <td>10. <strong>AxiomaLogico</strong></td>
+                    <td>El modelo que contiene las reglas de inferencia.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>B. Indicadores Bioclimáticos y Variables de Medición (15 Conceptos)</h4>
+        <p>Estos son los pilares numéricos y de cálculo de la clasificación, cruciales para los axiomas.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto/Clase</th>
+                    <th>Justificación para la Ontología</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>11. <strong>VariableClimática</strong></td>
+                    <td>Clase abstracta superior.</td>
+                </tr>
+                <tr>
+                    <td>12. <strong>BiotemperaturaMediaAnual (ABT)</strong></td>
+                    <td>Indicador central del Holdridge.</td>
+                </tr>
+                <tr>
+                    <td>13. <strong>PrecipitaciónMediaAnual (APP)</strong></td>
+                    <td>Indicador central de humedad.</td>
+                </tr>
+                <tr>
+                    <td>14. <strong>EvapotranspiraciónPotencial (APE)</strong></td>
+                    <td>Variable derivada (APE = ABT $\times$58.93).</td>
+                </tr>
+                <tr>
+                    <td>15. <strong>RelaciónDeEvapotranspiraciónPotencial (PER)</strong></td>
+                    <td>Indicador de aridez/humedad (PER = APE / APP).</td>
+                </tr>
+                <tr>
+                    <td>16. <strong>TemperaturaMedia</strong></td>
+                    <td>Variable primaria de entrada.</td>
+                </tr>
+                <tr>
+                    <td>17. <strong>PrecipitaciónTotal</strong></td>
+                    <td>Variable primaria de entrada.</td>
+                </tr>
+                <tr>
+                    <td>18. <strong>TemperaturaBajoCero</strong></td>
+                    <td>Un límite clave para el cálculo del ABT (corte a 0&ordm;C).</td>
+                </tr>
+                <tr>
+                    <td>19. <strong>UnidadDeMedida</strong></td>
+                    <td>Necesario para definir el rango de atributos (ej. &ordm;C, mm, m.s.n.m.).</td>
+                </tr>
+                <tr>
+                    <td>20. <strong>GradienteAltitudinal</strong></td>
+                    <td>Concepto que modela la disminución de T&ordm; con la altitud.</td>
+                </tr>
+                <tr>
+                    <td>21. <strong>FranjaTérmica</strong></td>
+                    <td>La división básica basada en ABT (ej. Tropical, Boreal).</td>
+                </tr>
+                <tr>
+                    <td>22. <strong>HumedadAmbiental</strong></td>
+                    <td>Concepto cualitativo, directamente influenciado por PER.</td>
+                </tr>
+                <tr>
+                    <td>23. <strong>ÍndiceDeAridez</strong></td>
+                    <td>Relacionado con PER, pero puede ser un concepto distinto (BabelNet).</td>
+                </tr>
+                <tr>
+                    <td>24. <strong>PromedioMensual</strong></td>
+                    <td>La agregación temporal del dato (para ABT y APP).</td>
+                </tr>
+                <tr>
+                    <td>25. <strong>CorrecciónLatitudinal</strong></td>
+                    <td>Axioma que ajusta la ABT en latitudes extremas (ver fórmulas).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>C. Geografía y Localización (10 Conceptos + 4 Instancias)</h4>
+        <p>Definen el contexto espacial del problema.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto/Clase</th>
+                    <th>Justificación para la Ontología</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>26. <strong>UbicaciónGeográfica</strong></td>
+                    <td>Clase general para el dónde.</td>
+                </tr>
+                <tr>
+                    <td>27. <strong>Latitud</strong></td>
+                    <td>Coordenada crucial para Región Latitudinal.</td>
+                </tr>
+                <tr>
+                    <td>28. <strong>Altitud</strong></td>
+                    <td>Coordenada crucial para Pisos Altitudinales.</td>
+                </tr>
+                <tr>
+                    <td>29. <strong>Longitud</strong></td>
+                    <td>Coordenada secundaria, útil para instancias.</td>
+                </tr>
+                <tr>
+                    <td>30. <strong>RegiónLatitudinal</strong></td>
+                    <td>División principal de Holdridge (izquierda del diagrama).</td>
+                </tr>
+                <tr>
+                    <td>31. <strong>PisoAltitudinal</strong></td>
+                    <td>División secundaria de Holdridge (derecha del diagrama).</td>
+                </tr>
+                <tr>
+                    <td>32. <strong>ProvinciaDeHumedad</strong></td>
+                    <td>La clasificación basada en el PER (ej. Subhúmeda, Superárida).</td>
+                </tr>
+                <tr>
+                    <td>33. <strong>ZonaCostera</strong></td>
+                    <td>Instancia de UbicaciónGeográfica (atributo: BajaAltitud).</td>
+                </tr>
+                <tr>
+                    <td>34. <strong>ZonaDeMontaña</strong></td>
+                    <td>Instancia de UbicaciónGeográfica (atributo: AltaAltitud).</td>
+                </tr>
+                <tr>
+                    <td>35. <strong>EstaciónClimática</strong></td>
+                    <td>Clase que registra los datos primarios.</td>
+                </tr>
+                <tr>
+                    <td>Instancia 36.</td>
+                    <td><strong>BU02\_ValleDeValdelucio</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 37.</td>
+                    <td><strong>TE01\_LaOrotava</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 38.</td>
+                    <td><strong>Zona\_Murcia</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 39.</td>
+                    <td><strong>Zona\_Tropical\_NivelDelMar</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>D. Instrumentación y Datos (6 Conceptos + 6 Instancias)</h4>
+        <p>Crucial para la sub-ontología de medición (siguiendo el marco OBEO).</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto/Clase</th>
+                    <th>Justificación para la Ontología</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>40. <strong>InstrumentoDeMedición</strong></td>
+                    <td>Clase abstracta para los sensores.</td>
+                </tr>
+                <tr>
+                    <td>41. <strong>SensorDeTemperatura</strong></td>
+                    <td>Instrumento para medir la T&ordm;.</td>
+                </tr>
+                <tr>
+                    <td>42. <strong>Pluviómetro</strong></td>
+                    <td>Instrumento para medir la Precipitación.</td>
+                </tr>
+                <tr>
+                    <td>43. <strong>DatoClimático</strong></td>
+                    <td>La unidad de información registrada.</td>
+                </tr>
+                <tr>
+                    <td>44. <strong>SerieTemporal</strong></td>
+                    <td>La secuencia de DatosClimáticos.</td>
+                </tr>
+                <tr>
+                    <td>45. <strong>ClasificaciónProyectada</strong></td>
+                    <td>El resultado de la clasificación para un periodo futuro (para el ODS 13).</td>
+                </tr>
+                <tr>
+                    <td>Instancia 46.</td>
+                    <td><strong>Monte\_Espinoso</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 47.</td>
+                    <td><strong>Desierto\_Polar</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 48.</td>
+                    <td><strong>Bosque\_Pluvial\_Tropical</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 49.</td>
+                    <td><strong>Tundra</strong></td>
+                </tr>
+                <tr>
+                    <td>Instancia 50.</td>
+                    <td><strong>Región\_Perárida</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🏗️ Siguiente Paso Sugerido</h3>
+
+        <p>Ahora que tenéis los 50 conceptos/instancias, el foco debe pasar a formalizar la estructura:</p>
+        <ul>
+            <li><strong>Sub-Ontología Taxonómica (IS-A):</strong> Tomar las categorías A, B, C y D y construir una jerarquía (árbol de herencia) con al menos tres niveles de profundidad (ej., VariableClimática $\rightarrow$ IndicadorHoldridge $\rightarrow$ ABT).</li>
+            <li><strong>Sub-Ontología Adicional (Ej. Partonomía):</strong> Definir la relación PART-OF (ej. SistemaHoldridge PART-OF ClasificaciónBioclimática).</li>
+        </ul>
+
+        <p>Una vez que tengáis el grafo taxonómico, podemos pasar a los Atributos (incluyendo los difusos) y la redacción de los 50 Axiomas en Lógica de Predicados. ¿Con qué parte os gustaría empezar: la jerarquía IS-A para el grupo B (Indicadores Bioclimáticos) o la sub-ontología PART-OF?</p>
+    </div>
+
+    <div class="user-message">
+        <p>Hemos decidido crear una taxonomía para ZonaDeVidaHoldridge. ¿Qué atributos deberían tener estos conceptos? ¿Cómo podrían ser sus instancias?</p>
+    </div>
+
+    <div class="ai-message">
+        <p>¡Elegir ZonaDeVidaHoldridge como foco de la taxonomía es excelente! Es el concepto central que engloba la clasificación bioclimática. Para cumplir con la práctica, debemos asegurar que esta taxonomía incluya:</p>
+        <ul>
+            <li>Atributos suficientes (al menos 2 por concepto).</li>
+            <li>Atributos difusos (cualitativos).</li>
+            <li>Instancias (al menos 2 en el subgrafo taxonómico).</li>
+            <li>Consistencia en los rangos (C1).</li>
+        </ul>
+        <p>A continuación, se detalla una propuesta para la clase ZonaDeVidaHoldridge y sus subclases.</p>
+
+        <h3>🌳 Diseño de la Taxonomía para ZonaDeVidaHoldridge</h3>
+
+        <p>La clase principal se descompone en función de los criterios de Holdridge: Regiones Latitudinales (temperatura) y Provincias de Humedad (precipitación/PER). El resultado es la clase final.</p>
+
+        <h4>Clase Raíz: ZonaDeVidaHoldridge</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Atributo (Propiedad)</th>
+                    <th>Rango de Valores</th>
+                    <th>Tipo de Atributo</th>
+                    <th>Justificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>tieneRegiónLatitudinal</strong></td>
+                    <td>Clase RegiónLatitudinal (e.g., Tropical, Boreal)</td>
+                    <td>Objeto (Relación)</td>
+                    <td>Relaciona la zona con su componente térmico.</td>
+                </tr>
+                <tr>
+                    <td><strong>tieneProvinciaHumedad</strong></td>
+                    <td>Clase ProvinciaDeHumedad (e.g., Perárida, Húmeda)</td>
+                    <td>Objeto (Relación)</td>
+                    <td>Relaciona la zona con su componente de humedad.</td>
+                </tr>
+                <tr>
+                    <td><strong>climaPredominante</strong></td>
+                    <td>{Árido, Templado, Frío, Polar, etc.}</td>
+                    <td>Nominal</td>
+                    <td>Clasificación simplificada del clima resultante.</td>
+                </tr>
+                <tr>
+                    <td><strong>esAptoParaCultivo</strong></td>
+                    <td>{Sí, No, Parcialmente}</td>
+                    <td>Nominal/Difuso</td>
+                    <td>Permite futuros axiomas basados en la aplicación.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🌿 Subclases: Atributos y Rangos Consistentes (C1)</h3>
+
+        <p>El requisito C1 (corrección) exige que los valores sean consistentes con los de los conceptos padres y hermanos. Aquí usaremos los límites de ABT y PER como atributos definitorios.</p>
+
+        <h4>1. Subclase de Región Térmica: RegiónLatitudinal</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Atributo (Propiedad)</th>
+                    <th>Rango de Valores</th>
+                    <th>Justificación para Lógica Difusa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ABT\_Minima</strong></td>
+                    <td>Númerico (e.g., 1.5&ordm;C para Boreal)</td>
+                    <td>El umbral inferior de Biotemperatura.</td>
+                </tr>
+                <tr>
+                    <td><strong>ABT\_Máxima</strong></td>
+                    <td>Númerico (e.g., 24&ordm;C para Tropical)</td>
+                    <td>El umbral superior de Biotemperatura.</td>
+                </tr>
+                <tr>
+                    <td><strong>sensaciónTérmica</strong></td>
+                    <td>{MuyCálida, Cálida, Templada, Fría, MuyFría}</td>
+                    <td><strong>DIFUSO.</strong> Clasificación cualitativa de la ABT.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>2. Subclase de Humedad: ProvinciaDeHumedad</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>Atributo (Propiedad)</th>
+                    <th>Rango de Valores</th>
+                    <th>Justificación para Lógica Difusa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>PER\_Mínimo</strong></td>
+                    <td>Numérico (ej. 8.0 para Perárida)</td>
+                    <td>El límite inferior de la Relación de Evapotranspiración Potencial.</td>
+                </tr>
+                <tr>
+                    <td><strong>PER\_Máximo</strong></td>
+                    <td>Numérico (ej. 4.0 para Superárida)</td>
+                    <td>El límite superior del PER.</td>
+                </tr>
+                <tr>
+                    <td><strong>nivelDeSequedad</strong></td>
+                    <td>{LigeramenteSeco, Seco, BastanteSeco, ExtremadamenteSeco}</td>
+                    <td><strong>DIFUSO.</strong> Describe la cualidad de la aridez. (Usa adverbios: Ligeramente, Bastante, Extremadamente)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>3. Subclase Final (Instanciable): BosqueSecoTropical</h4>
+        <p>Este concepto es la intersección de RegiónLatitudinal (Tropical) y ProvinciaDeHumedad (Seca).</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Atributo (Propiedad)</th>
+                    <th>Rango de Valores</th>
+                    <th>Justificación para Lógica Difusa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>rangoABT</strong></td>
+                    <td>Númerico (e.g., 18&ordm;C−24&ordm;C)</td>
+                    <td>ABT consistente con la clase Tropical (herencia).</td>
+                </tr>
+                <tr>
+                    <td><strong>rangoPER</strong></td>
+                    <td>Númerico (e.g., [2.0, 4.0])</td>
+                    <td>PER consistente con la clase Seca (herencia).</td>
+                </tr>
+                <tr>
+                    <td><strong>alturaMediaDosel</strong></td>
+                    <td>Númerico (m.)</td>
+                    <td>Atributo de vegetación (Ecosistema).</td>
+                </tr>
+                <tr>
+                    <td><strong>gradoDesarrolloVegetal</strong></td>
+                    <td>{Infradesarrollado, Desarrollado, MuyDesarrollado}</td>
+                    <td><strong>DIFUSO.</strong> Describe la calidad de la vegetación (C2).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🎯 Ejemplo de Instanciación (Instancias Requeridas)</h3>
+
+        <p>La taxonomía debe incluir al menos dos instancias que sean ejemplos concretos de las Zonas de Vida o las Provincias de Humedad, tomadas del documento o las CQs.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Instancia</th>
+                    <th>Clase Padre</th>
+                    <th>ABT (Rango)</th>
+                    <th>PER (Rango)</th>
+                    <th>Nivel de Humedad (Difuso)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>I1. MonteEspinosoTropical</strong></td>
+                    <td>ZonaDeVidaHoldridge</td>
+                    <td>18&ordm;C−24&ordm;C</td>
+                    <td>4.0 - 8.0 (Árida)</td>
+                    <td>BastanteSeco</td>
+                </tr>
+                <tr>
+                    <td><strong>I2. BosqueMuyHúmedoBoreal</strong></td>
+                    <td>ZonaDeVidaHoldridge</td>
+                    <td>1.5&ordm;C−3&ordm;C</td>
+                    <td>0.25 - 0.5 (Muy Húmeda)</td>
+                    <td>LigeramenteHúmedo</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Este diseño cumple con el requisito de taxonomía, los atributos, los rangos consistentes y los atributos difusos.</p>
+
+        <h3>➡️ Próximo Paso</h3>
+
+        <p>Una vez que tengáis clara la taxonomía y los atributos, es el momento de formalizar el conocimiento mediante la Lógica de Predicados. ¿Queréis que os ayude a redactar los primeros 5 axiomas en lógica de predicados, utilizando conceptos como ABT, PER y los atributos difusos?</p>
+    </div>
+
+    <div class="user-message">
+        <p>Creo que un concepto clave es el de Latitud, pero me surge una duda al respecto. Al final, quiero trasladar la ontología a protégé. Si pongo la latitud como concepto, esto me obliga a que cada vez que instancie una zona de vida o medida tenga que instanciar una Latitud, que al fin y al cabo es un número. ¿Hasta que punto es correcto tener un concepto (siendo lo relevante que es en este caso) que al final solo va a tener un atributo numérico?</p>
+    </div>
+
+    <div class="ai-message">
+        <p>Esa es una excelente pregunta que toca un punto fundamental en el diseño de ontologías: la distinción entre un Concepto/Clase y un Dato/Atributo. Es un dilema común al modelar entidades que son tanto críticas para la clasificación como intrínsecamente numéricas.</p>
+
+        <h3>📐 Latitud como Concepto vs. Atributo</h3>
+
+        <p>En el contexto de vuestra ontología de clasificación bioclimática, el enfoque más correcto y eficiente para Protégé (OWL) es tratar la <strong>Latitud como un Atributo/Propiedad de Dato</strong> en la mayoría de los casos, y solo elevarla a Clase/Concepto cuando posea subcategorías o relaciones complejas propias.</p>
+
+        <h4>1. Latitud como Atributo (Recomendado para Eficiencia) ✅</h4>
+        <p>Si la latitud solo se usa para registrar su valor numérico para una Estación o Zona, debe ser una propiedad de dato.</p>
+        <ul>
+            <li><strong>Implementación en Protégé (Propiedad de Dato):</strong>
+                <ul>
+                    <li>Clase: EstaciónClimática</li>
+                    <li>Propiedad de Dato: <em>tieneValorLatitud</em></li>
+                    <li>Rango de Valores: <code>xsd:float</code> (ej., −34.6&ordm; a &plus;90&ordm;)</li>
+                    <li>Propiedad de Dato: <em>tieneHemiEsfera</em></li>
+                    <li>Rango de Valores: <code>xsd:string</code> (ej., "Norte", "Sur")</li>
+                </ul>
+            </li>
+            <li><strong>Ventaja:</strong> Evita crear instancias innecesarias de Latitud (un número) y mantiene el grafo limpio. Un número no es una "cosa" conceptual en el mismo sentido que un BosqueSecoTropical.</li>
+        </ul>
+
+        <h4>2. Latitud como Concepto/Clase (Solo si es Taxonómico) 💡</h4>
+        <p>Solo se justificaría si la Latitud es el punto de partida de una jerarquía taxonómica propia o si tiene sus propias propiedades y axiomas independientes del objeto al que se le mide.</p>
+        <ul>
+            <li><strong>Implementación en Protégé (Clase):</strong>
+                <ul>
+                    <li>Clase Padre: Latitud</li>
+                    <li>Clase Hija: LatitudBaja (Rango de 0&ordm; a 23.5&ordm;)</li>
+                    <li>Clase Hija: LatitudMedia (Rango de 23.5&ordm; a 66.5&ordm;)</li>
+                    <li>Axioma: ($\forall x$)(LatitudMedia($x$)$\Longrightarrow$tieneValorEntre($x$,23.5,66.5))</li>
+                </ul>
+            </li>
+            <li><strong>Ventaja:</strong> Permite modelar el concepto clave de Región Latitudinal de Holdridge, que se basa en la latitud (e.g., Tropical, Subtropical). En este caso, la clase <strong>RegiónLatitudinal</strong> actúa como el concepto, y la Latitud es solo su límite numérico.</li>
+        </ul>
+
+        <h3>🤝 Propuesta Integrada para Vuestra Ontología</h3>
+
+        <p>La forma más rigurosa de modelar esto para el sistema Holdridge es combinar ambos enfoques:</p>
+        <ul>
+            <li>Usar la Latitud como Propiedad de Dato: Para la clase <strong>EstaciónClimática</strong> (donde el número es lo relevante).</li>
+            <li>Usar el concepto taxonómico <strong>"Región Latitudinal"</strong>: Para la clasificación de Holdridge, ya que es el resultado del valor de latitud.</li>
+        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Clase</th>
+                    <th>Propiedad de Dato (Latitud Numérica)</th>
+                    <th>Propiedad de Objeto (Latitud Conceptual)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>EstaciónClimática</strong></td>
+                    <td><em>tieneValorLatitud</em> (<code>xsd:float</code>)</td>
+                    <td>NO</td>
+                </tr>
+                <tr>
+                    <td><strong>ZonaDeVidaHoldridge</strong></td>
+                    <td>NO</td>
+                    <td><em>estáEnRegión</em> $\rightarrow$ <strong>RegiónLatitudinal</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>RegiónLatitudinal</strong></td>
+                    <td><em>limiteSuperiorGrados</em> (<code>xsd:float</code>)</td>
+                    <td>NO</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>De esta manera, la Latitud como concepto abstracto crítico para el modelo Holdridge se modela a través de la clase <strong>RegiónLatitudinal</strong>, mientras que el valor puro se mantiene como un atributo simple, cumpliendo con los requisitos de modelado y eficiencia en Protégé.</p>
+    </div>
+
+    <div class="user-message">
+        <p>La idea es implementar más adelante un motor que utilice lógica difusa para la determinación de zonas de vida a partir de datos bioclimáticos y geográficos. Entran en juego conceptos como la temperatura, latitud, altitud, longitud, humedad, evotranspiración, temperatura bioclimática... Cómo se debería abordar en este caso</p>
+    </div>
+
+    <div class="ai-message">
+        <p>¡Entendido! Si el objetivo final es la implementación de un motor de inferencia con Lógica Difusa ($\mu$) para la clasificación bioclimática, el enfoque de diseño de la ontología cambia. Ya no se trata solo de clasificar rígidamente (clases y axiomas booleanos), sino de modelar la incertidumbre y la vaguedad inherentes a las variables de entrada y los límites de las zonas. El abordaje debe centrarse en los <strong>Atributos Difusos (Propiedades de Dato Cualitativas)</strong> y la creación de un tipo especial de axioma, conocido como <strong>Reglas Difusas</strong>, que se implementará en la lógica de predicados.</p>
+
+        <h3>☁️ Abordaje Ontológico para la Lógica Difusa</h3>
+
+        <p>El reto es modelar las variables continuas como la Temperatura o la Precipitación mediante <strong>conjuntos lingüísticos</strong> (etiquetas o <em>Fuzzy Sets</em>), que son la base para el motor de inferencia.</p>
+
+        <h4>1. El Concepto Clave: El Atributo Lingüístico</h4>
+
+        <p>La clave es que las variables numéricas de entrada no se definen solo por su rango (<code>xsd:float</code>), sino por un conjunto de <strong>valores lingüísticos</strong>.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto a Modelar (Clase)</th>
+                    <th>Propiedad de Dato (Valor Numérico)</th>
+                    <th>Propiedad de Dato Difuso (Valor Lingüístico)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>EstaciónClimática</strong></td>
+                    <td><em>tieneABT\_Valor</em> (15.2&ordm;C)</td>
+                    <td><em>tieneABT\_Cualitativo</em></td>
+                </tr>
+                <tr>
+                    <td><strong>ProvinciaDeHumedad</strong></td>
+                    <td><em>tienePER\_Valor</em> (1.25)</td>
+                    <td><em>tienePER\_Cualitativo</em></td>
+                </tr>
+            </tbody>
+        </table>
+        <p>El rango de valores para las propiedades difusas (<em>tieneABT\_Cualitativo</em>, <em>tienePER\_Cualitativo</em>) debe ser un conjunto de adjetivos/adverbios (como los que se piden en la Práctica 1) que actuarán como las <strong>Etiquetas Difusas</strong> (<em>Linguistic Variables</em>).</p>
+        <ul>
+            <li>Rango de Valores para <em>tieneABT\_Cualitativo</em>: {'muy\_frío', 'bastante\_frío', 'templado', 'cálido', 'muy\_cálido'}.</li>
+            <li>Rango de Valores para <em>tienePER\_Cualitativo</em>: {'extremadamente\_seco', 'bastante\_seco', 'húmedo', 'muy\_húmedo'}.</li>
+        </ul>
+        <p>Estos rangos deben ser definidos en la ontología para la *corrección* (C1) y la *completitud* (C2), aunque el motor de inferencia difusa utilizará *funciones de pertenencia* (triangulares, trapezoidales, etc.) para mapear el valor numérico (ej., 15.2&ordm;C) a un grado de pertenencia ($\mu$) a cada etiqueta (ej., $\mu_{\text{templado}}(15.2) = 0.8$).</p>
+
+        <h4>2. El Axioma Clave: La Regla de Inferencia Difusa</h4>
+
+        <p>Los 50 axiomas en lógica de predicados que debéis redactar deben reflejar estas reglas de clasificación, transformando las variables de entrada difusas en una clasificación final difusa. La Lógica de Predicados debe representar la estructura **SI (Premisa) ENTONCES (Conclusión)**.</p>
+        <p>Un axioma tradicional diría:</p>
+        <p>$$\forall x \text{ (ZonaDeVida}(x) \land \text{tieneABT\_Valor}(x) \in [18, 24] \land \text{tienePER\_Valor}(x) \in [2, 4] \Longrightarrow \text{BosqueSecoTropical}(x))$$</p>
+
+        <p>El **Axioma Difuso** debe incorporar los atributos lingüísticos (adjetivos/adverbios):</p>
+        <p>$$\forall x \text{ (ZonaDeVida}(x) \land \text{tieneABT\_Cualitativo}(x, \text{'cálido'}) \land \text{tienePER\_Cualitativo}(x, \text{'bastante\_seco'}) \Longrightarrow \text{AltoGradoDePertenencia}(x, \text{BosqueSecoTropical}))$$</p>
+
+        <p>En este axioma de predicados, estamos estableciendo que:</p>
+        <ul>
+            <li>**Predicados de entrada:** `tieneABT_Cualitativo` y `tienePER_Cualitativo` toman una instancia ($x$) y una etiqueta lingüística (ej., 'cálido').</li>
+            <li>**Predicado de salida:** `AltoGradoDePertenencia` indica que, dada la premisa, el resultado tiene un alto grado de verdad (pertenencia) a la clase `BosqueSecoTropical`.</li>
+        </ul>
+        <p>Debéis generar la mayoría de los 50 axiomas utilizando esta estructura para modelar la relación entre los indicadores bioclimáticos difusos y las zonas de vida resultantes.</p>
+
+        <h3>📝 Estructura del Modelo para Protégé/OWL ($\mu$)</h3>
+
+        <p>Para asegurar que todos los conceptos clave sean modelables para la inferencia, os sugiero la siguiente estructura de clases y relaciones para el subgrafo de medición (siguiendo OBEO):</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Clase (Concepto)</th>
+                    <th>Agrupación (Taxonomía IS-A)</th>
+                    <th>Rol en la Clasificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>UbicacionGeografica</strong></td>
+                    <td>Clase Raíz del contexto espacial.</td>
+                    <td>Contiene datos de Latitud, Altitud.</td>
+                </tr>
+                <tr>
+                    <td><strong>EstaciónClimática</strong></td>
+                    <td>Subclase de UbicacionGeografica.</td>
+                    <td>La instancia física que realiza la medición (ej. TE01\_LaOrotava).</td>
+                </tr>
+                <tr>
+                    <td><strong>DatoClimático</strong></td>
+                    <td>Clase Raíz para los valores medidos.</td>
+                    <td>Un valor de Temperatura o Precipitación en un punto del tiempo.</td>
+                </tr>
+                <tr>
+                    <td><strong>IndicadorBioclimático</strong></td>
+                    <td>Subclase de DatoClimático.</td>
+                    <td>Contiene el ABT, APP, APE, PER. El corazón del cálculo.</td>
+                </tr>
+                <tr>
+                    <td><strong>ConjuntoLingüístico</strong></td>
+                    <td>Clase para los Fuzzy Sets.</td>
+                    <td>Modelará explícitamente las etiquetas difusas (ej. el conjunto de valores {'muy\_frío', ...}).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>🔗 Relaciones Conceptuales Clave (Propiedades de Objeto)</h4>
+
+        <p>Las relaciones (que luego serán los axiomas) definen el flujo de la clasificación.</p>
+        <p><strong>A. Relaciones de Definición (Ejes de Clasificación)</strong></p>
+        <p>Estas relaciones vinculan una zona final con los umbrales que la definen.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Relación</th>
+                    <th>Dominio</th>
+                    <th>Rango</th>
+                    <th>Lógica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>estaDefinidaPorRegion</strong></td>
+                    <td>ZonaDeVidaHoldridge</td>
+                    <td>RegiónLatitudinal</td>
+                    <td>Una zona tiene un límite térmico.</td>
+                </tr>
+                <tr>
+                    <td><strong>estaDefinidaPorHumedad</strong></td>
+                    <td>ZonaDeVidaHoldridge</td>
+                    <td>ProvinciaDeHumedad</td>
+                    <td>Una zona tiene un límite hídrico.</td>
+                </tr>
+                <tr>
+                    <td><strong>estaDefinidaPorPiso</strong></td>
+                    <td>ZonaDeVidaHoldridge</td>
+                    <td>PisoAltitudinal</td>
+                    <td>Una zona tiene un límite altitudinal.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><strong>B. Relaciones de Medición y Cálculo (Flujo de Datos)</strong></p>
+        <p>Estas relaciones modelan la lógica matemática del sistema.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Relación</th>
+                    <th>Dominio</th>
+                    <th>Rango</th>
+                    <th>Lógica</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>mideIndicador</strong></td>
+                    <td>EstaciónClimática</td>
+                    <td>IndicadorBioclimático</td>
+                    <td>La estación registra el valor (ej. ABT).</td>
+                </tr>
+                <tr>
+                    <td><strong>calculaAPECon</strong></td>
+                    <td>APE</td>
+                    <td>ABT</td>
+                    <td>Fórmula 1: La APE se calcula con ABT (Implica axioma $APE = 58.93 \times ABT$).</td>
+                </tr>
+                <tr>
+                    <td><strong>determinaPERCon</strong></td>
+                    <td>PER</td>
+                    <td>APE y APP</td>
+                    <td>Fórmula 2: El PER se calcula con APE y APP (Implica axioma $PER = APE/APP$).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>🎯 Próximo Paso Sugerido</h3>
+
+        <p>Ya tenéis la lista de 50 conceptos/instancias y los marcos conceptuales (Taxonomía IS-A y Partonomía de Holdridge) listos. Ahora, la tarea más urgente es asegurar los **50 axiomas en lógica de predicados**, utilizando la estructura de la **Regla Difusa** (SI A y B ENTONCES C) en al menos 10 de ellos.</p>
+        <p>Os sugiero formalizar los primeros 10 axiomas clave (los que responden a las CQs), incluyendo el axioma de cálculo del PER y al menos tres axiomas difusos.</p>
+        <p>¿Queréis que os ayude a redactar los **10 axiomas más críticos** para la corrección (C1) de vuestro proyecto?</p>
+    </div>
+</div>

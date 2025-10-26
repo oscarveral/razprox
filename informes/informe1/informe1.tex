@@ -107,10 +107,10 @@ Este informe presenta el diseño, implementación y evaluación de una ontologí
 al Sistema de Zonas de Vida de Holdridge. La ontología está orientada hacia la clasificación de zonas bioclimáticas
 a partir de datos geográficos y climáticos de diferentes estaciones especializadas ubicadas en diversas localidades
 del territorio español. Se detallan los requisitos, alcance y metodología seguida, así como las decisiones de diseño
-conceptual y técnica.
+conceptual y técnica. La ontología ha sido implementada utilizando Protégé y el lenguaje OWL.
 \end{abstract}
 
-\paragraph{Palabras clave:} ontologías; OWL; bioclimática; conocimiento; zonas de vida;
+\paragraph{Palabras clave:} ontologías; OWL; bioclimática; conocimiento; zonas de vida de Holdridge; Protégé.
 \clearpage
 
 \tableofcontents
@@ -118,8 +118,25 @@ conceptual y técnica.
 \pagenumbering{arabic}
 
 \section{Introducción}
-\color{blue!70!black} TODO
-\color{black}
+El estudio de los sistemas bioclimáticos es fundamental para la gestión ecológica y la 
+evaluación ambienta en relación con el cambio climático. La clasificación de zonas bioclimáticas
+proporciona una base para comprender la distribución de ecosistemas. En este contexto, el Sistema de Zonas de Vida de Holdridge
+ofrece un marco robusto para categorizar regiones según sus características climáticas y geográficas.
+Concretamente, este sistema utiliza tres magnitudes climáticas principales: la biotemperatura media anual (ABT),
+la precipitación media anual (APP) y la relación de evapotranspiración potencial (PER). En la siguiente imagen \ref{fig:holdridge-triangle}
+se muestra un diagrama representativo del sistema de Holdridge, donde se visualizan las diferentes zonas de vida en función de las tres magnitudes climáticas mencionadas.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/triangle.png}
+    \caption{Diagrama del Sistema de Zonas de Vida de Holdridge \cite{WikiHoldridge}}
+    \label{fig:holdridge-triangle}
+\end{figure}
+
+El objetivo de este proyecto es desarrollar una ontología que represente el conocimiento bioclimático de manera formal y estructurada.
+Para ello, hemos seguido la metodología de Ontology Development 101 \cite{NoyMcGuinness2001Ontology101}, definiendo el dominio, alcance, clases, atributos y axiomas necesarios para capturar la esencia del sistema de Holdridge.
+
+Como herramienta de trabajo, hemos utilizado Protégé \cite{protege}, una plataforma ampliamente reconocida para la creación y gestión de ontologías y que permite la representación en OWL (Web Ontology Language).
 
 \section{Metodología}
 Decidimos seguir la metodología de Ontology Development 101 \cite{NoyMcGuinness2001Ontology101} para la creación de nuestra ontología bioclimática. 
@@ -483,11 +500,49 @@ Para más detalles, ver sección de Protégé.
 \section{Protégé}
 Protégé es una herramienta de código abierto ampliamente utilizada para la creación y gestión de ontologías.
 Nosotros la hemos empleado para implementar la ontología bioclimática siguiendo la metodología y diseño conceptual previamente descritos.
-Protégé tiene el concepto básico "Thing" que representa cualquier entidad en la ontología. A partir de este concepto, hemos definido nuestras clases principales como subclases de "Thing".
-Esta herramienta resulta especialmente útil para visualizar la jerarquía de conceptos, las propiedades y las restricciones asociadas a cada clase.
+Protégé tiene el concepto básico \term{Thing} que representa cualquier entidad en la ontología. A partir de este concepto, hemos definido nuestras clases principales como subclases de "Thing".
+Esta herramienta resulta especialmente útil para visualizar la jerarquía de conceptos, las propiedades y las restricciones asociadas a cada clase. En el Anexo B se incluyen los esquemas y capturas de pantalla del software. 
 
+El lenguaje de representación utilizado en Protégé es OWL (Web Ontology Language).
+En este lenguaje de marcas, tanto las clases como las propiedades como las restricciones de los mismos son clases.
+Por ejemplo, en el siguiente fragmento de código OWL podemos ver cómo se define la clase \term{Alpino}:
+\begin{lstlisting}[language=RDFXML, caption={Definición de la clase \term{Alpino} en OWL.}]
+    <owl:Class rdf:about="http://www.owl-ontologies.com/bio.owl#Alpino">
+        <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/bio.owl#PisoAltitudinal"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tieneAltitudMaximaAsociada"/>
+                <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4750</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tieneBiotemperaturaMaximaAsociada"/>
+                <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.0</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.owl-ontologies.com/bio.owl#tieneBiotemperaturaMinimaAsociada"/>
+                <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.5</owl:hasValue>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+\end{lstlisting}
+Inicialmente, vemos como \term{Alpino} es una subclase de \term{PisoAltitudinal}.
+Seguidamente, se definen las restricciones de los atributos \term{tieneAltitudMaximaAsociada}, \term{tieneBiotemperaturaMaximaAsociada} y \term{tieneBiotemperaturaMinimaAsociada}
+como subclases de \term{owl:Restriction}. 
+Junto con este documento se entrega el archivo 'bio.owl' que contiene la ontología implementada en Protégé.
+
+\section{Conclusiones}
+Después de completar el procedimiento descrito, hemos logrado desarrollar una ontología bioclimática que representa de manera formal y estructurada el conocimiento relacionado con el Sistema de Zonas de Vida de Holdridge.
+Las preguntas de competencia definidas al inicio del proyecto han sido fundamentales para guiar el diseño y, posteriormente, hemos podido comprobar 
+que la ontología es capaz de responderlas correctamente. La utilización de Protégé como herramienta de implementación ha facilitado la visualización y gestión de la ontología, permitiéndonos definir clases, atributos y restricciones de manera intuitiva.
+Finalmente, la ontología desarrollada no solo cumple con los requisitos iniciales, sino que también sienta las bases para futuras ampliaciones y mejoras en el ámbito de la bioclimatología.
+
+\clearpage
 \appendix
-\section{Anexo: Magnitudes}
+\section{Magnitudes}
 Tabla con magnitudes presentes en la ontología. Se indica nombre, abreviatura y unidad.
 \begin{table}[h]
     \centering
@@ -508,6 +563,73 @@ Tabla con magnitudes presentes en la ontología. Se indica nombre, abreviatura y
 \end{table}
 
 \clearpage
+\section{Capturas de pantalla de Protégé}
+
+\begin{figure}[h]
+    \centering
+    \setkeys{Gin}{angle=180,origin=c}
+    \includegraphics[angle=90, width=0.36\linewidth]{images/grafo.png}
+    \caption{Grafo conceptual en Protégé.}
+    \label{fig:protege-graph}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \setkeys{Gin}{angle=180,origin=c}
+    \includegraphics[width=0.8\linewidth]{images/class_hierarchy.png}
+    \caption{Jerarquía de clases en Protégé.}
+    \label{fig:protege-hierarchy}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/ontology_metrics.png}
+    \caption{Métricas de la ontología en Protégé.}
+    \label{fig:protege-metrics}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/zonadevida.png}
+    \caption{Concepto zona de vida en Protégé.}
+    \label{fig:protege-lifezone}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/estacionbioclimatica.png}
+    \caption{Concepto estación bioclimática en Protégé.}
+    \label{fig:protege-bioclimatic}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/regionlatitudinal.png}
+    \caption{Concepto región latitudinal en Protégé.}
+    \label{fig:protege-rl}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/pisoaltitudinal.png}
+    \caption{Concepto piso altitudinal en Protégé.}
+    \label{fig:protege-pa}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/nival.png}
+    \caption{Concepto nival en Protégé.}
+    \label{fig:protege-nival}
+\end{figure}
+
+\clearpage
+\section*{Uso de IA}
+Durante la elaboración de este informe, se ha utilizado ChatGPT-4 para asistir en la redacción a LaTeX de este documento
+mediante la herramienta de OpenAI integrada en Visual Studio Code. También se ha mantenido una conversación 
+con Gemini-2.5 de Google para obtener orientación y opiniones sobre la estructura y contenido del informe.
+Junto a este documento se entrega un archivo HTML con el historial de la conversación mantenida con la misma.
+
 \printbibliography
 
 \end{document}
