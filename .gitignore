@@ -219,3 +219,6 @@ __marimo__/
 *.toc
 *.pdf
 *.bbl-SAVE-ERROR
+
+# Recursos de la asignatura
+RECURSOS*

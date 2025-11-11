@@ -1,0 +1,540 @@
+{
+    "ruleTropical1":
+    {
+        "antecedentes": {
+            "Latitud": "Tropical",
+            "Altitud": "0a1000"
+        },
+        "consecuente": {
+            "ABT": "24a30"
+        }
+    },
+
+    "ruleTropical2":
+    {
+        "antecedentes": {
+            "Latitud": "Tropical",
+            "Altitud": "1000a2000"
+        },
+        "consecuente": {
+            "ABT": "18a24"
+        }
+    },
+
+    "ruleTropical3":
+    {
+        "antecedentes": {
+            "Latitud": "Tropical",
+            "Altitud": "2000a3000"
+        },
+        "consecuente": {
+            "ABT": "12a18"
+        }
+    },
+
+    "ruleTropical4":
+    {
+        "antecedentes": {
+            "Latitud": "Tropical",
+            "Altitud": "3000a4000"
+        },
+        "consecuente": {
+            "ABT": "6a12"
+        }
+    },
+
+    "ruleTropical5":
+    {
+        "antecedentes": {
+            "Latitud": "Tropical",
+            "Altitud": "4000a4500"
+        },
+        "consecuente": {
+            "ABT": "3a6"
+        }
+    },
+
+    "ruleTropical6":
+    {
+        "antecedentes": {
+            "Latitud": "Tropical",
+            "Altitud": "4500a4750"
+        },
+        "consecuente": {
+            "ABT": "1.5a3"
+        }
+    },
+
+    "ruleTropical7":
+    {
+        "antecedentes": {
+            "Latitud": "Tropical",
+            "Altitud": "4750a5000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleSubtropical1":
+    {
+        "antecedentes": {
+            "Latitud": "Subtropical",
+            "Altitud": "0a1000"
+        },
+        "consecuente": {
+            "ABT": "18a24"
+        }
+    },
+
+    "ruleSubtropical2":
+    {
+        "antecedentes": {
+            "Latitud": "Subtropical",
+            "Altitud": "1000a2000"
+        },
+        "consecuente": {
+            "ABT": "12a18"
+        }
+    },
+
+    "ruleSubtropical3":
+    {
+        "antecedentes": {
+            "Latitud": "Subtropical",
+            "Altitud": "2000a3000"
+        },
+        "consecuente": {
+            "ABT": "6a12"
+        }
+    },
+
+    "ruleSubtropical4":
+    {
+        "antecedentes": {
+            "Latitud": "Subtropical",
+            "Altitud": "3000a4000"
+        },
+        "consecuente": {
+            "ABT": "3a6"
+        }
+    },
+
+    "ruleSubtropical5":
+    {
+        "antecedentes": {
+            "Latitud": "Subtropical",
+            "Altitud": "4000a4500"
+        },
+        "consecuente": {
+            "ABT": "1.5a3"
+        }
+    },
+
+    "ruleSubtropical6":
+    {
+        "antecedentes": {
+            "Latitud": "Subtropical",
+            "Altitud": "4500a4750"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleSubtropical7":
+    {
+        "antecedentes": {
+            "Latitud": "Subtropical",
+            "Altitud": "4750a5000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleTemplado-Cálido1":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Cálido",
+            "Altitud": "0a1000"
+        },
+        "consecuente": {
+            "ABT": "12a18"
+        }
+    },
+
+    "ruleTemplado-Cálido2":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Cálido",
+            "Altitud": "1000a2000"
+        },
+        "consecuente": {
+            "ABT": "6a12"
+        }
+    },
+
+    "ruleTemplado-Cálido3":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Cálido",
+            "Altitud": "2000a3000"
+        },
+        "consecuente": {
+            "ABT": "3a6"
+        }
+    },
+
+    "ruleTemplado-Cálido4":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Cálido",
+            "Altitud": "3000a4000"
+        },
+        "consecuente": {
+            "ABT": "1.5a3"
+        }
+    },
+
+    "ruleTemplado-Cálido5":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Cálido",
+            "Altitud": "4000a4500"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleTemplado-Cálido6":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Cálido",
+            "Altitud": "4500a4750"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleTemplado-Cálido7":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Cálido",
+            "Altitud": "4750a5000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleTemplado-Frío1":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Frío",
+            "Altitud": "0a1000"
+        },
+        "consecuente": {
+            "ABT": "6a12"
+        }
+    },
+
+    "ruleTemplado-Frío2":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Frío",
+            "Altitud": "1000a2000"
+        },
+        "consecuente": {
+            "ABT": "3a6"
+        }
+    },
+
+    "ruleTemplado-Frío3":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Frío",
+            "Altitud": "2000a3000"
+        },
+        "consecuente": {
+            "ABT": "1.5a3"
+        }
+    },
+
+    "ruleTemplado-Frío4":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Frío",
+            "Altitud": "3000a4000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleTemplado-Frío5":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Frío",
+            "Altitud": "4000a4500"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleTemplado-Frío6":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Frío",
+            "Altitud": "4500a4750"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleTemplado-Frío7":
+    {
+        "antecedentes": {
+            "Latitud": "Templado-Frío",
+            "Altitud": "4750a5000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleBoreal1":
+    {
+        "antecedentes": {
+            "Latitud": "Boreal",
+            "Altitud": "0a1000"
+        },
+        "consecuente": {
+            "ABT": "3a6"
+        }
+    },
+
+    "ruleBoreal2":
+    {
+        "antecedentes": {
+            "Latitud": "Boreal",
+            "Altitud": "1000a2000"
+        },
+        "consecuente": {
+            "ABT": "1.5a3"
+        }
+    },
+
+    "ruleBoreal3":
+    {
+        "antecedentes": {
+            "Latitud": "Boreal",
+            "Altitud": "2000a3000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleBoreal4":
+    {
+        "antecedentes": {
+            "Latitud": "Boreal",
+            "Altitud": "3000a4000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleBoreal5":
+    {
+        "antecedentes": {
+            "Latitud": "Boreal",
+            "Altitud": "4000a4500"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleBoreal6":
+    {
+        "antecedentes": {
+            "Latitud": "Boreal",
+            "Altitud": "4500a4750"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleBoreal7":
+    {
+        "antecedentes": {
+            "Latitud": "Boreal",
+            "Altitud": "4750a5000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleSub-Polar1":
+    {
+        "antecedentes": {
+            "Latitud": "Sub-Polar",
+            "Altitud": "0a1000"
+        },
+        "consecuente": {
+            "ABT": "1.5a3"
+        }
+    },
+
+    "ruleSub-Polar2":
+    {
+        "antecedentes": {
+            "Latitud": "Sub-Polar",
+            "Altitud": "1000a2000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleSub-Polar3":
+    {
+        "antecedentes": {
+            "Latitud": "Sub-Polar",
+            "Altitud": "2000a3000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleSub-Polar4":
+    {
+        "antecedentes": {
+            "Latitud": "Sub-Polar",
+            "Altitud": "3000a4000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleSub-Polar5":
+    {
+        "antecedentes": {
+            "Latitud": "Sub-Polar",
+            "Altitud": "4000a4500"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleSub-Polar6":
+    {
+        "antecedentes": {
+            "Latitud": "Sub-Polar",
+            "Altitud": "4500a4750"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "ruleSub-Polar7":
+    {
+        "antecedentes": {
+            "Latitud": "Sub-Polar",
+            "Altitud": "4750a5000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "rulePolar1":
+    {
+        "antecedentes": {
+            "Latitud": "Polar",
+            "Altitud": "0a1000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "rulePolar2":
+    {
+        "antecedentes": {
+            "Latitud": "Polar",
+            "Altitud": "1000a2000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "rulePolar3":
+    {
+        "antecedentes": {
+            "Latitud": "Polar",
+            "Altitud": "2000a3000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "rulePolar4":
+    {
+        "antecedentes": {
+            "Latitud": "Polar",
+            "Altitud": "3000a4000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "rulePolar5":
+    {
+        "antecedentes": {
+            "Latitud": "Polar",
+            "Altitud": "4000a4500"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "rulePolar6":
+    {
+        "antecedentes": {
+            "Latitud": "Polar",
+            "Altitud": "4500a4750"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    },
+
+    "rulePolar7":
+    {
+        "antecedentes": {
+            "Latitud": "Polar",
+            "Altitud": "4750a5000"
+        },
+        "consecuente": {
+            "ABT": "0a1.5"
+        }
+    }
+}

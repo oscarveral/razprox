@@ -45,6 +45,10 @@ def trapmf(
     Returns:
         np.ndarray: Membership values.
     """
+    if not (a <= b <= c <= d):
+        raise ValueError(
+            f"Invalid parameters for trapezoidal membership function. Must satisfy a <= b <= c <= d. Given a={a}, b={b}, c={c}, d={d}"
+        )
     assert (
         a <= b <= c <= d
     ), "Invalid parameters for trapezoidal membership function. Must satisfy a <= b <= c <= d."

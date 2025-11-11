@@ -1,0 +1,423 @@
+{    
+    "a_variables": ["ABT", "APP", "PER"],
+    "c_variable": "ZonaDeVida",
+    "rules": {
+        "rule0": {
+            "antecedentes": {
+                "ABT": "0a1.5"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Desierto-Polar"
+            }
+        },
+
+        "rule1_1": {
+            "antecedentes": {
+                "ABT": "1.5a3",
+                "APP": "62.5a125",
+                "PER": "1a2"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Tundra-Seca"
+            }
+        },
+
+        "rule1_2": {
+            "antecedentes": {
+                "ABT": "1.5a3",
+                "APP": "125a250",
+                "PER": "0.5a1"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Tundra-Húmeda"
+            }
+        },
+
+        "rule1_3": {
+            "antecedentes": {
+                "ABT": "1.5a3",
+                "APP": "250a500",
+                "PER": "0.25a0.5"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Tundra-Muy-Húmeda"
+            }
+        },
+
+        "rule1_4": {
+            "antecedentes": {
+                "ABT": "1.5a3",
+                "APP": "500a1000",
+                "PER": "0.125a0.25"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Tundra-Pluvial"
+            }
+        },
+
+        "rule2_1": {
+            "antecedentes": {
+                "ABT": "3a6",
+                "APP": "62.5a125",
+                "PER": "2a4"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Desierto-Boreal"
+            }
+        },
+
+
+        "rule2_2": {
+            "antecedentes": {
+                "ABT": "3a6",
+                "APP": "125a250",
+                "PER": "1a2"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Matorral-Boreal-Seco"
+            }
+        },
+
+        "rule2_3": {
+            "antecedentes": {
+                "ABT": "3a6",
+                "APP": "250a500",
+                "PER": "0.5a1"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Boreal-Húmedo"
+            }
+        },
+
+        "rule2_4": {
+            "antecedentes": {
+                "ABT": "3a6",
+                "APP": "500a1000",
+                "PER": "0.25a0.5"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Boreal-Muy-Húmedo"
+            }
+        },
+
+        "rule2_5": {
+            "antecedentes": {
+                "ABT": "3a6",
+                "APP": "1000a2000",
+                "PER": "0.125a0.25"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Boreal-Pluvial"
+            }
+        },
+
+        "rule3_1": {
+            "antecedentes": {
+                "ABT": "6a12",
+                "APP": "62.5a125",
+                "PER": "4a8"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Desierto-Templado-Frío"
+            }
+        },
+
+        "rule3_2": {
+            "antecedentes": {
+                "ABT": "6a12",
+                "APP": "125a250",
+                "PER": "2a4"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Matorral-Templado-Frío"
+            }
+        },
+
+        "rule3_3": {
+            "antecedentes": {
+                "ABT": "6a12",
+                "APP": "250a500",
+                "PER": "1a2"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Estepa-Templada-Fría"
+            }
+        },
+
+        "rule3_4": {
+            "antecedentes": {
+                "ABT": "6a12",
+                "APP": "500a1000",
+                "PER": "0.5a1"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Húmedo-Templado-Frío"
+            }
+        },
+
+        "rule3_5": {
+            "antecedentes": {
+                "ABT": "6a12",
+                "APP": "1000a2000",
+                "PER": "0.25a0.5"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Muy-Húmedo-Templado-Frío"
+            }
+        },
+
+        "rule3_6": {
+            "antecedentes": {
+                "ABT": "6a12",
+                "APP": "2000a4000",
+                "PER": "0.125a0.25"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Pluvial-Templado-Frío"
+            }
+        },
+
+        "rule4_1": {
+            "antecedentes": {
+                "ABT": "12a18",
+                "APP": "62.5a125",
+                "PER": "8a16"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Desierto-Templado-Cálido"
+            }
+        },
+
+        "rule4_2": {
+            "antecedentes": {
+                "ABT": "12a18",
+                "APP": "125a250",
+                "PER": "4a8"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Matorral-Xerófilo-Templado-Cálido"
+            }
+        },
+
+        "rule4_3": {
+            "antecedentes": {
+                "ABT": "12a18",
+                "APP": "250a500",
+                "PER": "2a4"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Matorral-Espinoso-Templado-Cálido"
+            }
+        },
+
+        "rule4_4": {
+            "antecedentes": {
+                "ABT": "12a18",
+                "APP": "500a1000",
+                "PER": "1a2"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Seco-Templado-Cálido"
+            }
+        },
+
+        "rule4_5": {
+            "antecedentes": {
+                "ABT": "12a18",
+                "APP": "1000a2000",
+                "PER": "0.5a1"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Húmedo-Templado-Cálido"
+            }
+        },
+
+        "rule4_6": {
+            "antecedentes": {
+                "ABT": "12a18",
+                "APP": "2000a4000",
+                "PER": "0.25a0.5"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Muy-Húmedo-Templado-Cálido"
+            }
+        },
+
+        "rule4_7": {
+            "antecedentes": {
+                "ABT": "12a18",
+                "APP": "4000a8000",
+                "PER": "0.125a0.25"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Pluvial-Templado-Cálido"
+            }
+        },
+
+        "rule5_1": {
+            "antecedentes": {
+                "ABT": "18a24",
+                "APP": "62.5a125",
+                "PER": "8a16"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Desierto-Subtropical"
+            }
+        },
+
+        "rule5_2": {
+            "antecedentes": {
+                "ABT": "18a24",
+                "APP": "125a250",
+                "PER": "4a8"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Matorral-Xerófilo-Subtropical"
+            }
+        },
+
+        "rule5_3": {
+            "antecedentes": {
+                "ABT": "18a24",
+                "APP": "250a500",
+                "PER": "2a4"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Floresta-Espinosa-Subtropical"
+            }
+        },
+
+        "rule5_4": {
+            "antecedentes": {
+                "ABT": "18a24",
+                "APP": "500a1000",
+                "PER": "1a2"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Seco-Subtropical"
+            }
+        },
+
+        "rule5_5": {
+            "antecedentes": {
+                "ABT": "18a24",
+                "APP": "1000a2000",
+                "PER": "0.5a1"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Selva-Húmeda-Subtropical"
+            }
+        },
+
+        "rule5_6": {
+            "antecedentes": {
+                "ABT": "18a24",
+                "APP": "2000a4000",
+                "PER": "0.25a0.5"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Selva-Muy-Húmeda-Subtropical"
+            }
+        },
+
+        "rule5_7": {
+            "antecedentes": {
+                "ABT": "18a24",
+                "APP": "4000a8000",
+                "PER": "0.125a0.25"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Selva-Pluvial-Subtropical"
+            }
+        },
+
+        "rule6_1": {
+            "antecedentes": {
+                "ABT": "24a30",
+                "APP": "62.5,125",
+                "PER": "16a32"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Desierto-Tropical"
+            }
+        },
+
+        "rule6_2": {
+            "antecedentes": {
+                "ABT": "24a30",
+                "APP": "125a250",
+                "PER": "8a16"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Matorral-Xerófilo-Tropical"
+            }
+        },
+
+        "rule6_3": {
+            "antecedentes": {
+                "ABT": "24a30",
+                "APP": "250a500",
+                "PER": "4a8"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Floresta-Espinosa-Tropical"
+            }
+        },
+
+        "rule6_4": {
+            "antecedentes": {
+                "ABT": "24a30",
+                "APP": "500a1000",
+                "PER": "2a4"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Muy-Seco-Tropical"
+            }
+        },
+
+        "rule6_5": {
+            "antecedentes": {
+                "ABT": "24a30",
+                "APP": "1000a2000",
+                "PER": "1a2"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Bosque-Seco-Tropical"
+            }
+        },
+
+        "rule6_6": {
+            "antecedentes": {
+                "ABT": "24a30",
+                "APP": "2000a4000",
+                "PER": "0.5a1"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Selva-Húmeda-Tropical"
+            }
+        },
+
+        "rule6_7": {
+            "antecedentes": {
+                "ABT": "24a30",
+                "APP": "4000a8000",
+                "PER": "0.25a0.5"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Selva-Muy-Húmeda-Tropical"
+            }
+        },
+
+        "rule6_8": {
+            "antecedentes": {
+                "ABT": "24a30",
+                "APP": "8000a16000",
+                "PER": "0.125a0.25"
+            },
+            "consecuente": {
+                "ZonaDeVida": "Selva-Pluvial-Tropical"
+            }
+        }
+
+    }
+}

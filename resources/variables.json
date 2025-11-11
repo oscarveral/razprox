@@ -1,0 +1,133 @@
+{
+    "ABT": {
+            "Tipo": "Cuantitativa",
+            "Dominio": [-1.0, 5.33],
+            "Escala": {
+                "Tipo": "Exponencial",
+                "Base": 2.0,
+                "Constante": 0.75
+            },
+            "Etiquetas": {
+                "0a1.5": [-1.0, 1.0],
+                "1.5a3": [1.0, 2.0],
+                "3a6": [2.0, 3.0],
+                "6a12": [3.0, 4.0],
+                "12a18": [4.0, 4.5],
+                "18a24": [4.5, 5.0],
+                "24a30": [5.0, 5.33]
+            }
+        },
+    "APP": {
+        "Tipo": "Cuantitativa",
+        "Dominio": [-4.0, 4.0],
+        "Escala": {
+            "Tipo": "Exponencial",
+            "Base": 2.0,
+            "Constante": 1000.0
+        },
+        "Etiquetas": {
+            "62.5a125": [-4.0, -3.0],
+            "125a250": [-3.0, -2.0],
+            "250a500": [-2.0, -1.0],
+            "500a1000": [-1.0, 0.0],
+            "1000a2000": [0.0, 1.0],
+            "2000a4000": [1.0, 2.0],
+            "4000a8000": [2.0, 3.0],
+            "8000a16000": [3.0, 4.0]
+        }
+    },
+    "PER": {
+        "Tipo": "Cuantitativa",
+        "Dominio": [-4.0, 4.0],
+        "Escala": {
+            "Tipo": "Exponencial",
+            "Base": 2.0,
+            "Constante": 2.0
+        },
+        "Etiquetas": {
+            "0.125a0.25": [-4.0, -3.0],
+            "0.25a0.5": [-3.0, -2.0],
+            "0.5a1": [-2.0, -1.0],
+            "1a2": [-1.0, 0.0],
+            "2a4": [0.0, 1.0],
+            "4a8": [1.0, 2.0],
+            "8a16": [2.0, 3.0],
+            "16a32": [3.0, 4.0]
+        }
+    },
+    "ZonaDeVida": {
+        "Tipo": "Cualitativa",
+        "Etiquetas": {
+            "Desierto-Polar": [224, 224, 248],
+            "Tundra-Seca": [217, 217, 242],
+            "Tundra-Húmeda": [210, 210, 236],
+            "Tundra-Muy-Húmeda": [203, 203, 240],
+            "Tundra-Pluvial": [196, 196, 234],
+            "Desierto-Boreal": [251, 239, 251],
+            "Matorral-Boreal-Seco": [249, 229, 249],
+            "Bosque-Boreal-Húmedo": [247, 219, 247],
+            "Bosque-Boreal-Muy-Húmedo": [245, 209, 245],
+            "Bosque-Boreal-Pluvial": [243, 199, 243],
+            "Desierto-Templado-Frío": [248, 224, 224],
+            "Matorral-Templado-Frío": [246, 216, 216],
+            "Estepa-Templada-Fría": [244, 208, 208],
+            "Bosque-Húmedo-Templado-Frío": [242, 200, 200],
+            "Bosque-Muy-Húmedo-Templado-Frío": [240, 192, 192],
+            "Bosque-Pluvial-Templado-Frío": [239, 184, 184],
+            "Desierto-Templado-Cálido": [245, 246, 206],
+            "Matorral-Xerófilo-Templado-Cálido": [243, 243, 199],
+            "Matorral-Espinoso-Templado-Cálido": [241, 241, 192],
+            "Bosque-Seco-Templado-Cálido": [239, 239, 184],
+            "Bosque-Húmedo-Templado-Cálido": [237, 237, 176],
+            "Bosque-Muy-Húmedo-Templado-Cálido": [235, 235, 168],
+            "Bosque-Pluvial-Templado-Cálido": [233, 233, 160],
+            "Desierto-Subtropical": [227, 246, 206],
+            "Matorral-Xerófilo-Subtropical": [219, 241, 197],
+            "Floresta-Espinosa-Subtropical": [211, 236, 181],
+            "Bosque-Seco-Subtropical": [203, 231, 168],
+            "Selva-Húmeda-Subtropical": [195, 226, 156],
+            "Selva-Muy-Húmeda-Subtropical": [187, 214, 146],
+            "Selva-Pluvial-Subtropical": [179, 214, 136],
+            "Desierto-Tropical": [206, 246, 227],
+            "Matorral-Xerófilo-Tropical": [200, 240, 221],
+            "Floresta-Espinosa-Tropical": [194, 235, 215],
+            "Bosque-Muy-Seco-Tropical": [188, 229, 209],
+            "Bosque-Seco-Tropical": [182, 223, 203],
+            "Selva-Húmeda-Tropical": [176, 217, 197],
+            "Selva-Muy-Húmeda-Tropical": [170, 211, 191],
+            "Selva-Pluvial-Tropical": [164, 205, 185]
+        }
+    },
+    "Latitud": {
+        "Tipo": "Cuantitativa",
+        "Dominio": [0.0, 90.0],
+        "Escala": {
+            "Tipo": "Lineal"
+        },
+        "Etiquetas": {
+            "Tropical" : [0.0, 13.0],
+            "Subtropical" : [13.0, 27.5],
+            "Templado-Cálido" : [27.5, 42.0],
+            "Templado-Frío" : [42.0, 56.5],
+            "Boreal" : [56.5, 63.75],
+            "Sub-Polar" : [63.75, 68.0],
+            "Polar" : [68.0, 90.0]
+        }
+    },
+    "Altitud": {
+        "Tipo": "Cuantitativa",
+        "Dominio": [0.0, 5000.0],
+        "Escala": {
+            "Tipo": "Lineal"
+        },
+        "Etiquetas": {
+            "0a1000": [0.0, 1000.0],
+            "1000a2000": [1000.0, 2000.0],
+            "2000a3000": [2000.0, 3000.0],
+            "3000a4000": [3000.0, 4000.0],
+            "4000a4500": [4000.0, 4500.0],
+            "4500a4750": [4500.0, 4750.0],
+            "4750a5000": [4750.0, 5000.0]
+        }
+    }
+}

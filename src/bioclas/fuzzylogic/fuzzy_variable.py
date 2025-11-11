@@ -1,23 +1,20 @@
 from bioclas.fuzzylogic.fuzzy_set import FuzzySet
 
-
 class FuzzyVariable:
     """A class representing a fuzzy variable with associated fuzzy sets."""
 
     def __init__(
-        self, name: str, interval: tuple[float, float], step: float = 0.1
+        self, name: str, interval: tuple[float, float]
     ):
         """Initialize the fuzzy variable.
 
         Args:
             name (str): The name of the fuzzy variable.
             interval (tuple[float, float]): The domain of the variable.
-            step (float): The step size for discretization.
 
         """
         self._name = name
         self._interval = interval
-        self._step = step
         self._fuzzysets = {}
 
     @property
@@ -27,10 +24,6 @@ class FuzzyVariable:
     @property
     def interval(self) -> tuple[float, float]:
         return self._interval
-
-    @property
-    def step(self) -> float:
-        return self._step
 
     def add_fuzzyset(self, fuzzyset: FuzzySet) -> None:
         self._fuzzysets[fuzzyset.name] = fuzzyset

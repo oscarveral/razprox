@@ -1,6 +1,5 @@
 import numpy as np
 
-
 class FuzzySet:
     """An abstract class representing a real, one-dimensional, fuzzy set with a name and a membership function."""
 
@@ -167,7 +166,7 @@ class FuzzySet:
             step (float): The step size for the alpha-cut computation. Defaults to 0.1.
 
         Returns:
-            np.ndarray: The alpha-cut of the fuzzy set.
+            np.ndarray: The alpha-cut of the fuzzy set.FuzzyVariable
         """
         x = np.arange(interval[0], interval[1], step)
         membership_values = self.mf(x)
