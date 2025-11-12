@@ -1,5 +1,7 @@
 import numpy as np
 
+from .mem_functions import trimf, trapmf, sigmf, smf, pimf
+
 class FuzzySet:
     """An abstract class representing a real, one-dimensional, fuzzy set with a name and a membership function."""
 
@@ -11,17 +13,87 @@ class FuzzySet:
         Args:
             name (str): The name of the fuzzy set.
             membership_function (callable): A function that takes a numpy array and returns a numpy array of membership values.
+        
+        Raises:
+            ValueError: If name is None or membership_function is None.
+            TypeError: If name is not a string or membership_function is not callable.
+        
         """
-        assert name is not None, "Name cannot be None"
-        assert isinstance(name, str), "Name must be a string"
-        assert (
-            membership_function is not None
-        ), "Membership function cannot be None"
-        assert callable(
-            membership_function
-        ), "Membership function must be callable"
-        self._name = name
-        self._membership_function = membership_function
+        if name is None:
+            raise ValueError("Name cannot be None")
+        if not isinstance(name, str):
+            raise TypeError("Name must be a string")
+        if membership_function is None:
+            raise ValueError("Membership function cannot be None")
+        if not callable(membership_function):
+            raise TypeError("Membership function must be callable")
+        self.__name = name
+        self.__membership_function = membership_function
+
+    @classmethod
+    def triangular(cls, name: str, a: float, b: float, c: float):
+        """Create a triangular fuzzy set."""
+        if name is None:
+            raise ValueError("Name cannot be None")
+        if not isinstance(name, str):
+            raise TypeError("Name must be a string")
+    
+        return cls(
+            name = name,
+            membership_function=lambda x, a=a, b=b, c=c: trimf(x, a, b, c)
+        )
+    
+    @classmethod
+    def trapezoidal(cls, name: str, a: float, b: float, c: float, d: float):
+        """Create a trapezoidal fuzzy set."""
+        if name is None:
+            raise ValueError("Name cannot be None")
+        if not isinstance(name, str):
+            raise TypeError("Name must be a string")
+    
+        return cls(
+            name = name,
+            membership_function=lambda x, a=a, b=b, c=c, d=d: trapmf(x, a, b, c, d)
+        )
+    
+    @classmethod
+    def sigmoid(cls, name: str, a: float, c: float):
+        """Create a sigmoid fuzzy set."""
+        if name is None:
+            raise ValueError("Name cannot be None")
+        if not isinstance(name, str):
+            raise TypeError("Name must be a string")
+    
+        return cls(
+            name = name,
+            membership_function=lambda x, a=a, c=c: sigmf(x, a, c)
+        )
+
+    @classmethod
+    def s(cls, name: str, a: float, c: float):
+        """Create a s-shaped fuzzy set."""
+        if name is None:
+            raise ValueError("Name cannot be None")
+        if not isinstance(name, str):
+            raise TypeError("Name must be a string")
+
+        return cls(
+            name=name,
+            membership_function=lambda x, a=a, c=c: smf(x, a, c)
+        )
+    
+    @classmethod
+    def pi(cls, name: str, a: float, b: float, c: float, d: float):
+        """Create a pi-shaped fuzzy set."""
+        if name is None:
+            raise ValueError("Name cannot be None")
+        if not isinstance(name, str):
+            raise TypeError("Name must be a string")
+
+        return cls(
+            name=name,
+            membership_function=lambda x, a=a, b=b, c=c, d=d: pimf(x, a, b, c, d)
+        )
 
     @classmethod
     def singleton(cls, value: float, name: str = "real"):
@@ -35,11 +107,17 @@ class FuzzySet:
         Returns:
             FuzzySet: A singleton fuzzy set instance.
         """
+        if name is None:
+            raise ValueError("Name cannot be None")
+        if not isinstance(name, str):
+            raise TypeError("Name must be a string")
+        if not isinstance(value, (int, float)):
+            raise TypeError("Value must be a numeric type")
         return cls(name, lambda x: np.where(x == value, 1.0, 0.0))
 
     @property
     def name(self) -> str:
-        return self._name
+        return self.__name
 
     def mf(self, x: np.ndarray) -> np.ndarray:
         """Evaluate the membership function for real-valued inputs.
@@ -50,7 +128,7 @@ class FuzzySet:
         Returns:
             np.ndarray: The membership values for the given input.
         """
-        return self._membership_function(x)
+        return self.__membership_function(x)
 
     def mf_interval(
         self, interval: tuple[float, float], step: float = 0.1
@@ -64,16 +142,15 @@ class FuzzySet:
         Returns:
             tuple[np.ndarray, np.ndarray]: A tuple containing the x values and the corresponding membership values.
         """
-        assert isinstance(interval, tuple), "Interval must be a tuple."
-        assert (
-            len(interval) == 2
-        ), "Interval must be a tuple with two elements."
-        assert all(
-            isinstance(i, (int, float)) for i in interval
-        ), "Interval must contain numeric values."
+        if step <= 0:
+            raise ValueError("Step must be a positive number.")
+        if not isinstance(interval, tuple):
+            raise TypeError("Interval must be a tuple.")
+        if interval[0] > interval[1]:
+            raise ValueError("Invalid interval: the start must be less than the end.")
 
         x = np.arange(interval[0], interval[1], step)
-        return x, self._membership_function(x)
+        return x, self.__membership_function(x)
 
     def support(
         self, interval: tuple[float, float], step: float = 0.1
@@ -176,7 +253,7 @@ class FuzzySet:
         """Evaluate the degree of membership for a single real-valued input."""
         result = self.mf(np.array([value]))
         return float(result[0])
-
+    
     def __repr__(self):
         return f"FuzzySet(name={self.name}, membership_function={self._membership_function})"
 

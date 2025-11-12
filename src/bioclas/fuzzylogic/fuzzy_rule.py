@@ -1,3 +1,4 @@
+from bioclas.fuzzylogic.fuzzy_ops import FuzzyOperationsSet
 from bioclas.fuzzylogic.fuzzy_variable import FuzzyVariable
 
 class FuzzyRule:
@@ -12,7 +13,9 @@ class FuzzyRule:
     def __init__(self):
         """Initialize an empty fuzzy rule."""
 
+        # Antecedents are stored as a dictionary mapping variable names to (variable, fuzzyset_name) tuples
         self.__antecedents= {}
+        # Consequent is stored as a (variable, fuzzyset_name) tuple
         self.__consequent = None
 
 
@@ -63,26 +66,38 @@ class FuzzyRule:
     def eval(self, input_values: dict[str, float]) -> tuple[str, float]:
         """Evaluate the fuzzy rule given input values for the antecedents.
 
+        Input values keys must contain all antecedent variable names.
+        The agregation of the antecedents is done using the minimum operator.
+
         Args:
             input_values (dict[str, float]): A dictionary mapping antecedent variable names to their input values.
 
+        Raises:
+            ValueError: If the fuzzy rule is not fully defined or if input values are missing.   
+
         Returns:
-            tuple[str, float]: A tuple containing the name of the consequent fuzzy set and its degree of membership.
+            tuple[FuzzyVariable, str, float]: A tuple containing 
+            the fuzzy variable, the name of the consequent fuzzy set and its degree of membership.
 
         """
-        if self.__consequent_var is None or not self.__antecedent_vars:
+        if self.__consequent is None or not self.__antecedents:
             raise ValueError("Fuzzy rule is not fully defined.")
         
+        # print(f"\nEvaluando regla difusa: {self.__str__()} con los valores de entrada:")
+        # for var_n, value in input_values.items():
+        #     print(f"  {var_n}: {value}")
+        
         antecedent_result = 1.0
-        for var in self.__antecedent_vars.keys():
-            if var.name not in input_values:
-                raise ValueError(f"Input value for '{var.name}' is missing.")
-            value = input_values[var.name]
-            fs_name = self.__antecedent_vars[var]
+        for var_n, (var, fs_name) in self.__antecedents.items():
+            if var_n not in input_values:
+                raise ValueError(f"Input value for '{var_n}' is missing.")
+            value = input_values[var_n]
             degree = var.dof(fs_name, value)
             antecedent_result = min(antecedent_result, degree)
 
-        return self.__consequent[1], antecedent_result
+        # print(f"  Grado de pertenencia del consecuente '{self.__consequent[1]}': {antecedent_result}")
+
+        return self.__consequent[0], self.__consequent[1], antecedent_result
     
     @property
     def c_variable(self) -> FuzzyVariable:
@@ -94,11 +109,11 @@ class FuzzyRule:
 
     def __str__(self) -> str:
         antecedents_str = " AND ".join(
-            [f"{var.name} IS {fs_name}" for var, fs_name in self.__antecedents]
+            [f"{var_n} IS {fs_name}" for var_n, (var, fs_name) in self.__antecedents.items()]
         )
         consequent_str = (
-            f"{self._consequent[0].name} IS {self._consequent[1]}"
-            if self._consequent
+            f"{self.__consequent[0].name} IS {self.__consequent[1]}"
+            if self.__consequent
             else "None"
         )
         return f"IF {antecedents_str} THEN {consequent_str}"

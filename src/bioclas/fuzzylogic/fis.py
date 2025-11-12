@@ -2,50 +2,63 @@ from bioclas.fuzzylogic.fuzzy_variable import FuzzyVariable
 from bioclas.fuzzylogic.fuzzy_rule import FuzzyRule
 
 class FIS():
-    """A class representing a Fuzzy Inference System (FIS)."""
+    """A class representing a Fuzzy Inference System (FIS).
+    
+    Every rule in the FIS should have the same antecedent variables (missing variables is allowed,
+    in which case they are ignored for that rule) and the same consequent variable.
+    """
 
-    def __init__(self, antecedents: dict, consequent: dict):
-        """Initialize the FIS with a name, empty variables and rules."""
-        self.__a_vars = {}
-        self.__c_vars = {}
+    def __init__(self, antecedents: list[FuzzyVariable], consequent: FuzzyVariable) -> None:
+        """Initialize the FIS with a name, empty variables and rules.
+        
+        Args:
+            antecedents (list[FuzzyVariable]): A list of antecedent fuzzy variables.
+            consequent (FuzzyVariable): The consequent fuzzy variable.
+        """
+        if not antecedents:
+            raise ValueError("At least one antecedent variable must be provided.")
+        self.__a_vars = {vn: v for vn, v in zip([v.name for v in antecedents], antecedents)}
+        self.__consequent = consequent
         self.__rules = {}
 
-    def add_rule(self, antecedents: dict, consequent: dict) -> None:
+    def add_rule(self, rule_name, antecedents: dict, consequent_fs_name: str) -> None:
         """Add a fuzzy rule to the FIS.
         
         Args:
             antecedents (dict): A dictionary mapping antecedent variable names to fuzzy set names.
-            consequent (dict): A dictionary mapping the consequent variable name to the fuzzy set name.
+            consequent_fs_name (str): The fuzzy set name for the consequent variable.
         """
-        if not isinstance(antecedents, dict) or not isinstance(consequent, dict):
-            raise ValueError("Antecedents and consequent must be dictionaries.")
+        if not isinstance(antecedents, dict):
+            raise ValueError("Antecedents must be a dictionary.")
         if not antecedents:
             raise ValueError("At least one antecedent must be provided.")
-        if not consequent:
+        if not consequent_fs_name:
             raise ValueError("A consequent must be provided.")
-        if len(consequent) != 1:
-            raise ValueError("There must be exactly one consequent.")
+        if not isinstance(consequent_fs_name, str) or not self.__consequent.has_fuzzyset(consequent_fs_name):
+            raise ValueError(f"Invalid consequent fuzzy set name provided. Given: '{consequent_fs_name}'")
 
         fuzzy_rule = FuzzyRule()
         for var_name, fs_name in antecedents.items():
-            var = self.__a_vars.get(var_name)
-            if var:
-                fuzzy_rule.add_antecedent(var, fs_name)
+            var = self.__a_vars.get(var_name, None)
+            if var is None:
+                raise ValueError(f"Antecedent variable '{var_name}' not found for rule '{rule_name}'.")
             else:
-                raise ValueError(f"Antecedent variable '{var_name}' not found.")
-        for var_name, fs_name in consequent.items():
-            var = self.__c_vars.get(var_name)
-            if var:
-                fuzzy_rule.set_consequent(var, fs_name)
-        self.__rules.append(fuzzy_rule)
+                fuzzy_rule.add_antecedent(var, fs_name)
 
-    @property
-    def variables(self) -> dict[str, FuzzyVariable]:
-        return self._variables
+        fuzzy_rule.set_consequent(self.__consequent, consequent_fs_name)
+        self.__rules[rule_name] = fuzzy_rule
 
     @property
     def rules(self) -> list[FuzzyRule]:
         return self._rules
+    
+    @property
+    def antecedent_vars(self) -> dict[str, FuzzyVariable]:
+        return self.__a_vars
+    
+    @property
+    def consequent(self) -> FuzzyVariable:
+        return self.__consequent
     
     def eval(self, input_values: dict[str, float]) -> dict[str, float]:
         """Evaluate the FIS given input values for the antecedent variables.
@@ -54,11 +67,10 @@ class FIS():
             input_values (dict[str, float]): A dictionary mapping antecedent variable names to their input values.
 
         Returns:
-            dict[str, float]: A dictionary mapping consequent variable fuzzy set names to their output values. Aggregation uses max operator.
+            dict[str, float]: A dictionary mapping consequent variable fuzzy set names to their output values. Aggregation for dof uses max operator.
         """
         output_values = {}
-        for rule in self.__rules:
-            set_n, degree = rule.eval(input_values)
-            if degree > 0:
-                output_values[set_n] = max(degree, output_values.get(set_n, 0.0))
-        return output_values
+        for rule_n, rule in self.__rules.items():
+            var, set_n, degree = rule.eval(input_values)
+            output_values[set_n] = max(degree, output_values.get(set_n, 0.0))
+        return self.__consequent, output_values

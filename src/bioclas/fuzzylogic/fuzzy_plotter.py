@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from bioclas.fuzzylogic.fuzzy_set import FuzzySet
-from bioclas.fuzzylogic.fuzzy_variable import FuzzyVariable
 
 
 class FuzzyPlotter:
@@ -21,7 +20,7 @@ class FuzzyPlotter:
         """Add multiple fuzzy sets to the plotter."""
         self._fsets.extend(fuzzy_sets)
 
-    def add_fuzzy_variable(self, fuzzy_var: FuzzyVariable) -> None:
+    def add_fuzzy_variable(self, fuzzy_var: 'FuzzyVariable') -> None:
         """Add a fuzzy variable to the plotter."""
         self._fvars.append(fuzzy_var)
 

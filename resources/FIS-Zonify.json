@@ -334,7 +334,7 @@
         "rule6_1": {
             "antecedentes": {
                 "ABT": "24a30",
-                "APP": "62.5,125",
+                "APP": "62.5a125",
                 "PER": "16a32"
             },
             "consecuente": {

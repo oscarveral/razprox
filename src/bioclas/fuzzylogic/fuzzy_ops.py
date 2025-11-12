@@ -1,83 +1,144 @@
-from functools import partial
+from abc import ABC, abstractmethod
 
 import numpy as np
 
 from bioclas.fuzzylogic.fuzzy_set import FuzzySet
 
+class FuzzyOperationError(Exception):
+    """Custom exception for fuzzy operation errors."""
+    def __init__(self, message: str):
+        super().__init__(message)
 
-def get_fuzzy_family(name: str, **kwargs) -> dict:
-    """Retrieve a fuzzy logic family by name.
+class FuzzyOperationFactory:
+    """Factory class for creating fuzzy logic operation sets (classes that inherit FuzzyOperationsSet)."""
+    __registry = {}
 
-    Args:
-        name (str): The name of the fuzzy logic family.
-        **kwargs: Additional parameters for specific families.
+    @classmethod
+    def register(cls, name: str):
+        """Decorator to register a fuzzy operation set class with a given name."""
+        def decorator(fuzzy_ops_class):
+            cls.__registry[name] = fuzzy_ops_class
+            return fuzzy_ops_class
+        return decorator
+    
+    @classmethod
+    def create(cls, name: str, **kwargs) -> 'FuzzyOperationsSet':
+        """Create an instance of a registered fuzzy operation set class.
 
-    Returns:
-        dict: A dictionary containing the fuzzy logic operations for the specified family.
-    """
+        Args:
+            name (str): The name of the registered fuzzy operation set class.
+            **kwargs: Additional parameters to pass to the class constructor.
 
-    FAMILIES = {
-        "minmax": {
-            "t_norm": min_t_norm,
-            "t_conorm": max_t_conorm,
-            "complement": complement_minus,
-            "params": None,
-        },
-        "algebraic": {
-            "t_norm": prod_t_norm,
-            "t_conorm": sum_t_conorm,
-            "complement": complement_minus,
-            "params": None,
-        },
-        "drastic": {
-            "t_norm": drastic_t_norm,
-            "t_conorm": drastic_t_conorm,
-            "complement": complement_minus,
-            "params": None,
-        },
-        "dubois-prade": {
-            "t_norm": dubois_prade_t_norm,
-            "t_conorm": dubois_prade_t_conorm,
-            "complement": complement_minus,
-            "params": ["p"],
-        },
-        "yager": {
-            "t_norm": yager_t_norm,
-            "t_conorm": yager_t_conorm,
-            "complement": complement_yager,
-            "params": ["p"],
-        },
-        "schweizer-sklar": {
-            "t_norm": schweizer_sklar_t_norm,
-            "t_conorm": schweizer_sklar_t_conorm,
-            "complement": complement_minus,
-            "params": ["p"],
-        },
-    }
+        """
+        if name not in cls.__registry:
+            raise FuzzyOperationError(f"Fuzzy operation set '{name}' is not registered. Available sets: {list(cls.__registry.keys())}")
+        fuzzy_ops_class = cls.__registry[name]
+        return fuzzy_ops_class(**kwargs)
 
-    if name not in FAMILIES:
-        raise ValueError(
-            f"Fuzzy family '{name}' is not recognized. Options are: {list(FAMILIES.keys())}"
-        )
+class FuzzyOperationsSet(ABC):
+    """Abstract base class for fuzzy logic operations."""
 
-    fam = FAMILIES[name]
-    params = fam.get("params")
+    @abstractmethod
+    def t_norm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        raise NotImplementedError("t_norm method must be implemented by subclasses.")
 
-    if params:
-        t = partial(
-            fam["t_norm"], **{k: kwargs[k] for k in params if k in kwargs}
-        )
-        s = partial(
-            fam["t_conorm"], **{k: kwargs[k] for k in params if k in kwargs}
-        )
-        c = partial(
-            fam["complement"], **{k: kwargs[k] for k in params if k in kwargs}
-        )
-    else:
-        t = fam["t_norm"]
-        s = fam["t_conorm"]
-        c = fam["complement"]
-    return {"t_norm": t, "t_conorm": s, "complement": c}
+    @abstractmethod
+    def t_conorm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        raise NotImplementedError("t_conorm method must be implemented by subclasses.")
+
+    @abstractmethod
+    def complement(self, a: FuzzySet) -> FuzzySet:
+        raise NotImplementedError("complement method must be implemented by subclasses.")
+
+@FuzzyOperationFactory.register("min-max")
+class MinMaxFuzzyOpsSet(FuzzyOperationsSet):
+    """Fuzzy operations set using Min-Max methods."""
+    def __init__(self):
+        pass
+
+    def t_norm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        return min_t_norm(a, b)
+
+    def t_conorm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        return max_t_conorm(a, b)
+
+    def complement(self, a: FuzzySet) -> FuzzySet:
+        return complement_minus(a)
+
+@FuzzyOperationFactory.register("algebraic")
+class AlgebraicFuzzyOpsSet(FuzzyOperationsSet):
+    """Fuzzy operations set using Algebraic methods."""
+    def __init__(self):
+        pass
+
+    def t_norm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        return prod_t_norm(a, b)
+
+    def t_conorm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        return sum_t_conorm(a, b)
+
+    def complement(self, a: FuzzySet) -> FuzzySet:
+        return complement_minus(a)
+
+@FuzzyOperationFactory.register("drastic")   
+class DrasticFuzzyOpsSet(FuzzyOperationsSet):
+    """Fuzzy operations set using Drastic methods."""
+    def __init__(self):
+        pass
+
+    def t_norm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        return drastic_t_norm(a, b)
+
+    def t_conorm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        return drastic_t_conorm(a, b)
+
+    def complement(self, a: FuzzySet) -> FuzzySet:
+        return complement_minus(a)
+
+@FuzzyOperationFactory.register("dubois-prade")
+class DuboisPradeFuzzyOpsSet(FuzzyOperationsSet):
+    """Fuzzy operations set using Dubois-Prade methods."""
+    def __init__(self, p: float = 0.5):
+        self.p = p
+
+    def t_norm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        return dubois_prade_t_norm(a, b, p=self.p)
+
+    def t_conorm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        return dubois_prade_t_conorm(a, b, p=self.p)
+
+    def complement(self, a: FuzzySet) -> FuzzySet:
+        return complement_minus(a)
+
+@FuzzyOperationFactory.register("yager")
+class YagerFuzzyOpsSet(FuzzyOperationsSet):
+    """Fuzzy operations set using Yager methods."""
+    def __init__(self, p: float):
+        self.p = p
+
+    def t_norm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        return yager_t_norm(a, b, p=self.p)
+
+    def t_conorm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        return yager_t_conorm(a, b, p=self.p)
+
+    def complement(self, a: FuzzySet) -> FuzzySet:
+        return complement_yager(a, p=self.p)
+
+@FuzzyOperationFactory.register("schweizer-sklar")
+class SchweizerSklarFuzzyOpsSet(FuzzyOperationsSet):
+    """Fuzzy operations set using Schweizer-Sklar methods."""
+    def __init__(self, p: float):
+        self.p = p
+
+    def t_norm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        return schweizer_sklar_t_norm(a, b, p=self.p)
+
+    def t_conorm(self, a: FuzzySet, b: FuzzySet) -> FuzzySet:
+        return schweizer_sklar_t_conorm(a, b, p=self.p)
+
+    def complement(self, a: FuzzySet) -> FuzzySet:
+        return complement_minus(a)
 
 
 def min_t_norm(a: FuzzySet, b: FuzzySet) -> FuzzySet:
@@ -191,7 +252,7 @@ def dubois_prade_t_conorm(
         b_mf = b.mf(x)
         denom = np.maximum(np.maximum(1 - a_mf, 1 - b_mf), p)
         with np.errstate(divide="ignore", invalid="ignore"):
-            result = np.where(denom > 0, (1 - a_mf) * (1 - b_mf) / denom, 0.0)
+            result = 1-np.where(denom > 0, (1 - a_mf) * (1 - b_mf) / denom, 0.0)
         return result
 
     return FuzzySet(

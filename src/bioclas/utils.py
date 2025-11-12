@@ -1,10 +1,11 @@
+import csv
 from functools import partial
 import json
 from pathlib import Path
 
 from bioclas.fuzzylogic.fuzzy_plotter import FuzzyPlotter
 
-from .fuzzylogic import FuzzyVariable, FuzzySet, FIS
+from .fuzzylogic import FuzzyVariable, FuzzyVariableQualitative, FuzzySet, FIS
 from .fuzzylogic.mem_functions import trapmf, trimf
 
 def load_variables(file_path: Path) -> dict:
@@ -130,9 +131,9 @@ def __process_quantitative_variable(var_name: str, attributes: dict) -> FuzzyVar
             c = mid_points[i]
             d = mid_points[i + 1]
             fuzzy_var.add_fuzzyset(
-                FuzzySet(
+                FuzzySet.trapezoidal(
                     name=label,
-                    membership_function=partial(trapmf, a=a, b=b, c=c, d=d)
+                    a=a, b=b, c=c, d=d
                 )
             )                
         elif i == len(var_labels) - 1:
@@ -141,9 +142,9 @@ def __process_quantitative_variable(var_name: str, attributes: dict) -> FuzzyVar
             c = range_vals[1]
             d = range_vals[1]
             fuzzy_var.add_fuzzyset(
-                FuzzySet(
+                FuzzySet.trapezoidal(
                     name=label,
-                    membership_function=partial(trapmf, a=a, b=b, c=c, d=d)
+                    a=a, b=b, c=c, d=d
                 )
             )
         else:
@@ -151,10 +152,7 @@ def __process_quantitative_variable(var_name: str, attributes: dict) -> FuzzyVar
             b = mid_points[i]
             c = mid_points[i + 1]
             fuzzy_var.add_fuzzyset(
-                FuzzySet(
-                    name=label,
-                    membership_function=partial(trimf, a=a, b=b, c=c)
-                )
+                FuzzySet.triangular(name=label, a=a, b=b, c=c)
             )
 
     print(f"Variable difusa cuantitativa procesada: {var_name} con dominio {var_domain}")
@@ -175,17 +173,18 @@ def __process_qualitative_variable(var_name: str, attributes: dict) -> FuzzyVari
     if not isinstance(var_labels, dict) or not var_labels:
         raise ValueError(f"Etiquetas de variable '{var_name}' deben ser un diccionario no vacío.")
     
-    fuzzy_var = FuzzyVariable(name=var_name, interval=(0, len(var_labels) - 1))
+    fuzzy_var = FuzzyVariableQualitative(name=var_name, interval=(0, len(var_labels) - 1))
 
-    for i, (label, _) in enumerate(var_labels.items()):
+    for i, (label, color) in enumerate(var_labels.items()):
         a = i - 1 if i > 0 else i
         b = i
         c = i + 1 if i < len(var_labels) - 1 else i
-        fuzzy_var.add_fuzzyset(
-            FuzzySet(
+        fuzzy_var.add_color_fuzzyset(
+            FuzzySet.triangular(
                 name=label,
-                membership_function=partial(trimf, a=a, b=b, c=c)
-            )
+                a=a, b=b, c=c
+            ),
+            color=color
         )
 
     print(f"Variable difusa cualitativa procesada: {var_name} con dominio {[0, len(var_labels) - 1]}")
@@ -203,7 +202,6 @@ def load_fis(file_path: Path, variables: dict[str, FuzzyVariable]) -> FIS:
     with file_path.open('r') as file:
         fis_data = json.load(file)
 
-        fis = FIS()
 
         a_vars_names = fis_data.get("a_variables", [])
         c_var_name = fis_data.get("c_variable", None)
@@ -217,18 +215,39 @@ def load_fis(file_path: Path, variables: dict[str, FuzzyVariable]) -> FIS:
             raise ValueError(f"Variable consecuente '{c_var_name}' no encontrada entre las variables cargadas.")
         if not rules:
             raise ValueError("No se han definido reglas en el FIS.")
-        
-        fis
 
-        for _, rule in rules.items():
+        fis = FIS(
+            antecedents=[variables[var_name] for var_name in a_vars_names if var_name in variables],
+            consequent=variables[c_var_name]
+        )
 
-            # Cargar variables antecedentes
-            antecedents_data = rule["antecedentes"]
-            for var_name, fuzzy_set_name in antecedents_data.items():
-                if var_name not in variables:
-                    raise ValueError(f"Variable antecedente '{var_name}' no encontrada entre las variables cargadas.")
-                fuzzy_var = variables[var_name]
-                fis.add_antecedent_variable(fuzzy_var)
-
-            print(f"Sistema de inferencia difusa cargado desde: {file_path}")
+        for rule_n, rule in rules.items():
+            antecedents = rule["antecedentes"]
+            consequent_fs_name = rule["consecuente"][c_var_name]
+            fis.add_rule(rule_n, antecedents, consequent_fs_name)
+            print(f"\tRegla '{rule_n}' añadida al FIS.")
         return fis
+    
+def load_geogrid(file_path: Path) -> list[tuple]:
+    """Carga los datos de la cuadricula geográfica desde un fichero .csv.
+
+    Args:
+        file_path (Path): Ruta al archivo de texto.
+
+    Returns:
+        list[tuple]: Lista de tuplas con los datos de la cuadricula: Longitud, Latitud, Altitud, APP.
+    """
+    geogrid_data = []
+    with file_path.open('r') as file:
+        reader = csv.DictReader(file, delimiter=';')
+
+        for row in reader:
+            # Procesar cada fila y añadirla a la lista
+            # Suponiendo que la primera columna es un identificador único
+            geogrid_data.append((
+                float(row['X'].replace(',', '.')),
+                float(row['Y'].replace(',', '.')),
+                float(row['ELEVA'].replace(',', '.')),
+                float(row['PRECIPITA'].replace(',', '.'))
+            ))
+    return geogrid_data

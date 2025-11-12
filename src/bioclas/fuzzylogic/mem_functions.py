@@ -6,27 +6,37 @@ import numpy as np
 def trimf(x: np.ndarray, a: float, b: float, c: float) -> np.ndarray:
     """Triangular membership function.
 
+    Left vertex and right vertex cannot be the same. If a == b or b == c,
+    trimf(a,b,c)(x) will evaluate as 1 for x <= a or x >= c respectively.
+
     Args:
         x (np.ndarray): Input values.
         a (float): Left vertex of the triangle.
         b (float): Peak of the triangle.
         c (float): Right vertex of the triangle.
 
+    Raises:
+        ValueError: If the parameters do not satisfy a <= b <= c and a != c.
+        TypeError: If the input is not a numpy array or contains non-numeric values.
+
     Returns:
         np.ndarray: Membership values.
     """
-    assert (
-        a <= b <= c
-    ), "Invalid parameters for triangular membership function. Must satisfy a <= b <= c."
-    assert isinstance(x, np.ndarray), "Input must be a numpy array."
-    assert x.ndim == 1, "Input array must be one-dimensional."
-    assert np.issubdtype(
-        x.dtype, np.number
-    ), "Input array must contain numeric values."
+    if not (a <= b <= c and a != c):
+        raise ValueError(
+            f"Invalid parameters for triangular membership function. Must satisfy a <= b <= c and a != c. Given a={a}, b={b}, c={c}"
+        )
+    if not isinstance(x, np.ndarray):
+        raise TypeError("Input must be a numpy array.")
+    if x.ndim != 1:
+        raise ValueError("Input array must be one-dimensional.")
+    if not np.issubdtype(x.dtype, np.number):
+        raise TypeError("Input array must contain numeric values.")
 
     with np.errstate(divide="ignore", invalid="ignore"):
         left = np.where((b - a) == 0, 1, (x - a) / (b - a))
         right = np.where((c - b) == 0, 1, (c - x) / (c - b))
+        
     return np.clip(np.minimum(left, right), 0, 1)
 
 
@@ -34,6 +44,9 @@ def trapmf(
     x: np.ndarray, a: float, b: float, c: float, d: float
 ) -> np.ndarray:
     """Trapezoidal membership function.
+
+    b and c cannot be the same. If a == b or c == d,
+    trapmf(a,b,c,d)(x) will evaluate as 1 for x == a or x == d respectively.
 
     Args:
         x (np.ndarray): Input values.
@@ -45,18 +58,16 @@ def trapmf(
     Returns:
         np.ndarray: Membership values.
     """
-    if not (a <= b <= c <= d):
+    if not (a <= b < c <= d) or b == c:
         raise ValueError(
-            f"Invalid parameters for trapezoidal membership function. Must satisfy a <= b <= c <= d. Given a={a}, b={b}, c={c}, d={d}"
+            f"Invalid parameters for trapezoidal membership function. Must satisfy a <= b < c <= d. Given a={a}, b={b}, c={c}, d={d}"
         )
-    assert (
-        a <= b <= c <= d
-    ), "Invalid parameters for trapezoidal membership function. Must satisfy a <= b <= c <= d."
-    assert isinstance(x, np.ndarray), "Input must be a numpy array."
-    assert x.ndim == 1, "Input array must be one-dimensional."
-    assert np.issubdtype(
-        x.dtype, np.number
-    ), "Input array must contain numeric values."
+    if not isinstance(x, np.ndarray):
+        raise TypeError("Input must be a numpy array.")
+    if x.ndim != 1:
+        raise ValueError(f"Input array must be one-dimensional. And dim is {x.ndim}")
+    if not np.issubdtype(x.dtype, np.number):
+        raise TypeError("Input array must contain numeric values.")
 
     # divisions by 0 should output 1 membership where appropriate
     with np.errstate(divide="ignore", invalid="ignore"):
@@ -76,12 +87,13 @@ def sigmf(x: np.ndarray, a: float, c: float) -> np.ndarray:
     Returns:
         np.ndarray: Membership values.
     """
-    assert isinstance(x, np.ndarray), "Input must be a numpy array."
-    assert x.ndim == 1, "Input array must be one-dimensional."
-    assert np.issubdtype(
-        x.dtype, np.number
-    ), "Input array must contain numeric values."
-    return 1 / (1 + np.exp(-a * (x - c)))
+    if not isinstance(x, np.ndarray):
+        raise TypeError("Input must be a numpy array.")
+    if x.ndim != 1:
+        raise ValueError("Input array must be one-dimensional.")
+    if not np.issubdtype(x.dtype, np.number):
+        raise TypeError("Input array must contain numeric values.")
+    return 1 / (1 + np.exp(-a * (x - c))) 
 
 
 def smf(x: np.ndarray, a: float, b) -> np.ndarray:
@@ -98,12 +110,12 @@ def smf(x: np.ndarray, a: float, b) -> np.ndarray:
     assert (
         a < b
     ), "Invalid parameters for S-shaped membership function. Must satisfy a < b."
-    assert isinstance(x, np.ndarray), "Input must be a numpy array."
-    assert x.ndim == 1, "Input array must be one-dimensional."
-    assert np.issubdtype(
-        x.dtype, np.number
-    ), "Input array must contain numeric values."
-
+    if not isinstance(x, np.ndarray):
+        raise TypeError("Input must be a numpy array.")
+    if x.ndim != 1:
+        raise ValueError("Input array must be one-dimensional.")
+    if not np.issubdtype(x.dtype, np.number):
+        raise TypeError("Input array must contain numeric values.")
     y = np.zeros_like(x)
     idx1 = x <= a
     idx2 = (x > a) & (x < (a + b) / 2)
@@ -131,14 +143,16 @@ def pimf(x: np.ndarray, a: float, b: float, c: float, d: float) -> np.ndarray:
     Returns:
         np.ndarray: Membership values.
     """
-    assert (
-        a <= b <= c <= d
-    ), "Invalid parameters for Pi-shaped membership function. Must satisfy a <= b <= c <= d."
-    assert isinstance(x, np.ndarray), "Input must be a numpy array."
-    assert x.ndim == 1, "Input array must be one-dimensional."
-    assert np.issubdtype(
-        x.dtype, np.number
-    ), "Input array must contain numeric values."
+    if  not (a < b < c < d):
+        raise ValueError(
+            f"Invalid parameters for Pi-shaped membership function. Must satisfy a < b < c < d. Given a={a}, b={b}, c={c}, d={d}"
+        )
+    if not isinstance(x, np.ndarray):
+        raise TypeError("Input must be a numpy array.")
+    if x.ndim != 1:
+        raise ValueError("Input array must be one-dimensional.")
+    if not np.issubdtype(x.dtype, np.number):
+        raise TypeError("Input array must contain numeric values.")
 
     y = np.zeros_like(x)
     idx1 = x <= a
@@ -158,12 +172,4 @@ def pimf(x: np.ndarray, a: float, b: float, c: float, d: float) -> np.ndarray:
     y[idx7] = 0
 
     return y
-
-
-if __name__ == "__main__":
-    x = np.linspace(0, 10, 100)
-    y = trimf(x, 2, 5, 8)
-    print(y)  # Example output
-
-    y2 = trapmf(x, 3, 3, 7, 7)
-    print(y2)  # Example output
+    
