@@ -220,12 +220,8 @@ __marimo__/
 *.pdf
 *.bbl-SAVE-ERROR
 
-# Recursos de la asignatura
-RECURSOS*
-ign*
-
 # Outputs
 output/
 
-# CSV files
+# Data files
 *.csv

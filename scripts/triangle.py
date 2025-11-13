@@ -19,7 +19,7 @@ if __name__ == "__main__":
         for alt in range(0, int(5000 - (5000/90)*lat) + 1, step_alt):
             latitudes.append(lat)
             altitudes.append(alt)
-            longitudes.append(-1)  # Valor fijo -1 para Longitud
+            longitudes.append(alt/step_alt)  # Valor fijo -1 para Longitud
             apps.append(-1)        # Valor fijo -1 para APP
 
     # Crear DataFrame y guardar a CSV
