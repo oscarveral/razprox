@@ -27,6 +27,12 @@ class FuzzyVariable:
     @property
     def interval(self) -> tuple[float, float]:
         return self.__interval
+    
+    def plotter(self) -> FuzzyPlotter:
+        plotter = FuzzyPlotter()
+        plotter.add_fuzzy_variable(self)
+        plotter.domain = self.__interval
+        return plotter
 
     def add_fuzzyset(self, fuzzyset: FuzzySet) -> None:
         self.__fuzzysets[fuzzyset.name] = fuzzyset
@@ -52,28 +58,25 @@ class FuzzyVariable:
             )
         return fuzzyset.dof(value)
     
-    def defuzzify(self, degrees: dict[str, float], method: str = "centroid", step: float = 0.1) -> float:
+    def defuzzify(self, degrees: dict[str, float], method: str = "centroid", imode: str = "mandami", step: float = 0.1) -> float:
         """Defuzzify the fuzzy variable using the specified method.
 
         Args:
-            degrees (dict[str, float]): A dictionary mapping fuzzy set names to their degrees of membership.
-            method (str): The defuzzification method to use. Currently only "centroid" is supported.
+            degrees (dict[str, float]): A dictionary mapping fuzzy set names to their degrees of fulfillment.
+            method (str): The defuzzification method to use. Currently "centroid" and "averageMax" is supported.
             step (float): The step size for numerical integration (used in centroid method).
 
         Returns:
             float: The defuzzified crisp value.
         """
-        if method != "centroid":
-            raise ValueError(f"Defuzzification method '{method}' not supported.")
-        
         a, b = self.__interval
+        if imode not in ["mandami", "larsen"]:
+            raise ValueError(f"Unsupported fuzzy inference mode: '{imode}'. Choose 'mandami' or 'larsen'.")
+        tnorm = np.minimum if imode == "mandami" else lambda x, y: x * y
+        tconorm = np.maximum if imode == "mandami" else lambda x, y: x + y - x * y
+        x = np.arange(a, b, step)
 
-        numerator = 0.0
-        denominator = 0.0
-
-        mu = lambda x: np.zeros_like(x)
-
-        
+        mu_x = np.zeros_like(x)
 
         # Build the aggregated membership function
         for fs_name, degree in degrees.items():
@@ -82,27 +85,37 @@ class FuzzyVariable:
             if degree < 0.0 or degree > 1.0:
                 raise ValueError(f"Degree of membership for fuzzy set '{fs_name}' must be in [0, 1].")
             fs = self.__fuzzysets[fs_name]
+            mu_fs = tnorm(fs.mf(x), degree)
+            mu_x = tconorm(mu_x, mu_fs)
 
-            mu = lambda x, mu=mu, fs=fs, degree=degree: np.maximum(mu(x), np.minimum(fs.mf(x), degree))
+        if method == "centroid":
+            numerator = np.sum(x * mu_x) * step
+            denominator = np.sum(mu_x) * step
 
-        x = np.arange(a, b, step)
+            # from matplotlib import pyplot as plt
+            # plt.figure()
+            # plt.plot(x, mu_x, label="Aggregated MF")
+            # plt.title(f"Aggregated Membership Function for Variable '{self.__name}'")
+            # plt.ylim((0,1))
+            # plt.xlabel("Universe of Discourse")
+            # plt.ylabel("Membership Degree")
+            # plt.legend()
+            # plt.grid()
+            # plt.show()
 
-        # plotter = FuzzyPlotter()
-        # fss = FuzzySet("dummy", mu)  # Dummy initialization
-        # plotter.add_fuzzy_set(fss)
-        # plotter.domain = self.__interval
-        # plotter.plot(step=step, title=f"Aggregated MF for '{self.__name}'", xlabel="x", ylabel="Membership Degree")
+            if denominator == 0.0:
+                raise ValueError("Denominator in defuzzification is zero.")
+            return numerator / denominator
+        elif method == "averageMax":
+            max_mu = np.max(mu_x)
+            x_max = x[mu_x > max_mu-0.1]
+            if len(x_max) == 0:
+                raise ValueError("No maximum found in membership function for averageMax defuzzification.")
+            return np.mean(x_max)
+        else:
+            raise ValueError(f"Unsupported defuzzification method: '{method}'. Choose 'centroid' or 'averageMax'.")
 
-        numerator = np.sum(x * mu(x)) * step
-        denominator = np.sum(mu(x)) * step
-
-        if denominator == 0.0:
-            raise ValueError("Denominator in defuzzification is zero.")
-        
-        # print(numerator, denominator)
-
-        return numerator / denominator
-
+    
 class FuzzyVariableQualitative(FuzzyVariable):
     """A class representing a qualitative fuzzy variable."""
 

@@ -63,14 +63,15 @@ class FuzzyRule:
             )
         self.__consequent = (variable, fuzzyset_name)
 
-    def eval(self, input_values: dict[str, float]) -> tuple[str, float]:
+    def eval(self, input_values: dict[str, float], mode="mandami") -> tuple[str, float]:
         """Evaluate the fuzzy rule given input values for the antecedents.
 
         Input values keys must contain all antecedent variable names.
-        The agregation of the antecedents is done using the minimum operator.
+        The agregation of the antecedents is done using the corresponding t-norm.
 
         Args:
             input_values (dict[str, float]): A dictionary mapping antecedent variable names to their input values.
+            mode (str): The fuzzy inference mode. Currently "mandami" and "larsen" are supported.
 
         Raises:
             ValueError: If the fuzzy rule is not fully defined or if input values are missing.   
@@ -83,19 +84,19 @@ class FuzzyRule:
         if self.__consequent is None or not self.__antecedents:
             raise ValueError("Fuzzy rule is not fully defined.")
         
-        # print(f"\nEvaluando regla difusa: {self.__str__()} con los valores de entrada:")
-        # for var_n, value in input_values.items():
-        #     print(f"  {var_n}: {value}")
-        
         antecedent_result = 1.0
         for var_n, (var, fs_name) in self.__antecedents.items():
             if var_n not in input_values:
                 raise ValueError(f"Input value for '{var_n}' is missing.")
             value = input_values[var_n]
             degree = var.dof(fs_name, value)
+            if mode == "mandami":
+                antecedent_result = min(antecedent_result, degree)
+            elif mode == "larsen":
+                antecedent_result = antecedent_result * degree
+            else:   
+                raise ValueError(f"Unsupported fuzzy inference mode: '{mode}'. Choose 'mandami' or 'larsen'.")
             antecedent_result = min(antecedent_result, degree)
-
-        # print(f"  Grado de pertenencia del consecuente '{self.__consequent[1]}': {antecedent_result}")
 
         return self.__consequent[0], self.__consequent[1], antecedent_result
     

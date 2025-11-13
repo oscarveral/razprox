@@ -13,10 +13,7 @@ def load_variables(file_path: Path) -> dict:
 
     Cada variable se describe con un nombre y un diccionario de atributos. Entre los atributos tenemos:
     - Tipo: Cualitativa o Cuantitativa.
-    - Dominio: Rango de valores posibles [a, b].
-    - Escala: Tipo de escala (Lineal o Exponencial) y parámetros asociados.
-              En caso de escala exponencial, se incluye la base 'B' y una constante multiplicativa 'K'. 
-              El dominio real se calcula como [B^a, B^b] * K.
+    - Dominio: Rango de valores posibles [a, b]. Solo para variables cuantitativas.
     - Etiquetas: Diccionario que mapea etiquetas a subrangos dentro del dominio.
     Se espera que las etiquetas cubran todo el dominio sin solapamientos de forma contigua.
     La función de pertenencia aplicada es triangular entre los puntos medios de las etiquetas adyacentes,
@@ -27,11 +24,6 @@ def load_variables(file_path: Path) -> dict:
     "ABT": {
             "Tipo": "Cuantitativa",
             "Dominio": [-1.0, 5.33],
-            "Escala": {
-                "Tipo": "Exponencial",
-                "Base": 2.0,
-                "Constante": 0.75
-            },
             "Etiquetas": {
                 "0a1.5": [-1.0, 1.0],
                 "1.5a3": [1.0, 2.0],
@@ -88,26 +80,12 @@ def __process_quantitative_variable(var_name: str, attributes: dict) -> FuzzyVar
     """
     if ("Dominio" not in attributes):
         raise ValueError(f"La variable '{var_name}' no tiene definido el atributo 'Dominio'.")
-    if ("Escala" not in attributes):
-        raise ValueError(f"La variable '{var_name}' no tiene definido el atributo 'Escala'.")
     
     var_domain = attributes["Dominio"]
-    var_scale = attributes["Escala"]
     var_labels = attributes["Etiquetas"]
 
     if not hasattr(var_domain, "__len__") or len(var_domain) != 2 or var_domain[0] >= var_domain[1]:
         raise ValueError(f"Dominio de variable '{var_name}' inválido: {var_domain}")
-    if not isinstance(var_scale, dict):
-        raise ValueError(f"Escala de variable '{var_name}' debe ser un diccionario.")
-    if "Tipo" not in var_scale:
-        raise ValueError(f"Escala de variable '{var_name}' no tiene definido el atributo 'Tipo'.")
-    if var_scale["Tipo"] not in ["Lineal", "Exponencial"]:
-        raise ValueError(f"Tipo de escala de variable '{var_name}' inválido: {var_scale['Tipo']}")
-    if var_scale["Tipo"] == "Exponencial":
-        if "Base" not in var_scale:
-            raise ValueError(f"Escala exponencial de variable '{var_name}' no tiene definido el atributo 'Base'.")
-        if "Constante" not in var_scale:
-            raise ValueError(f"Escala exponencial de variable '{var_name}' no tiene definido el atributo 'Constante'.")
     if not isinstance(var_labels, dict) or not var_labels:
         raise ValueError(f"Etiquetas de variable '{var_name}' deben ser un diccionario no vacío.")
     
@@ -115,7 +93,7 @@ def __process_quantitative_variable(var_name: str, attributes: dict) -> FuzzyVar
 
     # Recorrer las etiquetas creando conjuntos difusos triangulares con maximos en los puntos medios.
     # Los puntos medios se calculan entre los rangos definidos en las etiquetas.
-    # El primero y el último serán trapezoidales.
+    # El primero y el último serán trapezoidales degenerados.
 
     mid_points = []
     for label, range_vals in var_labels.items():
@@ -126,12 +104,12 @@ def __process_quantitative_variable(var_name: str, attributes: dict) -> FuzzyVar
 
     for i, (label, range_vals) in enumerate(var_labels.items()):
         if i == 0:
-            a = range_vals[0]
+            a = range_vals[0]-1
             b = range_vals[0]
             c = mid_points[i]
             d = mid_points[i + 1]
             fuzzy_var.add_fuzzyset(
-                FuzzySet.trapezoidal(
+                FuzzySet.pi(
                     name=label,
                     a=a, b=b, c=c, d=d
                 )
@@ -140,9 +118,9 @@ def __process_quantitative_variable(var_name: str, attributes: dict) -> FuzzyVar
             a = mid_points[i - 1]
             b = mid_points[i]
             c = range_vals[1]
-            d = range_vals[1]
+            d = range_vals[1]+1
             fuzzy_var.add_fuzzyset(
-                FuzzySet.trapezoidal(
+                FuzzySet.pi(
                     name=label,
                     a=a, b=b, c=c, d=d
                 )
@@ -152,10 +130,10 @@ def __process_quantitative_variable(var_name: str, attributes: dict) -> FuzzyVar
             b = mid_points[i]
             c = mid_points[i + 1]
             fuzzy_var.add_fuzzyset(
-                FuzzySet.triangular(name=label, a=a, b=b, c=c)
+                FuzzySet.pi(name=label, a=a, b=b, c=b, d=c)
             )
 
-    print(f"Variable difusa cuantitativa procesada: {var_name} con dominio {var_domain}")
+    #print(f"Variable difusa cuantitativa procesada: {var_name} con dominio {var_domain}")
     return fuzzy_var
 
 def __process_qualitative_variable(var_name: str, attributes: dict) -> FuzzyVariable:
@@ -187,7 +165,7 @@ def __process_qualitative_variable(var_name: str, attributes: dict) -> FuzzyVari
             color=color
         )
 
-    print(f"Variable difusa cualitativa procesada: {var_name} con dominio {[0, len(var_labels) - 1]}")
+    # print(f"Variable difusa cualitativa procesada: {var_name} con dominio {[0, len(var_labels) - 1]}")
     return fuzzy_var
 
 def load_fis(file_path: Path, variables: dict[str, FuzzyVariable]) -> FIS:
@@ -225,7 +203,7 @@ def load_fis(file_path: Path, variables: dict[str, FuzzyVariable]) -> FIS:
             antecedents = rule["antecedentes"]
             consequent_fs_name = rule["consecuente"][c_var_name]
             fis.add_rule(rule_n, antecedents, consequent_fs_name)
-            print(f"\tRegla '{rule_n}' añadida al FIS.")
+            # print(f"\tRegla '{rule_n}' añadida al FIS.")
         return fis
     
 def load_geogrid(file_path: Path) -> list[tuple]:

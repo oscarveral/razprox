@@ -1,5 +1,6 @@
 import geopandas as gpd
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch
 import math
 from pathlib import Path
 
@@ -7,6 +8,7 @@ from bioclas import load_variables, load_fis, load_geogrid
 
 if __name__ == "__main__":
     RESOURCES_PATH = Path(__file__).parent.parent / "resources"
+    OUTPUT_PATH = Path(__file__).parent.parent / "output"
     VARIABLES_FILE = RESOURCES_PATH / "variables.json"
     FIS_ZONIFY_FILE = RESOURCES_PATH / "FIS-Zonify.json"
     FIS_BIOTEM_FILE = RESOURCES_PATH / "FIS-Biotem.json"
@@ -15,6 +17,17 @@ if __name__ == "__main__":
 
     # Cargar las variables difusas desde el archivo JSON
     variables = load_variables(VARIABLES_FILE)
+    # Guardamos los plots de las variables cargadas
+    for var_name, fuzzy_var in variables.items():
+        plotter = fuzzy_var.plotter()
+        plotter.save_plot(
+            filepath = OUTPUT_PATH / f"{var_name}.png",
+            step = 0.01,
+            title = f"Fuzzy Sets for Variable '{var_name}'",
+            xlabel="Universe of Discourse",
+            ylabel="Membership Degree",
+        )
+        print(f"\tVariable difusa cargada: {var_name}")
 
     # Cargar el sistema de inferencia difusa para Zonify
     print("Cargando sistema de inferencia difusa para Zonify...")
@@ -80,17 +93,16 @@ if __name__ == "__main__":
         fig.patch.set_facecolor('white')  # Establecer el fondo de la figura en blanco
         peninsula.plot(ax=ax, color="gray", edgecolor="black", label="España")
         # Color en la lista zonas en rgb
-        sc = ax.scatter(longitudes, latitudes, color=[(r/255, g/255, b/255) for r, g, b in zonas], marker='o')
+        sc = ax.scatter(longitudes, latitudes, color=[(r/255, g/255, b/255) for r, g, b in zonas], marker='o')  # Color RGB en formato decimal
         ax.set_xlabel("Longitud")
         ax.set_ylabel("Latitud")
         ax.set_title("Coordenadas con Silueta de la Península Ibérica")
         # Show color legend for zones
         colors = variables["ZonaDeVida"].colors
-        # Crear una lista de parches para la leyenda. Colocarla fuera del gráfico
-        from matplotlib.patches import Patch
         legend_patches = [Patch(color=(r/255, g/255, b/255), label=name) for name, (r, g, b) in colors.items()]
         ax.legend(handles=legend_patches, title="Zonas de Vida", loc='upper left', bbox_to_anchor=(1, 1))   
         plt.grid(True)
+        plt.savefig(OUTPUT_PATH / "Mapa_Zonas_Climaticas.png")
         plt.show()
     except Exception as e:
         print(f"No se pudo cargar el shapefile de la silueta: {e}")

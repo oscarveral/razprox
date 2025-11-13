@@ -143,9 +143,9 @@ def pimf(x: np.ndarray, a: float, b: float, c: float, d: float) -> np.ndarray:
     Returns:
         np.ndarray: Membership values.
     """
-    if  not (a < b < c < d):
+    if  not (a <= b <= c <= d) or a==d:
         raise ValueError(
-            f"Invalid parameters for Pi-shaped membership function. Must satisfy a < b < c < d. Given a={a}, b={b}, c={c}, d={d}"
+            f"Invalid parameters for Pi-shaped membership function. Must satisfy a <= b <= c <= d and a!=d. Given a={a}, b={b}, c={c}, d={d}"
         )
     if not isinstance(x, np.ndarray):
         raise TypeError("Input must be a numpy array.")

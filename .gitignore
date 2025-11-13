@@ -222,3 +222,10 @@ __marimo__/
 
 # Recursos de la asignatura
 RECURSOS*
+ign*
+
+# Outputs
+output/
+
+# CSV files
+*.csv

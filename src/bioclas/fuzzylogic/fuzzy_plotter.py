@@ -1,3 +1,4 @@
+from zipfile import Path
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -84,3 +85,49 @@ class FuzzyPlotter:
         plt.legend()
         plt.grid()
         plt.show()
+
+    def save_plot(
+        self,
+        filepath: Path,
+        step: float = 0.1,
+        title: str = "Fuzzy Sets",
+        xlabel: str = "Universe of Discourse",
+        ylabel: str = "Membership Degree",
+    ) -> None:
+        """Save the plot of all added fuzzy sets to a file.
+
+        Args:
+            filepath (str | Path): The path to save the plot image.
+            step (float): Step size for the x-axis.
+            title (str): Title of the plot.
+            xlabel (str): Label for the x-axis.
+            ylabel (str): Label for the y-axis.
+
+        Returns:
+            None
+        """
+        x = np.arange(self._domain[0], self._domain[1], step)
+        plt.figure()
+
+        for fset in self._fsets:
+            y = fset.mf(x)
+            plt.plot(x, y, label=fset.name)
+
+        for fvar in self._fvars:
+            for fset_name in fvar.fuzzyset_names():
+                fset = fvar.get_fuzzyset(fset_name)
+                y = fset.mf(x)
+                plt.plot(x, y, label=f"{fvar.name} - {fset.name}")
+
+
+        plt.title(title)
+        plt.xlabel(xlabel)
+        plt.ylabel(ylabel)
+        plt.xlim(self._domain[0], self._domain[1])
+        plt.ylim(-0.1, 1.1)
+        # Put legend outside the plot but in the same figure
+       # plt.subplots_adjust(right=0.75)
+        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+        plt.grid()
+        plt.savefig(filepath, bbox_inches='tight')
+        plt.close()

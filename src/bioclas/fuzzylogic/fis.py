@@ -60,8 +60,19 @@ class FIS():
     def consequent(self) -> FuzzyVariable:
         return self.__consequent
     
-    def eval(self, input_values: dict[str, float]) -> dict[str, float]:
+    def eval(self, input_values: dict[str, float], mode: str = "mandami") -> dict[str, float]:
         """Evaluate the FIS given input values for the antecedent variables.
+
+        The agregation of the outputs for the antecedent variables is done using the corresponding t-norm.
+        The agregation of the outputs for the consequent variable is done using the corresponding t-conorm.
+
+        This method works only on convex fuzzy sets.
+
+        Example, if * denotes t-norm and + denotes t-conorm:
+
+        IF x is A AND y is B THEN z is C -> dof1 = m(x,A) * m(y,B)
+        IF u is D AND v is E THEN z is C -> dof2 = m(u,D) * m(v,E)
+        Output dof for C = dof1 + dof2
 
         Args:
             input_values (dict[str, float]): A dictionary mapping antecedent variable names to their input values.
@@ -71,6 +82,12 @@ class FIS():
         """
         output_values = {}
         for rule_n, rule in self.__rules.items():
-            var, set_n, degree = rule.eval(input_values)
-            output_values[set_n] = max(degree, output_values.get(set_n, 0.0))
+            var, set_n, degree = rule.eval(input_values, mode=mode)
+            if mode == "mandami":
+                output_values[set_n] = max(degree, output_values.get(set_n, 0.0))
+            elif mode == "larsen":
+                x = output_values.get(set_n, 0.0)
+                output_values[set_n] = x + degree - x * degree
+            else:
+                raise ValueError(f"Unsupported fuzzy inference mode: '{mode}'. Choose 'mandami' or 'larsen'.")
         return self.__consequent, output_values
