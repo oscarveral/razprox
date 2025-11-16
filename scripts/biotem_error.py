@@ -34,8 +34,10 @@ if __name__ == "__main__":
     data["Error"] = data["ABT"] - data["Calculated_ABT"]
     data["Absolute_Error"] = data["Error"].abs()
     mae = data["Absolute_Error"].mean()
+    rmse = math.sqrt((data["Error"] ** 2).mean())
     max_error = data["Absolute_Error"].max()
     print(f"Mean Absolute Error (MAE): {mae}")
+    print(f"Root Mean Square Error (RMSE): {rmse}")
     print(f"Max Absolute Error: {max_error}")
     plot_data = data.dropna(subset=["ABT", "Calculated_ABT"])
     plt.figure(figsize=(10, 6))

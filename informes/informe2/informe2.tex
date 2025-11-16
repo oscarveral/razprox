@@ -1,0 +1,748 @@
+% Archivo: informe1.tex
+
+\documentclass[11pt,a4paper]{article}
+
+% Idioma y tipografías
+\usepackage[spanish, es-noquoting, es-lcroman, es-tabla]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% Maquetación y tipografía fina
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+
+% Utilidades
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{float}
+\setlist{nosep,leftmargin=*,labelsep=0.5em}
+
+% Hipervínculos
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    pdftitle={Informe de Zonificación Bioclimática},
+    pdfauthor={Juan Diego Gallego Nicolás, Óscar Vera López},
+    pdfsubject={Ontología Bioclimática},
+    pdfkeywords={Zona de Vida de Holdridge, Lógica Difusa, Inferencia Difusa}
+}
+
+% Bibliografía
+\usepackage[
+    backend=biber,
+    style=ieee,
+    sorting=nyt,
+    maxbibnames=99
+]{biblatex}
+\addbibresource{references.bib}
+
+% Subfiguras
+\usepackage{subcaption}
+
+% Código (Python)
+\usepackage{listings}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	commentstyle=\color{green!60!black}\itshape,
+	numbers=left,
+	numberstyle=\tiny,
+	stepnumber=1,
+	numbersep=5pt,
+	showstringspaces=false,
+	breaklines=true,
+	frame=single,
+	captionpos=b
+}
+% Código JSON
+\lstdefinelanguage{JSON}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    literate=
+     *{0}{{{\color{blue}0}}}{1}
+      {1}{{{\color{blue}1}}}{1}
+      {2}{{{\color{blue}2}}}{1}
+      {3}{{{\color{blue}3}}}{1}
+      {4}{{{\color{blue}4}}}{1}
+      {5}{{{\color{blue}5}}}{1}
+      {6}{{{\color{blue}6}}}{1}
+      {7}{{{\color{blue}7}}}{1}
+      {8}{{{\color{blue}8}}}{1}
+      {9}{{{\color{blue}9}}}{1}
+      {:}{{{\color{red}:}}}{1}
+      {,}{{{\color{red},}}}{1}
+      {\{}{{{\color{orange}\{}}}{1}
+      {\}}{{{\color{orange}\}}}}{1}
+      {[}{{{\color{orange}[}}}{1}
+      {]}{{{\color{orange}]}}}{1}
+      {"}{{{\color{green}"}}}{1}
+}
+
+
+% Comandos útiles
+
+\begin{document}
+\begin{titlepage}
+    \centering
+    % \includegraphics[height=2cm]{logo.png}\par\vspace{1cm} % Descomentar si hay logo
+    {\Large Informe Técnico 2}\par\vspace{0.5cm}
+    {\huge\bfseries Zonificador Bioclimático Difuso\par}\vspace{0.5cm}
+    \begin{tabular}{@{}ll@{}}
+        Autor 1: & Juan Diego Gallego Nicolás \\
+        Contacto 1: & jdiego.gallego@um.es \\
+        Autor 2: & Óscar Vera López \\
+        Contacto 2: & oscar.veral@um.es \\
+        Profesor: & Mercedes Valdés Vela \\
+        Asignatura: & Conocimiento y Razonamiento Aproximado \\
+    \end{tabular}
+    % Include umu logo
+    \vfill
+    \includegraphics[height=8cm]{images/SelloUMU-negativo.png}\par\vspace{1cm}
+    \vfill
+    {\large \today}\par
+\end{titlepage}
+
+\pagenumbering{roman}
+\clearpage
+
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\section{Introducción}
+La clasificación de zonas bioclimáticas
+proporciona una base para comprender la distribución de ecosistemas. En este contexto, el Sistema de Zonas de Vida de Holdridge
+ofrece un marco robusto para categorizar regiones según sus características climáticas y geográficas.
+Concretamente, este sistema utiliza tres magnitudes climáticas principales: la biotemperatura media anual (ABT),
+la precipitación media anual (APP) y la relación de evapotranspiración potencial (PER). En la siguiente imagen (\ref{fig:holdridge-triangle})
+se muestra un diagrama representativo del sistema de Holdridge, donde se visualizan las diferentes zonas de vida en función de las tres magnitudes climáticas mencionadas.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.65\textwidth]{images/triangle.png}
+	\caption{Diagrama del sistema de Zonas de Vida de Holdridge \cite{WikiHoldridge}}
+	\label{fig:holdridge-triangle}
+\end{figure}
+
+Holdridge también propone un método para aproximar la de ABT de un punto geográfico. Para ello,
+establece una relación directa entre latitud y la ABT media anual a nivel del mar. A partir de esta relación,
+se pueden calcular las desviaciones de la ABT en función de la altitud del punto geográfico con la regla 
+empírica: la temperatura disminuye aproximadamente 6 °C por cada 1000 metros de ascenso en altitud (\ref{fig:abt-latitude}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/pisos_altitudinales.png}
+	\caption{ABT en función de la latitud y altitud \cite{INRENA1995}}
+	\label{fig:abt-latitude}
+\end{figure}
+
+En este informe abordamos el desarrollo de un sistema de zonificación bioclimática basado en lógica difusa,
+que permita clasificar regiones geográficas según el sistema de Holdridge. En particular, hemos implementado
+dos sistemas de inferencia difusa: uno que permite inferir la biotemperatura media anual de una región a 
+partir de su latitud y altitud, y otro que clasifica la zona de vida bioclimática en función de la ABT, APP y PER.
+Para ello, hemos desarrollado una implementación en Python partiendo desde cero, sin utilizar librerías específicas 
+de lógica difusa o sistemas de inferencia difusa para maximizar la comprensión del proceso.
+
+\section{Metodología}
+
+\subsection{Paquete bioclas}
+Hemos desarrollado un paquete en Python llamado \texttt{bioclas} con un subpaquete \texttt{fuzzylogic} que implementa los sistemas de inferencia difusa. 
+El código está disponible en el repositorio de GitHub: \url{https://github.com/oscarveral/razprox}. 
+
+El paquete \texttt{fuzzylogic} proporciona herramientas para definir conjuntos difusos con cualquier función de membresía,
+variables lingüísticas, operadores difusos, reglas difusas y sistemas de inferencia difusa. 
+La base de la lógica difusa, el conjunto difuso, se implementa en la clase \texttt{FuzzySet}, que permite definir conjuntos difusos con funciones de membresía
+a partir de expresiones lambda. Además, proporcionamos funciones de pertenencia comunes como triangular, trapezoidal,
+sigmoidal, en forma de 'S' y en forma de '$\Pi$'. También se implementan métodos para el cálculo de propiedades como la altura, el núcleo, el soporte... 
+
+A partir de los conjuntos difusos se definen variables lingüísticas mediante la clase \texttt{FuzzyVariable}, que agrupa varios conjuntos difusos bajo un mismo nombre.
+Los operadores difusos (AND, OR, NOT) se implementan como funciones que operan sobre los conjunto difusos tomando su función de membresía y devolviendo un nuevo conjunto difuso resultante.
+Para poder trabajar con t-normas y t-conormas conjugadas, hemos utilizado una factoría abstracta y una clase \texttt{FuzzyOperationsSet} que permite definir diferentes familias de operadores difusos:
+\textit{minimo/máximo}, \textit{algebraica}, \textit{drástica}, \textit{dubois-prade}, \textit{yager} y \textit{schweizer-sklar}.
+
+Finalmente, la inferencia difusa es posible gracias a las clases \texttt{FuzzyRule} y \texttt{FIS}.
+Una regla difusa en nuestro sistema aparece siempre en la forma \textit{IF a is A AND b is B antecedentes ... THEN x is X}, donde las condiciones del \textit{IF} se representan como una lista de tuplas (variable lingüística, conjunto difuso)
+y la conclusión del \textit{THEN} como una tupla (variable lingüística, conjunto difuso). El sistema de inferencia difusa \texttt{FIS} agrupa varias reglas difusas y permite realizar inferencias difusas mediante los métodos de \textit{Mandami} y \textit{Larsen}.
+
+\clearpage
+
+\subsection{Definición de variables lingüísticas}
+
+Para la definición de las variables lingüísticas y sus conjuntos difusos hemos utilizado un formato de archivo JSON.
+Cada variable lingüística se define como una clave (nombre de la variable), su tipo (cuantitativa o cualitativa) y una lista de etiquetas asociadas.
+Cada etiqueta contiene el nombre del conjunto difuso y un atributo que depende del tipo de la variable. 
+
+En el caso de las variables cuantitativas, se proporcionan los parámetros de dominio (intervalo en el que está definida la variable) y
+la escala (lineal o logarítmica). El uso de distintos tipos de escalas se sustenta en el hecho de que las magnitudes climáticas que utiliza el 
+sistema de Holdridge (\ref{fig:holdridge-triangle}) aparecen en esta distribución, por lo que es conveniente definir sus funciones de membresía en consecuencia.
+Las etiquetas de las variables cuantitativas tienen asociado el intervalo de soporte del conjunto difuso. Podemos ver un ejemplo:
+
+\begin{lstlisting}[language=JSON, caption={Definición de variable lingüística cuantitativa ABT}, label={lst:json-app}]
+"ABT": {
+        "Tipo": "Cuantitativa",
+        "Dominio": [-1.0, 5.33],
+        "Escala": {
+            "Tipo": "Logaritmica",
+            "Base": 2.0,
+            "Constante": 0.75
+        },
+        "Etiquetas": {
+            "0a1.5": [-1.0, 1.0],
+            "1.5a3": [1.0, 2.0],
+            ...
+\end{lstlisting}
+
+Por otro lado, las variables cualitativas no requieren parámetros de dominio ni escala. Como la única variable
+cualitativa que hemos definido es la zona de vida bioclimática, las etiquetas contienen el nombre de la zona de vida y
+se asocian a una tripla RGB para su representación gráfica. Un ejemplo se muestra a continuación:
+
+\begin{lstlisting}[language=JSON, caption={Definición de variable lingüística cualitativa Zona de Vida}, label={lst:json-zona-vida}]
+"ZonaDeVida": {
+        "Tipo": "Cualitativa",
+        "Etiquetas": {
+            "Desierto-Polar": [224, 224, 248],
+            "Tundra-Seca": [217, 217, 242],
+            ...
+\end{lstlisting}
+
+\clearpage
+
+\subsubsection{ABT}
+
+La biotemperatura media anual (ABT) se define en el intervalo \([-1, 5.33]\) que corresponde a \([0.375,30]\) °C en escala lineal.
+La representación del cero en esta es imposible, por lo que valores inferiores a 0.375 °C se representan como -1.
+La conversión entre ambas escalas se realiza mediante las fórmulas:
+$$
+    ABT_{log} = \log_{2}\left(\frac{ABT_{lin}}{0.75}\right), ABT_{lin} = 0.75 \cdot 2^{ABT_{log}}
+$$
+
+\begin{table}[H]
+\centering
+\caption{Soportes de las etiquetas de ABT en escala logarítmica y lineal}
+\label{tab:abt-soportes}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Etiqueta & Soporte logarítmico & Soporte lineal (°C) \\
+\midrule
+0a1.5 & [-1.0, 1.0] & [0.375, 1.5] \\
+1.5a3 & [1.0, 2.0] & [1.5, 3.0] \\
+3a6 & [2.0, 3.0] & [3.0, 6.0] \\
+6a12 & [3.0, 4.0] & [6.0, 12.0] \\
+12a18 & [4.0, 4.5] & [12.0, 18.0] \\
+18a24 & [4.5, 5.0] & [18.0, 24.0] \\
+24a30 & [5.0, 5.33] & [24.0, 30.0] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{APP}
+
+La precipitación media anual (APP) se define en el intervalo \([-4.0, 4.0]\) que corresponde a \([62.5, 16000]\) mm en escala lineal.
+La conversión entre ambas escalas se realiza mediante las fórmulas:
+$$
+    APP_{log} = \log_{2}\left(\frac{APP_{lin}}{1000}\right), APP_{lin} = 1000 \cdot 2^{APP_{log}}
+$$
+\begin{table}[H]
+\centering
+\caption{Soportes de las etiquetas de APP en escala logarítmica y lineal}
+\label{tab:app-soportes}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Etiqueta & Soporte logarítmico & Soporte lineal (mm) \\
+\midrule
+62.5a125 & [-4.0, -3.0] & [62.5, 125] \\
+125a250 & [-3.0, -2.0] & [125, 250] \\
+250a500 & [-2.0, -1.0] & [250, 500] \\
+500a1000 & [-1.0, 0.0] & [500, 1000] \\
+1000a2000 & [0.0, 1.0] & [1000, 2000] \\
+2000a4000 & [1.0, 2.0] & [2000, 4000] \\
+4000a8000 & [2.0, 3.0] & [4000, 8000] \\
+8000a16000 & [3.0, 4.0] & [8000, 16000] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{PER}
+La relación de evapotranspiración potencial (PER) se define en el intervalo \([-4.0, 4.0]\) en escala logarítmica y \([0.125, 32.0]\) en escala lineal.
+La conversión entre ambas escalas se realiza mediante las fórmulas:
+$$
+    PER_{log} = \log_{2}\left(\frac{PER_{lin}}{2}\right), PER_{lin} = 2 \cdot 2^{PER_{log}}
+$$
+\begin{table}[H]
+\centering
+\caption{Soportes de las etiquetas de PER en escala logarítmica y lineal}
+\label{tab:per-soportes}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Etiqueta & Soporte logarítmico & Soporte lineal \\
+\midrule
+0.125a0.25 & [-4.0, -3.0] & [0.125, 0.25] \\
+0.25a0.5 & [-3.0, -2.0] & [0.25, 0.5] \\
+0.5a1 & [-2.0, -1.0] & [0.5, 1.0] \\
+1a2 & [-1.0, 0.0] & [1.0, 2.0] \\
+2a4 & [0.0, 1.0] & [2.0, 4.0] \\
+4a8 & [1.0, 2.0] & [4.0, 8.0] \\
+8a16 & [2.0, 3.0] & [8.0, 16.0] \\
+16a32 & [3.0, 4.0] & [16.0, 32.0] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Latitud}
+
+La latitud se define de forma lineal en el intervalo \([0, 90]\) grados.
+
+\begin{table}[H]
+\centering
+\caption{Soportes de las etiquetas de Latitud}
+\label{tab:latitud-soportes}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Etiqueta & Soporte (grados) \\
+\midrule
+Tropical & [0, 13] \\
+Subtropical & [13, 27.5] \\
+Templado-Cálido & [27.5, 42] \\
+Templado-Frío & [42, 56.5] \\
+Boreal & [56.5, 63.75] \\
+Sub-Polar & [63.75, 68] \\
+Polar & [68, 90] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+
+\subsubsection{Altitud}
+La altitud se define de forma lineal en el intervalo \([0, 5000]\) metros.
+\begin{table}[H]
+\centering
+\caption{Soportes de las etiquetas de Altitud}
+\label{tab:altitud-soportes}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Etiqueta & Soporte (metros) \\
+\midrule
+0a1000 & [0, 1000] \\
+1000a2000 & [1000, 2000] \\
+2000a3000 & [2000, 3000] \\
+3000a4000 & [3000, 4000] \\
+4000a4500 & [4000, 4500] \\
+4500a4750 & [4500, 4750] \\
+4750a5000 & [4750, 5000] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Funciones de pertenencia}
+
+Hemos optado por definir las funciones de pertenencia de los conjuntos difusos como funciones en forma de $\Pi$,
+ya que permiten una transición suave entre conjuntos difusos adyacentes y evitan discontinuidades bruscas en la inferencia.
+Para los conjuntos extremos, las funciones de pertenencia se muestran degeneradas en forma de 'S' para mantener la normalidad
+de la variable. En todos los casos, el máximo de la función de pertenencia se encuentra en el centro del soporte del conjunto difuso.
+% Grid 3x2 de figuras con las funciones de pertenencia de las variables lingüísticas
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/ABT_membership_functions.png}
+        \caption{Funciones de pertenencia de ABT}
+        \label{fig:funciones_abt}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/APP_membership_functions.png}
+        \caption{Funciones de pertenencia de APP}
+        \label{fig:funciones_app}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/PER_membership_functions.png}
+        \caption{Funciones de pertenencia de PER}
+        \label{fig:funciones_per}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/Latitud_membership_functions.png}
+        \caption{Funciones de pertenencia de Latitud}
+        \label{fig:funciones_latitud}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/Altitud_membership_functions.png}
+        \caption{Funciones de pertenencia de Altitud}
+        \label{fig:funciones_altitud}
+    \end{subfigure}
+    \caption{Funciones de pertenencia de las variables lingüísticas}
+    \label{fig:funciones_pertenencia}
+\end{figure}
+
+\subsection{Definición de los sistemas de inferencia difusa}
+
+De forma similar a las variables lingüísticas, los sistemas de inferencia difusa se definen mediante archivos JSON. 
+Cada SID se define a partir de una lista de antecedentes, un consecuente y un conjunto de reglas. Antes de la carga del SID, las
+variables lingüísticas y los conjuntos difusos asociados deberán estar definidos en el sistema ya que estos ficheros
+no definen sus rangos o etiquetas. 
+
+\begin{lstlisting}[language=JSON, caption={Definición de un sistema de inferencia difusa}, label={lst:json-fis}]
+"a_variables": ["Latitud", "Altitud"],
+"c_variable": "ABT",
+"rules": {
+    "ruleTropical1":
+    {
+        "antecedentes": {
+            "Latitud": "Tropical",
+            "Altitud": "0a1000"
+        },
+        "consecuente": {
+            "ABT": "24a30"
+        }
+    }...
+\end{lstlisting}
+
+Los mecanismos de inferencia no se definen en el fichero JSON, sino que se especifican al cargar el sistema de inferencia difusa en Python.
+
+\subsubsection{Definición de FIS-Biotem}
+
+El primer sistema de inferencia difusa implementado es el FIS-Biotem, que permite inferir la biotemperatura media anual (ABT)
+de un punto geográfico a partir de su latitud y altitud. Este sistema contiene un total de 42 reglas difusas que cubren 
+todas las combinaciones posibles de regiones. Para elaborarlas nos hemos basado en la división en pisos altudinales de la 
+figura \ref{fig:abt-latitude}. No obstante, por simplificar el sistema y no tener que definir funciones de pertenencia
+adaptadas a triángulos del plano latitud-altitud, hemos optado por ``retangularizar'' las regiones. Como veremos más adelante,
+esta simplificación no afecta significativamente a la precisión del sistema con la debida elección del método de inferencia y defuzzificación.
+
+
+\begin{lstlisting}[language=JSON, caption={Definición del sistema de inferencia difusa FIS-Biotem}, label={lst:json-fis}]
+"a_variables": ["Latitud", "Altitud"],
+"c_variable": "ABT",
+"rules": {
+    "ruleTropical1":
+    {
+        "antecedentes": {
+            "Latitud": "Tropical",
+            "Altitud": "0a1000"
+        },
+        "consecuente": {
+            "ABT": "24a30"
+        }
+    }...
+\end{lstlisting}
+
+\subsubsection{Definición FIS-Zonify}
+
+El segundo sistema de inferencia difusa implementado es el FIS-Zonify, que permite clasificar la zona de vida bioclimática
+de un punto geográfico a partir de su biotemperatura media anual (ABT), precipitación media anual (APP) y relación de evapotranspiración potencial (PER).
+Este sistema contine un total de 38 reglas difusas que cubren todas las zonas de vida definidas en el sistema de Holdridge. 
+Como se ve en el siguiente fragmento de código \ref{lst:json-fis-zonify}, se permite que las reglas tengan un número variable de antecedentes,
+de modo que algunas zonas de vida se definen únicamente en función de una o dos magnitudes climáticas.
+
+\begin{lstlisting}[language=JSON, caption={Definición del sistema de inferencia difusa FIS-Zonify}, label={lst:json-fis-zonify}] 
+"a_variables": ["ABT", "APP", "PER"],
+"c_variable": "ZonaDeVida",
+"rules": {
+    "rule0": {
+        "antecedentes": {
+            "ABT": "0a1.5"
+        },
+        "consecuente": {
+            "ZonaDeVida": "Desierto-Polar"
+        }
+    },
+
+    "rule1_1": {
+        "antecedentes": {
+            "ABT": "1.5a3",
+            "APP": "62.5a125",
+            "PER": "1a2"
+        },
+        "consecuente": {
+            "ZonaDeVida": "Tundra-Seca"
+        }
+    }...
+\end{lstlisting}
+
+\clearpage
+
+\section{FIS-Biotem: Resultados y Evaluación}
+
+Para utilizar el fichero de configuración del FIS-Biotem (\ref{lst:json-fis}), hemos desarrollado un script en Python \texttt{biotem.py}
+que carga las variables lingüísticas y el sistema de inferencia difusa, y permite realizar inferencias a partir de latitud y altitud.
+El script acepta como entrada un fichero CSV con las coordenadas geográficas (latitud, altitud) y el APP asociado a cada punto. 
+Genera como salida un fichero CSV con la biotemperatura media anual (ABT) inferida para cada punto y con la PER calculada a partir de la ABT y APP;
+un fichero de texto con un resumen de los resultados y un plot que muestra mediante un gradiente de color la distribución de la ABT en la región estudiada.
+Se puede especificar el método de inferencia (Mandami o Larsen) y el método de defuzzificación (Centroide o Media de Máximos) mediante argumentos en la línea de comandos.
+La t-norma y t-conorma utilizadas en los operadores difusos se derivan del método de inferencia seleccionado (Mandami: mínimo/máximo, Larsen: algebraica).
+
+\subsection{Evaluación del FIS-Biotem}
+
+Para evaluar el rendimiento del FIS-Biotem, hemos utilizado un conjunto de datos sintéticos para cubrir todo el espacio latitud-altitud.
+En total, se han generado 4186 puntos de prueba distribuidos uniformemente en latitud (0° a 90°) y altitud (0 a 5000 m).
+A continuación, utilizamos el script para obtener la imagen de la distribución de la ABT inferida \ref{fig:biotem-result}.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.35\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/biotem_mandami_centroid.png}
+        \caption{Mandami + Centroide}
+        \label{fig:biotem-mandami-centroid}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.35\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/biotem_mandami_mom.png}
+        \caption{Mandami + Media de Máximos}
+        \label{fig:biotem-mandami-mom}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.35\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/biotem_larsen_centroid.png}
+        \caption{Larsen + Centroide}
+        \label{fig:biotem-larsen-centroid}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.35\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/biotem_larsen_mom.png}
+        \caption{Larsen + Media de Máximos}
+        \label{fig:biotem-larsen-mom}
+    \end{subfigure}
+    \caption{Distribución de la ABT inferida por el FIS-Biotem con diferentes métodos de inferencia y defuzzificación}
+    \label{fig:biotem-result}
+\end{figure}
+
+Como se observa en las imágenes, los dos métodos de inferencia (Mandami y Larsen) dan resultados similares. 
+El método de defuzzificación por centroide proporciona una transición muy suave entre regiones, llegando casi 
+a desaparecer esa sensación de división en rectángulos que se había introducido al definir las reglas.
+Por otro lado, el método de la media de máximos genera transiciones discontinuas, lo cual tiene sentido dada la naturaleza
+de las funciones de pertenencia utilizadas: al ser todas en forma de $\Pi$, los máximos de los conjuntos difusos se encuentran cerca de su centro,
+por lo que la métrica tiende a mantenerse constante hasta que hay un cambio significativo en la activación de los conjuntos difusos.
+
+Para cuantificar el error del sistema, hemos comparado las cuatro configuraciones anteriores con una función de referencia
+basada en la regla empírica de Holdridge que relaciona latitud, altitud y ABT (\ref{fig:abt-latitude}):
+$$
+    ABT_{basal} = \max \left\{0, 30-28.5 \cdot \frac{Latitud}{68}\right\}, ABT = ABT_{basal} - 6 \cdot \frac{Altitud}{1000}
+$$
+Calculamos el error absoluto medio (MAE), el error cuadrático medio (RMSE) y el error máximo para cada configuración, obteniendo los resultados
+resumidos en la tabla \ref{tab:biotem-eval}.
+\begin{table}[H]
+\centering
+\caption{Evaluación del FIS-Biotem con diferentes métodos de inferencia y defuzzificación}
+\label{tab:biotem-eval}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Configuración & MAE (°C) & RMSE (°C) & Error Máximo (°C) \\
+\midrule
+Mandami + Centroide & 1.42 & 1.73 & 4.15 \\
+Mandami + Media de Máximos & 2.23 & 2.69 & 7.41 \\
+Larsen + Centroide & 1.56 & 1.87 & 4.19 \\
+Larsen + Media de Máximos & 2.18 & 2.61 & 6.80 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/error_mc.png}
+        \caption{Mandami + Centroide}
+        \label{fig:biotem-mandami-centroid}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/error_mm.png}
+        \caption{Mandami + Media de Máximos}
+        \label{fig:biotem-mandami-mom}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/error_lc.png}
+        \caption{Larsen + Centroide}
+        \label{fig:biotem-larsen-centroid}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/error_lm.png}
+        \caption{Larsen + Media de Máximos}
+        \label{fig:biotem-larsen-mom}
+    \end{subfigure}
+    \caption{ABT calculada - ABT predicha FIS-Biotem con diferentes métodos de inferencia y defuzzificación}
+    \label{fig:biotem-result}
+\end{figure}
+
+Las métricas de error confirman las observaciones previas: el método de defuzzificación por centroide ofrece un mejor rendimiento
+en comparación con la media de máximos, independientemente del método de inferencia utilizado. 
+Además, el método de Mandami proporciona un rendimiento ligeramente superior al de Larsen.
+
+Apreciamos también cómo los mayores errores se concentran en los extremos del dominio. Esto puede deberse a la elección
+de las funciones de pertenencia: el intervalo 27-30º tiene una pertenencia de 1 al conjunto difuso 24a30, por lo que la 
+defuzzificación del centroide nunca podrá superar el valor 28,5ºC. De todas formas, las regiones españolas peninsulares
+e insulares se encuentran en el rango 27-42º de latitud, por lo que este error no afecta a la aplicación práctica del sistema en nuestro país.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/defuzz1.png}
+        \caption{Función de pertenencia agregada 1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/defuzz2.png}
+        \caption{Función de pertenencia agregada 2}
+    \end{subfigure}
+    \caption{Ejemplos de funciones de pertenencia agregadas que muestran limitaciones en la defuzzificación por media de máximos.}
+    \vskip\baselineskip
+\end{figure}
+
+\subsection{Aplicación del FIS-Biotem a datos reales}
+
+Para probar el FIS-Biotem con datos reales, hemos utilizado un conjunto de datos geoclimáticos del territorio español, muestreados cada diez kilómetros proporcionados para la práctica
+\texttt{DATOS-CUADRICULA.csv}. Con estos datos, hemos ejecutado el script \texttt{biotem.py} para obtener la distribución de la ABT en la región estudiada.
+Graficando los resultados obtenidos con el método de Mandami y defuzzificación por centroide, obtenemos la imagen \ref{fig:biotem-real-data}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/biotem_real_data.png}
+    \caption{Distribución de la ABT inferida por el FIS-Biotem con datos de España}
+    \label{fig:biotem-real-data}
+\end{figure}
+Los resultados obtenidos son coherentes con la geografía española. Las zonas costeras y las islas tienen transiciones suaves con respecto a la latitud. 
+Los accidentes geográficos, como los pirineos, la cordellera bética, la meseta central o el Teide en Tenerife se reflejan claramente en la distribución de la ABT
+como zonas de menor biotemperatura debido a su altitud.
+
+\clearpage
+
+\section{FIS-Zonify: Resultados y coloreado de zonas de vida}
+
+Para utilizar el fichero de configuración del FIS-Zonify, hemos desarrollado un script en Python \texttt{zonify.py}
+que carga las variables lingüísticas y el sistema de inferencia difusa, y permite realizar inferencias a partir de ABT, APP y PER.
+Idealmente, el script acepta como entrada un archivo CSV formateado por FIS-Biotem, pero también puede aceptar un fichero con las tres magnitudes climáticas directamente.
+Genera como salida un otro archivo CSV en el que se indica para cada punto las tres zonas de vida con mayor grado de pertenencia y los valores de los 
+canales RGB asociados; un fichero de texto con un resumen de los resultados y un plot que muestra la distribución de las zonas de vida en la región estudiada.
+El coloreado se realiza mediante una suma de los colores RGB de las zonas de vida ponderados por su grado de pertenencia (normalizándolos previamente).
+
+En el caso de este script solo se permite indicar el método de inferencia (Mandami o Larsen), utilizando siempre la defuzzificación del color 
+descrita anteriormente. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/evaluation_antecedent.png}
+    \caption{Grado de satisfacibilidad de los antecedentes de una regla difusa en función de los valores de ABT, APP y PER}
+    \label{fig:zonify-color-mixing}
+\end{figure}
+
+\subsection{Aplicación del FIS-Zonify a datos de FIS-Biotem}
+
+Para probar el FIS-Zonify, hemos utilizado los resultados obtenidos previamente con el FIS-Biotem para los datos geoclimáticos del territorio español.
+Hemos ejecutado el script \texttt{zonify.py} para obtener la distribución de las zonas de vida en la región estudiada.
+Graficando los resultados obtenidos con el método de Mandami, obtenemos la imagen \ref{fig:zonify-real-data}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/zonify_peninsula.png}
+    \caption{Distribución de las zonas de vida inferida por el FIS-Zonify con datos de España}
+    \label{fig:zonify-real-data}
+\end{figure}
+
+\subsection{Aplicación del FIS-Zonify a datos de estaciones climáticas}
+
+Hemos utilizado FIS-Zonify también sobre el conjunto de datos de estaciones climáticas españolas de los
+recursos de la asignatura. La baja densidad de puntos hace que la representación gráfica
+no sea tan detallada como en el caso anterior, por lo que hemos desarrollado un script adicional \texttt{color\_map.py}
+que genera una imagen con una resolución de 0.01 grados latiudinales $\times$ 0.01 grados altitudinales (aproximadamente 1 km $\times$ 1 km)
+utilizando interpolación a partir del vecino más cercano. Además, aplicamos una máscara para mostrar únicamente las zonas terrestres.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/color_estaciones.png}
+    \caption{Distribución de las zonas de vida inferida por el FIS-Zonify con datos de estaciones climáticas españolas. Las estaciones de Tenerife y Murcia no tienen datos completos y se muestran en azul.}
+    \label{fig:zonify-estaciones}
+\end{figure}
+
+La diferencia de clasificación entre las dos imágenes es evidente. En el caso de la biotemperatura inferida por FIS-Biotem,
+los colores rojos son predominantes, correspondientes a zonas de vida frías y templadas. En cambio, en la imagen generada a partir de las estaciones climáticas
+sugiere una la presencia de climas tropicales y templados cálidos.
+
+\subsection{Comparación de métodos}
+
+Para realizar una comparación entre la clasificación dada por los dos conjuntos de datos, vamos a comparar las zonas de vida principales
+obtenidas en cada punto de las estaciones climáticas.
+
+\begin{table}[H]
+\centering
+\caption{Zonas de vida dadas por la zona geográfica y por las estaciones climáticas}
+\label{tab:zonas-comparacion}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Estación & Provincia & Zona Vida (FIS-Biotem) & Zona Vida (Estaciones) \\
+\midrule
+BU02 & Burgos & Bosque-Húmedo-Templado-Frío & Bosque-Seco-Templado-Cálido \\
+LU02 & Lugo & Bosque-Pluvial-Templado-Húmedo & Bosque-Seco-Templado-Cálido \\
+M01 & Madrid & Bosque-Húmedo-Templado-Frío & Matorral-Espinoso-Templado-Cálido \\
+A12 & Alicante & Bosque-Húmedo-Templado-Frío & Floresta-Espinosa-Subtropical \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Claramente, las zonas de vida inferidas a partir de las estaciones climáticas tienden a ser más cálidas y secas que las obtenidas
+a partir de los datos geoclimáticos. Esto puede deberse a varios factores, como el hecho de que nuestro
+FIS-Biotem utiliza datos de Perú o al cambio climático que ha afectado a España en las últimas décadas.
+
+\section{Conclusiones}
+
+Aunque no todo el material ha sido necesario para la práctica, el paquete desarrollado \texttt{bioclas.fuzzylogic} proporciona una base sólida para la implementación de sistemas de inferencia difusa.
+Hemos podido definir dos sistemas de inferencia difusa completos (FIS-Biotem y FIS-Zonify) y evaluar su rendimiento utilizando datos sintéticos y reales.
+Aunque FIS-Biotem ha demostrado un buen rendimiento en la inferencia de la biotemperatura media anual (ABT) con con respecto a la regla empírica, 
+la existencia de esta regla hace que sea en la práctica innecesario el uso de un sistema difuso para este propósito. No obstante, FIS-zonify
+sí se demuestra útil para para solventar el problema de las zonas de vida transicionales del sistema de Holdridge, proporcionando una clasificación más matizada.
+
+\clearpage
+\section*{Uso de IA}
+Durante la elaboración de este informe, se ha utilizado ChatGPT-4 para asistir en la redacción a LaTeX de este documento
+mediante la herramienta de OpenAI integrada en Visual Studio Code. También se ha mantenido una conversación 
+con Gemini-2.5 de Google para obtener orientación y opiniones sobre la estructura y contenido del informe.
+Junto a este documento se entrega un archivo HTML con el historial de la conversación mantenida con la misma.
+
+\clearpage
+% Bibliografía
+\printbibliography
+
+\clearpage
+\appendix
+\section*{Mapa de clasificación por zona geográfica}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/color_map.png}
+    \caption{Distribución de las zonas de vida según la clasificación geográfica.}
+    \label{fig:zonify-geografico}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/color_map_murcia.png}
+    \caption{Distribución de las zonas de vida en la Región de Murcia según la clasificación geográfica.}
+    \label{fig:zonify-murcia}
+\end{figure}
+
+
+\end{document}

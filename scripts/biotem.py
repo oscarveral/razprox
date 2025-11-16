@@ -52,7 +52,6 @@ if __name__ == "__main__":
     data = pd.read_csv(input_csv, sep=',')
     log(f"Datos de entrada cargados. Número de filas: {len(data)}. Columnas: {data.columns.tolist()}")
     # Convertir las columnas a formato numérico, manejando puntos como separadores decimales
-    data["Longitud"] = pd.to_numeric(data["Longitud"], errors='coerce')
     data["Latitud"] = pd.to_numeric(data["Latitud"], errors='coerce')
     data["Altitud"] = pd.to_numeric(data["Altitud"], errors='coerce')
     data["APP"] = pd.to_numeric(data["APP"], errors='coerce')
@@ -85,11 +84,11 @@ if __name__ == "__main__":
         if row["APP"] >= 62.5:
             per = abt / row["APP"] * 58.93
         else:
-            print(f"WARNING: APP demasiado bajo ({row['APP']}) en fila {index+1}. Se asigna APP=62.5.")
+            #print(f"WARNING: APP demasiado bajo ({row['APP']}) en fila {index+1}. Se asigna APP=62.5.")
             data.at[index, "APP"] = 62.5
             per = abt / 62.5 * 58.93
         if (per < 0.125):
-            print(f"WARNING: PER calculado demasiado bajo ({per}) en fila {index+1}. Se asigna PER=0.125.")
+            # TODO Uncomment print(f"WARNING: PER calculado demasiado bajo ({per}) en fila {index+1}. Se asigna PER=0.125.")
             per = 0.125
         data.at[index, "PER"] = round(per, 2)
     log("Evaluación completada.")

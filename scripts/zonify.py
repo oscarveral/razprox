@@ -56,9 +56,6 @@ if __name__ == "__main__":
     data["ABT"] = pd.to_numeric(data["ABT"], errors='coerce')
     data["APP"] = pd.to_numeric(data["APP"], errors='coerce')
     data["PER"] = pd.to_numeric(data["PER"], errors='coerce')
-    # Añadir columnas Z1, Z2, Z3, r, g, b inicializadas a NaN
-
-
 
     # Cargar los datos de las variables difusas desde el archivo JSON
     variables = load_variables(VARIABLES_FILE)
@@ -116,11 +113,30 @@ if __name__ == "__main__":
     latitudes = data["Latitud"].values
     longitudes = data["Longitud"].values
     colors = data[["r", "g", "b"]].values
-    fig, ax = plt.subplots(figsize=(10, 8))
+    fig, ax = plt.subplots(figsize=(14, 10))
     sc = ax.scatter(longitudes, latitudes, c=colors/255.0, marker='.', label="Puntos")
     ax.set_xlabel("Longitud")
     ax.set_ylabel("Latitud")
     ax.set_title("Zonificación climática desde FIS-Zonify")
+    
+    # Add legend on the side
+    zonadevida = variables["ZonaDeVida"]
+    from matplotlib.lines import Line2D
+    colors = zonadevida.colors
+    # Two columns legend
+    legend_elements = [Line2D([0], [0], marker='o', color='w', label=zone,
+                              markerfacecolor=(color[0]/255.0, color[1]/255.0, color[2]/255.0), markersize=10)
+                       for zone, color in colors.items()]
+    ax.legend(
+        handles=legend_elements, 
+        title="Zonas de Vida", 
+        #bbox_to_anchor=(0.5, -0.15), 
+        loc='lower right', ncol=3,
+        frameon=True
+    )
+    plt.tight_layout()
+
+
     if output_folder is None:
         plt.show()
     else:

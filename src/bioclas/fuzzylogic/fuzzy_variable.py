@@ -88,20 +88,21 @@ class FuzzyVariable:
             mu_fs = tnorm(fs.mf(x), degree)
             mu_x = tconorm(mu_x, mu_fs)
 
+
         if method == "centroid":
             numerator = np.sum(x * mu_x) * step
             denominator = np.sum(mu_x) * step
 
-            # from matplotlib import pyplot as plt
-            # plt.figure()
-            # plt.plot(x, mu_x, label="Aggregated MF")
-            # plt.title(f"Aggregated Membership Function for Variable '{self.__name}'")
-            # plt.ylim((0,1))
-            # plt.xlabel("Universe of Discourse")
-            # plt.ylabel("Membership Degree")
-            # plt.legend()
-            # plt.grid()
-            # plt.show()
+            from matplotlib import pyplot as plt
+            plt.figure()
+            plt.plot(x, mu_x, label="Aggregated MF")
+            plt.title(f"Aggregated Membership Function for Variable '{self.__name}'")
+            plt.ylim((0,1))
+            plt.xlabel("Universe of Discourse")
+            plt.ylabel("Membership Degree")
+            plt.legend()
+            plt.grid()
+            plt.show()
 
             if denominator == 0.0:
                 raise ValueError("Denominator in defuzzification is zero.")

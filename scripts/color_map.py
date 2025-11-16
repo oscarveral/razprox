@@ -11,11 +11,8 @@ from shapely.geometry import Point
 from pathlib import Path
 import time
 from scipy.interpolate import griddata
-from scipy.ndimage import gaussian_filter
 
 import pandas as pd
-
-from bioclas import load_variables, load_fis
 
 if __name__ == "__main__":
     tic = time.time()
@@ -113,9 +110,9 @@ if __name__ == "__main__":
         mask = is_inside_mask_flat.reshape(LON.shape).T
 
         # Aplicar el color de fondo (1.0 = Blanco; 0.0 = Negro) fuera de la máscara
-        R_2D[~mask] = 0.0  
-        G_2D[~mask] = 0.0
-        B_2D[~mask] = 0.0
+        R_2D[~mask] = 1.0  
+        G_2D[~mask] = 1.0
+        B_2D[~mask] = 1.0
 
         print("Máscara aplicada correctamente.")
 

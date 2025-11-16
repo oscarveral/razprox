@@ -3,7 +3,7 @@
             "Tipo": "Cuantitativa",
             "Dominio": [-1.0, 5.33],
             "Escala": {
-                "Tipo": "Exponencial",
+                "Tipo": "Logarítmica",
                 "Base": 2.0,
                 "Constante": 0.75
             },
@@ -21,7 +21,7 @@
         "Tipo": "Cuantitativa",
         "Dominio": [-4.0, 4.0],
         "Escala": {
-            "Tipo": "Exponencial",
+            "Tipo": "Logarítmica",
             "Base": 2.0,
             "Constante": 1000.0
         },
@@ -40,7 +40,7 @@
         "Tipo": "Cuantitativa",
         "Dominio": [-4.0, 4.0],
         "Escala": {
-            "Tipo": "Exponencial",
+            "Tipo": "Logarítmica",
             "Base": 2.0,
             "Constante": 2.0
         },

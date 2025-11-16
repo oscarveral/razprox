@@ -20,7 +20,7 @@ if __name__ == "__main__":
             latitudes.append(lat)
             altitudes.append(alt)
             longitudes.append(alt/step_alt)  # Valor fijo -1 para Longitud
-            apps.append(-1)        # Valor fijo -1 para APP
+            apps.append(1000)        # Valor fijo -1 para APP
 
     # Crear DataFrame y guardar a CSV
     data = pd.DataFrame({
