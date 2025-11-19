@@ -43,8 +43,8 @@ if __name__ == "__main__":
     lon_max = data["Longitud"].max()
     lat_min = data["Latitud"].min()
     lat_max = data["Latitud"].max()
-    resolutionx = 0.01  # Grados
-    resolutiony = 0.01  # Grados
+    resolutionx = 0.025  # Grados
+    resolutiony = 0.025  # Grados
     points = data[['Longitud', 'Latitud']].values
     colors = data[['r', 'g', 'b']].values.astype(float) / 255.0
 

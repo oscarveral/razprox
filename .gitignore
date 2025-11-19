@@ -225,3 +225,6 @@ output/
 
 # Data files
 *.csv
+
+# Resources
+resources[1-9]/
