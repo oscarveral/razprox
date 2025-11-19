@@ -1,0 +1,300 @@
+% Archivo: informe1.tex
+
+\documentclass[11pt,a4paper]{article}
+
+% Idioma y tipografías
+\usepackage[spanish, es-noquoting, es-lcroman, es-tabla]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% Maquetación y tipografía fina
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+
+% Utilidades
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{float}
+\setlist{nosep,leftmargin=*,labelsep=0.5em}
+
+% Hipervínculos
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    pdftitle={Informe de Aprendizaje Difuso},
+    pdfauthor={Juan Diego Gallego Nicolás, Óscar Vera López},
+    pdfsubject={Aprendizaje Difuso},
+    pdfkeywords={Zona de Vida de Holdridge, Lógica Difusa, Inferencia Difusa}
+}
+
+% Bibliografía
+\usepackage[
+    backend=biber,
+    style=ieee,
+    sorting=nyt,
+    maxbibnames=99
+]{biblatex}
+\addbibresource{references.bib}
+
+% Subfiguras
+\usepackage{subcaption}
+
+% Código (Python)
+\usepackage{listings}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	commentstyle=\color{green!60!black}\itshape,
+	numbers=left,
+	numberstyle=\tiny,
+	stepnumber=1,
+	numbersep=5pt,
+	showstringspaces=false,
+	breaklines=true,
+	frame=single,
+	captionpos=b
+}
+% Código JSON
+\lstdefinelanguage{JSON}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    literate=
+     *{0}{{{\color{blue}0}}}{1}
+      {1}{{{\color{blue}1}}}{1}
+      {2}{{{\color{blue}2}}}{1}
+      {3}{{{\color{blue}3}}}{1}
+      {4}{{{\color{blue}4}}}{1}
+      {5}{{{\color{blue}5}}}{1}
+      {6}{{{\color{blue}6}}}{1}
+      {7}{{{\color{blue}7}}}{1}
+      {8}{{{\color{blue}8}}}{1}
+      {9}{{{\color{blue}9}}}{1}
+      {:}{{{\color{red}:}}}{1}
+      {,}{{{\color{red},}}}{1}
+      {\{}{{{\color{orange}\{}}}{1}
+      {\}}{{{\color{orange}\}}}}{1}
+      {[}{{{\color{orange}[}}}{1}
+      {]}{{{\color{orange}]}}}{1}
+      {"}{{{\color{green}"}}}{1}
+}
+
+
+% Comandos útiles
+
+\begin{document}
+\begin{titlepage}
+    \centering
+    % \includegraphics[height=2cm]{logo.png}\par\vspace{1cm} % Descomentar si hay logo
+    {\Large Informe Técnico 3}\par\vspace{0.5cm}
+    {\huge\bfseries Aprendizaje Difuso\par}\vspace{0.5cm}
+    \begin{tabular}{@{}ll@{}}
+        Autor 1: & Juan Diego Gallego Nicolás \\
+        Contacto 1: & jdiego.gallego@um.es \\
+        Autor 2: & Óscar Vera López \\
+        Contacto 2: & oscar.veral@um.es \\
+        Profesor: & Mercedes Valdés Vela \\
+        Asignatura: & Conocimiento y Razonamiento Aproximado \\
+    \end{tabular}
+    % Include umu logo
+    \vfill
+    \includegraphics[height=8cm]{images/SelloUMU-negativo.png}\par\vspace{1cm}
+    \vfill
+    {\large \today}\par
+\end{titlepage}
+
+\pagenumbering{roman}
+\clearpage
+
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\section{Introducción}
+La clasificación de zonas bioclimáticas
+proporciona una base para comprender la distribución de ecosistemas. En este contexto, el Sistema de Zonas de Vida de Holdridge
+ofrece un marco robusto para categorizar regiones según sus características climáticas y geográficas.
+Concretamente, este sistema utiliza tres magnitudes climáticas principales: la biotemperatura media anual (ABT),
+la precipitación media anual (APP) y la relación de evapotranspiración potencial (PER).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.65\textwidth]{images/triangle.png}
+	\caption{Diagrama del sistema de Zonas de Vida de Holdridge \cite{WikiHoldridge}}
+	\label{fig:holdridge-triangle}
+\end{figure}
+
+En la imagen anterior (\ref{fig:holdridge-triangle})
+se muestra un diagrama representativo del sistema de Holdridge, donde se visualizan las diferentes zonas de vida en 
+función de las tres magnitudes climáticas mencionadas.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{images/pisos_altitudinales.png}
+	\caption{ABT en función de la latitud y altitud \cite{INRENA1995}}
+	\label{fig:abt-latitude}
+\end{figure}
+
+Holdridge también propone un método para aproximar la de ABT de un punto geográfico. Para ello,
+establece una relación directa entre latitud y la ABT media anual a nivel del mar. A partir de esta relación,
+se pueden calcular las desviaciones de la ABT en función de la altitud del punto geográfico con la regla 
+empírica: la temperatura disminuye aproximadamente 6 °C por cada 1000 metros de ascenso en altitud (\ref{fig:abt-latitude}).
+
+En este informe abordamos la tarea de aprendizaje difuso que permita la inferencia de la zona de vida de Holdridge correspondiente a un punto geográfico.
+Obtendremos datos meteorológicos reales desde utilizando Meteostat \cite{Meteostat}, los cuales procesaremos e introduciremos en el motor de inferencia 
+difusa desarrollado para el Informe 2 de la asignatura. A partir de estas inferencias, construiremos un set de datos etiquetados que podremos proporcionar al
+software FIDv3.5 \cite{FID} para construir un árbol de decisión difuso que permita la clasificación automática de zonas de vida de Holdridge.
+
+\section{Preprocesamiento de datos meteorológicos}
+
+En este informe trabajaremos con datos meteorológicos reales obtenidos de la plataforma Meteostat \cite{Meteostat} para la totalidad 
+de la Unión Europea.
+
+\subsection{Obtención de estaciones meteorológicas}
+
+El primer paso realizado se ha codificado en Python en un script \texttt{shp2estaciones.py}, en el que dado un fichero shapefile
+con los límites geográficos de la Unión Europea \cite{EUShp}, se obtiene el conjunto de estaciones meteorológicas disponibles en Meteostat
+que se encuentran dentro de dichos límites. Para evitar sobrecarga de trabajo y ser prácticos, se ha dividido el área en una malla
+de puntos equidistantes $0.0625$ grados en ambas direcciones, seleccionando la estación meteorológica más cercana a cada punto.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=\textwidth]{images/estaciones_1.png}
+	\caption{Subconjunto cargado desde Meteostat en la Unión Europea}
+	\label{fig:total_estaciones}
+\end{figure}
+
+El mapa \ref{fig:total_estaciones} muestrea el conjunto de puntos seleccionado dentro de la Unión Europea. En azul el punto indica únicamanete 
+una tierra firme, en rojo indica la presencia de una estación climática. No se muestra la totalidad de estaciones, sólo el subconjunto sobre
+el que trabajamos; véase la \ref{text:partial} en la siguiente sección. Mediante este procedimiento se han 
+obtenido más de 2500 estaciones meteorológicas, que hemos guardado junto a la longitud y latitud de cada punto utilizado en un fichero CSV.
+
+\subsection{Obtención de datos meteorológicos históricos}
+
+Una vez disponemos de las estaciones en CSV, mediante un segundo script en Python \texttt{estaciones2datosmet.py}, se obtienen,
+para cada una de las muestras de estación-coordenadas, los datos meteorológicos históricos con frecuencia mensual desde el año 2015 
+a 2020. Nótese que se descartan columnas innecesarias para este informe, quedándonos únicamente con las columnas de temperatura mínima,
+temperatura máxima y precipitación.
+
+\label{text:partial}
+
+Se tiene que destacar una limitación práctica que hemos encontrado, que es la no disponibilidad de datos de forma total o parcial en 
+ciertas estaciones. Se obtiene una división de 763 estaciones con datos completos,
+300 estaciones con datos parciales interpolables, y 1900 estaciones sobre las que no se han podido obtener la totalidad de al menos
+una de las columnas relevantes.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=\textwidth]{images/estaciones_2.png}
+	\caption{Completitud de datos meteorológicos históricos por estación}
+	\label{fig:parcial_estaciones}
+\end{figure}
+
+La figura \ref{fig:parcial_estaciones} muestra la distribución geográfica de las estaciones con datos completos (azul) y datos parciales (rojo).
+Como curiosidad, la API de Meteostat \cite{Meteostat} no nos ha permitido obtener datos de forma homogénea, predominando Alemania como fuente de
+datos.
+
+Una vez obtenidos estos datos, se construyen 2 ficheros CSV concatenando los datos originales de las estaciones y coordenadas 
+con los datos meteorológicos históricos y relevantes  obtenidos, el primero contiene todas las estaciones con datos completos y 
+el segundo contiene aquellas con datos parciales.
+
+\subsection{Variables bioclimáticas}
+
+A partir de estos ficheros, podemos calcular la biotemperatura media anual (ABT), la precipitación media anual (APP), y, finalmente, 
+la relación de evapotranspiración potencial (PER) para cada uno de los puntos geográficos.
+
+Respecto a la biotemperatura, calculamos la temperatura media mensual como la media aritmética de la temperatura máxima y mínima. Despúes,
+calculamos la biotemperatura mensual aplicando la regla de Holdridge: si la temperatura media mensual es menor o igual a 0 °C, 
+se asigna un valor de 0 °C, si está entre 0 °C y 30 °C, se mantiene el valor original, y si es mayor o igual a 30 °C, se asigna un valor de 30 °C.
+Finalmente, la biotemperatura media anual (ABT) se obtiene como la media aritmética de las biotemperaturas anuales, tomadas como la media 
+aritmetica de las biotemperaturas mensuales.
+
+El calculo de la precipitación media anual (APP) es más sencillo, ya que se obtiene como la media aritmética de las precipitaciones anuales,
+tomadas como la suma de las precipitaciones mensuales. Una vez se tiene la ABT y APP, se calcula la relación de evapotranspiración potencial (PER) 
+utilizando la fórmula empírica propuesta por Holdridge:
+$PER = \frac{ETP}{APP} = \frac{58.93 \times ABT}{APP}$, donde ETP es la evapotranspiración potencial anual.
+
+Sobre los datos incompletos, hemos decidido interpolar los valores faltantes en las 300 estaciones para las que los datos faltantes son 
+únicamente muestras sueltas a lo largo del tiempo de cualquiera de las columnas relevantes para este informe. Las otras 1900 estaciones con datos
+incompletos han sido descartadas para el aprendizaje difuso, se utilizarán como muestras para evaluar como el sistema aprendido se comporta
+ante datos reales con información incompleta.
+
+Para el proceso de interpolación, se ha utilizado interpolación usando el método de polinomio de interpolación cúbica de hermite por tramos.
+Para cada conjunto de muestras agrupadas anualmente, deducimos el valor que se debe escribir en los huecos de las columnas ABT y APP vacíos;
+para después calcular el PER a partir de los valores interpolados. El proceso de interpolación no se aplica siempre, si un registro
+anual tiene más de 3 meses con datos faltantes, no se realiza la interpolación y se considerea que la estación tiene datos incompletos.
+
+De esta forma, obtendremos datos en los que, si se ha podido interpolar, se tendrán los valores de ABT, APP y PER completos para cada estación.
+En otro caso, si sólo no se ha podido iterpolar ABT o APP, se descarta la estación como dato de entrenamiento. Se podrá intentar utilizar para
+observar el comportamiento del sistema aprendido ante datos incompletos.
+
+Después de fusionar los datos completos y los datos parciales interpolados, obtenemos un fichero CSV final más de 1000 muestras.
+
+\subsection{Clasificación}
+
+Una vez tenemos las variables bioclimáticas calculadas, podemos proceder a clasificar cada estación en su correspondiente zona de vida de Holdridge.
+utilizando nuestro zonificador desarrollado en el Informe 2.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=\textwidth]{images/zonify_completas.png}
+	\caption{Zonificación de estaciones con datos completos}
+	\label{fig:zonify_completas}
+\end{figure}
+
+La Figura \ref{fig:zonify_completas} muestra la zonificación obtenida para las estaciones con datos completos. Para mejor visualización,
+se han expandido los puntos en el mapa para cubrir un área mayor.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=\textwidth]{images/zonify_parciales.png}
+	\caption{Zonificación de estaciones con datos parciales}
+	\label{fig:zonify_parciales}
+\end{figure}
+
+Véase como en la Figura \ref{fig:zonify_parciales}, los resultados utilizando datos interpolados son lo suficientemente coherentes con los obtenidos a partir de datos completos,
+lo que nos permite utilizarlos para el aprendizaje difuso.
+
+\section{Aprendizaje difuso}
+
+\subsection{Configuración}
+
+Para utilizar el software FID3.5 \cite{FID}, hemos tenido que transformar el fichero CSV final en un fichero de texto con el formato
+esperado por el software. Para ello, hemos desarrollado un script en Python \texttt{zonify2fid2.4.py} que realiza dicha transformación,
+obteniendo el fichero \texttt{.dat} que espera con muestras de entrenamiento. Aprovechando el desarrollo para el Informe 2, el script anterior también procesa la configuración de nuestro motor de inferencia difusa
+para generar el fichero de atributos \texttt{.attr} que espera el software FID.
+
+Para aliviar el problema de sobre-representación e infra-representación de ciertas etiquetas en el conjunto de datos, hemos
+ajustado el peso de las muestras en función de la frecuencia de aparición de cada etiqueta en el conjunto de datos. La fórmula utilizada
+es la siguiente: $p = \sqrt{n}$, donde $p$ es el peso asignado a cada muestra y $n$ es el número de apariciones de la etiqueta 
+correspondiente en el conjunto de datos. Además, en el fichero de atributos, hemos eliminado las etiquetas de las zonas de vida que no 
+aparecen en el dataset final, para evitar que el software FID genere ramas innecesarias.
+
+TODO RESULTADOS
+
+\clearpage
+\section*{Uso de IA}
+Durante la elaboración de este informe, se ha utilizado ChatGPT-4 para asistir en la redacción a LaTeX de este documento
+mediante la herramienta de OpenAI integrada en Visual Studio Code. También se ha mantenido una conversación 
+con Gemini-2.5 de Google para obtener orientación y opiniones sobre la estructura y contenido del informe.
+Junto a este documento se entrega un archivo HTML con el historial de la conversación mantenida con la misma.
+
+\clearpage
+% Bibliografía
+\printbibliography
+
+\end{document}
