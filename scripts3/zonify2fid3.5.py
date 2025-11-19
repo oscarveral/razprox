@@ -7,7 +7,7 @@ import pandas as pd
 
 CONFIGS = Path(__file__).parent.parent / "configs"
 INPUT = Path(__file__).parent.parent / "resources3" / "zonify_fused" / "zonify_fused_results.csv"
-OUTPUT = Path(__file__).parent.parent / "resources3" / "fidfiles"
+OUTPUT = Path(__file__).parent.parent / "resources3" / "fid"
 Path.mkdir(OUTPUT, parents=True, exist_ok=True)
 
 VARS = ['ABT', 'APP', 'PER']
@@ -24,7 +24,7 @@ for zona in variables_dict['ZonaDeVida']['Etiquetas'].keys():
     zonas_abreviaturas[zona] = abreviatura
 
 def attrs(output_folder: Path): 
-    with open(output_folder / "zonify2fid35.attrs", "w") as f:
+    with open(output_folder / "data.attrs", "w") as f:
         f.write(f"{N_VARS}\n")
         for i, var in enumerate(VARS):
             dominio = variables_dict[var]['Dominio']
@@ -70,20 +70,30 @@ def dat(INPUT, OUTPUT_FOLDER: Path):
         constante = variables_dict[var]['Escala']['Constante']
         x = math.log2(x/constante)
         return (x - dominio[0]) / (dominio[1] - dominio[0])
+    
+    for _, row in df.iterrows():
+        zona = row['Z1']
+        if pd.isna(zona):
+            continue
+        if zona not in n_samples:
+            n_samples[zona] = 0
+        n_samples[zona] += 1 
 
     count = 0
-    with open(OUTPUT_FOLDER / "zonify2fid35.dat", "w") as f:
+    with open(OUTPUT_FOLDER / "data.dat", "w") as f:
         for _, row in df.iterrows():
             if pd.isna(row['Z1']):
                 continue
             for var in VARS:
                 dominio = variables_dict[var]['Dominio']
                 f.write(f"{transform(var, row[var]):.3f} ")
-            f.write(f"{zonas_abreviaturas[row['Z1']]} 1\n")
-            n_samples[row['Z1']] = n_samples.get(row['Z1'], 0) + 1
+            f.write(f"{zonas_abreviaturas[row['Z1']]} ")
+            weight = 1 / (math.sqrt(n_samples[row['Z1']]))
+            f.write(f"{weight:.6f}\n")
+            
             count += 1
         # Append count at the beginning of the file
-    with open(OUTPUT_FOLDER / "zonify2fid35.dat", "r+") as f:
+    with open(OUTPUT_FOLDER / "data.dat", "r+") as f:
         content = f.read()
         f.seek(0, 0)
         f.write(f"{count} {N_VARS}\n" + content)
@@ -95,6 +105,7 @@ def dat(INPUT, OUTPUT_FOLDER: Path):
             
 attrs(OUTPUT)
 dat(INPUT, OUTPUT)
+
         
 
 
