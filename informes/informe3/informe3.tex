@@ -1,4 +1,4 @@
-% Archivo: informe1.tex
+% Archivo: informe3.tex
 
 \documentclass[11pt,a4paper]{article}
 
@@ -154,22 +154,24 @@ establece una relación directa entre latitud y la ABT media anual a nivel del m
 se pueden calcular las desviaciones de la ABT en función de la altitud del punto geográfico con la regla 
 empírica: la temperatura disminuye aproximadamente 6 °C por cada 1000 metros de ascenso en altitud (\ref{fig:abt-latitude}).
 
-En este informe abordamos la tarea de aprendizaje difuso que permita la inferencia de la zona de vida de Holdridge correspondiente a un punto geográfico.
+En este informe abordamos la tarea de aprendizaje difuso a partir de datos que permita la inferencia de la zona de vida de Holdridge correspondiente a un punto geográfico.
 Obtendremos datos meteorológicos reales desde utilizando Meteostat \cite{Meteostat}, los cuales procesaremos e introduciremos en el motor de inferencia 
-difusa desarrollado para el Informe 2 de la asignatura. A partir de estas inferencias,mediante el
+difusa desarrollado para el Informe 2 de la asignatura. A partir de estas inferencias, mediante el
 software FIDv3.5 \cite{FID}, podremos construir un árbol de decisión difuso que permita la clasificación automática de zonas de vida de Holdridge.
 
 \section{Preprocesamiento de datos meteorológicos}
 
-En este informe trabajaremos con datos meteorológicos reales obtenidos de la plataforma Meteostat \cite{Meteostat} para la totalidad 
-de la Unión Europea.
+En este informe trabajaremos con datos meteorológicos reales obtenidos de la plataforma Meteostat \cite{Meteostat} para la mayoría de países europeos.
 
 \subsection{Obtención de estaciones meteorológicas}
 
-El primer paso realizado se ha codificado en Python en un script \texttt{shp2estaciones.py}, en el que dado un fichero shapefile
-con los límites geográficos de la Unión Europea \cite{EUShp}, se obtiene el conjunto de estaciones meteorológicas disponibles en Meteostat
-que se encuentran dentro de dichos límites. Para evitar sobrecarga de trabajo y ser prácticos, se ha dividido el área en una malla
-de puntos equidistantes $0.0625$ grados en ambas direcciones, seleccionando la estación meteorológica más cercana a cada punto.
+El primer paso ha consistido en la elaboración de un script \texttt{shp2estaciones.py} para
+poder recopilar las localizaciones de las estaciones meteorológicas disponibles en Meteostat dado un área geográfica concreta
+delimitada por un fichero shapefile \cite{EUShp}. Para ello, hemos utilizado la librería Geopandas de Python para cargar el shapefile
+y hemos dividido el área en una malla de puntos equidistantes (en grados de latitud y longitud). Posteriormente, utilizando la API de Meteostat,
+seleccionamos la estación meteorológica más cercana a cada punto de la malla. Finalmente, filtramos las estaciones únicas localizadas.
+La separación entre los puntos de la malla se ha ido ajustando progresivamente hasta llegar a un total de 0.0625 grados entre puntos (aproximadamente 7 km),
+a partir de la cual no se han encontrado nuevas estaciones.
 
 \begin{figure}[H]
     \centering
@@ -178,24 +180,25 @@ de puntos equidistantes $0.0625$ grados en ambas direcciones, seleccionando la e
 	\label{fig:total_estaciones}
 \end{figure}
 
-El mapa \ref{fig:total_estaciones} muestrea el conjunto de puntos seleccionado dentro de la Unión Europea. En azul el punto indica únicamanete 
-una tierra firme, en rojo indica la presencia de una estación climática. No se muestra la totalidad de estaciones, sólo el subconjunto sobre
-el que trabajamos; véase la \ref{text:partial} en la siguiente sección. Mediante este procedimiento se han 
-obtenido más de 2500 estaciones meteorológicas, que hemos guardado junto a la longitud y latitud de cada punto utilizado en un fichero CSV.
+El mapa (\ref{fig:total_estaciones}) muestrea el conjunto de puntos seleccionado dentro del shapefile. Un punto en azul indica 
+tierra firme, mientras que uno rojo señala la presencia de una estación climática. Mediante este procedimiento se han 
+obtenido las localizaciones de 3620 estaciones meteorológicas, las cuales hemos guardado junto a su correspondiente
+localización en un fichero CSV.
 
-\subsection{Obtención de datos meteorológicos históricos}
+\subsection{Obtención de datos meteorológicos}
 
-Una vez disponemos de las estaciones en CSV, mediante un segundo script en Python \texttt{estaciones2datosmet.py}, se obtienen,
+Una vez disponemos de localizacion de las estaciones, mediante un segundo script en Python \texttt{estaciones2datosmet.py} se obtienen,
 para cada una de las muestras de estación-coordenadas, los datos meteorológicos históricos con frecuencia mensual desde el año 2015 
-a 2020. Nótese que se descartan columnas innecesarias para este informe, quedándonos únicamente con las columnas de temperatura mínima,
-temperatura máxima y precipitación.
+a 2020. Durante el proceso se descartan columnas innecesarias para en este informe quedarnos únicamente con las columnas de temperatura mínima (ºC),
+temperatura máxima (ºC) y precipitación acumulada (mm).
 
 \label{text:partial}
 
-Se tiene que destacar una limitación práctica que hemos encontrado, que es la no disponibilidad de datos de forma total o parcial en 
-ciertas estaciones. Se obtiene una división de 763 estaciones con datos completos,
-300 estaciones con datos parciales interpolables, y 1900 estaciones sobre las que no se han podido obtener la totalidad de al menos
-una de las columnas relevantes.
+De las 3620 estaciones obtenidas, 763 de ellas disponen de datos meteorológicos completos para todas las columnas relevantes
+en el rango temporal seleccionado (2015-2020). Otras 300 presentan datos parciales tanto para temperatura como para precipitación pero interpolables mediante
+imputación por la media (por disponer de datos para ese mes otros años) o interpolación por splines cúbicos (por disponer de datos suficientes en meses anteriores y posteriores).
+Las otras 2557 estaciones no tienen datos disponibles, presentan demasiados datos faltantes para ser interpolables o, en el mejor de los casos,
+solo disponen de uno de los dos tipos de parámetros. De este último tipo hay unas 1900 estaciones.
 
 \begin{figure}[H]
     \centering
@@ -204,13 +207,12 @@ una de las columnas relevantes.
 	\label{fig:parcial_estaciones}
 \end{figure}
 
-La figura \ref{fig:parcial_estaciones} muestra la distribución geográfica de las estaciones con datos completos (azul) y datos parciales (rojo).
-Como curiosidad, la API de Meteostat \cite{Meteostat} no nos ha permitido obtener datos de forma homogénea, predominando Alemania como fuente de
-datos.
+La figura \ref{fig:parcial_estaciones} muestra la distribución geográfica de las estaciones con datos completos (azul) y datos parciales o ausentes (rojo).
+Salta a la vita que la API de Meteostat \cite{Meteostat} no registra estaciones de forma homogénea en Europa, predominando Alemania
+como el país con mayor número de estaciones disponibles.
 
-Una vez obtenidos estos datos, se construyen 2 ficheros CSV concatenando los datos originales de las estaciones y coordenadas 
-con los datos meteorológicos históricos y relevantes  obtenidos, el primero contiene todas las estaciones con datos completos y 
-el segundo contiene aquellas con datos parciales.
+Una vez obtenidos estos datos, se construyen 2 ficheros CSV concatenando las tablas de las localizaciones de las estaciones con
+las de datos meteorológicos. El primero contiene todas las estaciones con datos completos y el segundo contiene aquellas con datos parciales.
 
 \subsection{Variables bioclimáticas}
 
@@ -218,51 +220,54 @@ A partir de estos ficheros, podemos calcular la biotemperatura media anual (ABT)
 la relación de evapotranspiración potencial (PER) para cada uno de los puntos geográficos.
 
 Respecto a la biotemperatura, calculamos la temperatura media mensual como la media aritmética de la temperatura máxima y mínima. Despúes,
-calculamos la biotemperatura mensual aplicando la regla de Holdridge: si la temperatura media mensual es menor o igual a 0 °C, 
-se asigna un valor de 0 °C, si está entre 0 °C y 30 °C, se mantiene el valor original, y si es mayor o igual a 30 °C, se asigna un valor de 30 °C.
-Finalmente, la biotemperatura media anual (ABT) se obtiene como la media aritmética de las biotemperaturas anuales, tomadas como la media 
+calculamos la biotemperatura mensual aplicando la regla de Holdridge: 
+
+\begin{itemize}[leftmargin=4em]
+    \item[-] Si la temperatura media mensual es menor o igual a 0 °C, se asigna un valor de 0 °C.
+    \item[-] Si la temperatura media mensual está entre 0 °C y 30 °C, se mantiene el valor original.
+    \item[-] Si la temperatura media mensual es mayor o igual a 30 °C, se asigna un valor de 30 °C.
+\end{itemize}
+
+La biotemperatura media anual (ABT) se obtiene como la media aritmética de las biotemperaturas anuales, tomadas como la media 
 aritmetica de las biotemperaturas mensuales.
 
-El calculo de la precipitación media anual (APP) es más sencillo, ya que se obtiene como la media aritmética de las precipitaciones anuales,
-tomadas como la suma de las precipitaciones mensuales. Una vez se tiene la ABT y APP, se calcula la relación de evapotranspiración potencial (PER) 
+El cálculo de la precipitación media anual (APP) es más sencillo ya que se obtiene como la suma de las medias mensuales de precipitación.
+ 
+Una vez se tiene la ABT y APP, se calcula la relación de evapotranspiración potencial (PER) 
 utilizando la fórmula empírica propuesta por Holdridge:
-$PER = \frac{ETP}{APP} = \frac{58.93 \times ABT}{APP}$, donde ETP es la evapotranspiración potencial anual.
+$PER = \frac{APE}{APP} = \frac{58.93 \times ABT}{APP}$, donde APE es la evapotranspiración potencial anual.
 
-Sobre los datos incompletos, hemos decidido interpolar los valores faltantes en las 300 estaciones para las que los datos faltantes son 
-únicamente muestras sueltas a lo largo del tiempo de cualquiera de las columnas relevantes para este informe. Las otras 1900 estaciones con datos
-incompletos han sido descartadas para el aprendizaje difuso, se utilizarán como muestras para evaluar como el sistema aprendido se comporta
-ante datos reales con información incompleta.
+Sobre los datos incompletos, como mencionábamos, hemos realizado el siguiente procedimiento:
+\begin{enumerate}[leftmargin=4em]
+    \item Si algún par (año, mes) tiene datos faltantes en alguna de sus columnas, el cálculo de la biotemperatura o precipitación acumulada para su mes no tiene en cuenta ese dato.
+    \item Si, después de agrupar por mes, algún mes tiene menos de tres datos faltantes en alguna de sus columnas, se imputan los datos faltantes utilizando splines cúbicos por tramos. Para aprovechar la naturaleza cíclica de los datos, se triplican los datos y se concetenan para tomar los datos centrales tras la interpolación.
+\end{enumerate}
 
-Para el proceso de interpolación, se ha utilizado interpolación usando el método de polinomio de interpolación cúbica de hermite por tramos.
-Para cada conjunto de muestras agrupadas anualmente, deducimos el valor que se debe escribir en los huecos de las columnas ABT y APP vacíos;
-para después calcular el PER a partir de los valores interpolados. El proceso de interpolación no se aplica siempre, si un registro
-anual tiene más de 3 meses con datos faltantes, no se realiza la interpolación y se considerea que la estación tiene datos incompletos.
-
-De esta forma, obtendremos datos en los que, si se ha podido interpolar, se tendrán los valores de ABT, APP y PER completos para cada estación.
-En otro caso, si sólo no se ha podido iterpolar ABT o APP, se descarta la estación como dato de entrenamiento. Se podrá intentar utilizar para
-observar el comportamiento del sistema aprendido ante datos incompletos.
+Las otras 1900 estaciones con datos incompletos (solo tienen ABT o APP) han sido descartadas para el aprendizaje difuso pues no
+podemos generar etiquetas suficientemente informadas con nuestro zonificador difuso previo.
+Se utilizarán como muestras para evaluar como el sistema aprendido se comporta ante datos reales con información incompleta.
 
 Después de fusionar los datos completos y los datos parciales interpolados, obtenemos un fichero CSV final más de 1000 muestras.
 
 \subsection{Clasificación}
 
-Una vez tenemos las variables bioclimáticas calculadas, podemos proceder a clasificar cada estación en su correspondiente zona de vida de Holdridge.
-utilizando nuestro zonificador desarrollado en el Informe 2, quedándonos únicamente con la predicción de mayor grado de pertenencia.
+Una vez tenemos las variables bioclimáticas calculadas, podemos proceder a clasificar cada estación en su correspondiente zona de vida de Holdridge
+utilizando nuestro zonificador desarrollado en el Informe 2. Este software nos proporciona las tres zonas de vida con mayor grado de pertenencia
+y calcula una coloración ponderada en función de las tres zonas de vida obtenidas.
 
 \begin{figure}[H]
     \centering
 	\includegraphics[width=\textwidth]{images/zonify_completas.png}
-	\caption{Zonificación de estaciones con datos completos}
+	\caption{Zonificación de estaciones con datos completos.}
 	\label{fig:zonify_completas}
 \end{figure}
 
-La Figura \ref{fig:zonify_completas} muestra la zonificación obtenida para las estaciones con datos completos. Para mejor visualización,
-se han expandido los puntos en el mapa para cubrir un área mayor.
+La Figura \ref{fig:zonify_completas} muestra la zonificación obtenida para las estaciones con datos completos.
 
 \begin{figure}[H]
     \centering
 	\includegraphics[width=\textwidth]{images/zonify_parciales.png}
-	\caption{Zonificación de estaciones con datos parciales}
+	\caption{Zonificación de estaciones con datos interpolados.}
 	\label{fig:zonify_parciales}
 \end{figure}
 
@@ -272,7 +277,7 @@ lo que nos permite utilizarlos para el aprendizaje difuso.
 \begin{figure}[H]
     \centering
 	\includegraphics[width=\textwidth]{images/zonify_fused.png}
-	\caption{Zonificación de estaciones fusionadas}
+	\caption{Zonificación de estaciones fusionadas.}
 	\label{fig:zonify_fused}
 \end{figure}
 
@@ -281,40 +286,50 @@ lo que nos permite utilizarlos para el aprendizaje difuso.
 \subsection{Creación del conjunto de datos}
 
 Para utilizar el software FID3.5 \cite{FID}, hemos tenido que transformar el fichero CSV final en un fichero de texto con el formato
-esperado por el software. Para ello, hemos desarrollado un script en Python \texttt{zonify2fid2.4.py} que realiza dicha transformación,
+esperado por el software. Para ello, hemos desarrollado un script en Python \texttt{zonify2fid3.5.py} que realiza dicha transformación,
 obteniendo el fichero \texttt{.dat} que espera con muestras de entrenamiento.
 
-Para aliviar el problema de sobre-representación e infra-representación de ciertas etiquetas en el conjunto de datos, hemos
+Para aliviar el problema dede desbalanceo en las etiquetas del conjunto de datos, hemos
 ajustado el peso de las muestras en función de la frecuencia de aparición de cada etiqueta en el conjunto de datos. La fórmula utilizada
-es la siguiente: $p = \sqrt{n}$, donde $p$ es el peso asignado a cada muestra y $n$ es el número de apariciones de la etiqueta 
-correspondiente en el conjunto de datos. Se destaca que nuestro dataset de entrenamiento, al derivarse únicamente de datos
+es la siguiente: $p = \frac{1}{\sqrt{n}}$, donde $p$ es el peso asignado a cada muestra y $n$ es el número de apariciones de la etiqueta 
+correspondiente en el conjunto de datos. Cabe mencionar que nuestro dataset de entrenamiento, al derivarse únicamente de datos
 meteorológicos europeos, sólo contiene 22 de las 38 zonas de vida de Holdridge posibles en las hemos dividido el espacio de salida.
-Recuerdese que nuestro zonificador es capaz de distingir entre todas las sub-zonas de vida resultantes de la 
+Recuérdese que nuestro zonificador es capaz de distingir entre todas las sub-zonas de vida resultantes de la 
 subdivisión según la latitud. Por ejemplo, distinguir entre Bosque Húmedo Templado Frío y Bosque Húmedo Templado Cálido.
 
 \subsection{Atributos y configuración}
 
-Atendiendo a los primeros resultados preeliminares usando nuestro conocimiento experto, decidimos eliminar la variable de entrada PER, ya que observamos que no aportaba información adicional relevante
+Atendiendo a los primeros resultados preeliminares y usando nuestro conocimiento experto, decidimos eliminar la variable de entrada PER, ya que no aporta información adicional relevante
 al estar correlacionada con las otras dos variables de entrada (ABT y APP). Incluso, llegaba a perjudicar a la generación
 del árbol introduciendo perturbaciones. Sin PER, el árbol generado es más sencillo y con mejor capacidad de generalización.
 
 Hemos explorado dos configuraciones diferentes para el particionado de las variables de entrada (ABT y APP):
 \begin{itemize}
-    \item Particionado experto: hemos definido automaticamente las particiones de los conjuntos difusos para cada una de las variables de entrada (ABT, APP)
+    \item Particionado experto: hemos definido las particiones de los conjuntos difusos para cada una de las variables de entrada (ABT, APP)
     utilizando la configuración de nuestro motor de inferencia difusa del Informe 2.
     \item Particionado automático: hemos permitido que el software FID realice un particionado automático de las variables de entrada (ABT, APP),
     ajustando la tolerancia mínima de particionado a 0 y definiendo un rango de entre 7 y 13 conjuntos difusos para cada variable.
 \end{itemize}
 
-\subsection{Resultados obtenidos}
+El fichero de parámetros \texttt{par.template} es una ligera modificación del fichero por defecto. 
+Los cambios relevantes son:
+\begin{itemize}
+    \item f1Build, f2Build, f1Inf y f2Inf se han establecido a la t-norma del producto. Cualquier otra t-norma probada resultaba en un fallo de software.
+    \item El método de resolución de conflictos internos (elección de candidato por hoja) se ha establecido a ``best'' para priorizar la elección de la etiqueta con mayor grado de pertenencia.
+    \item El método de resolución de conflictos externos (elección de candidato entre hojas) se ha establecido a 2, ya que es el método recomendado para clasificación.
+\end{itemize}
 
-Inicialmente, utilizando el particionado experto, el árbol obtenido obtiene una precisión muy aceptable mayor al 
+Se ha probado a realizar validación cruzada de hasta 10 pliegues obteniendo siempre resultados similares de precisión a los obtenidos sin validación cruzada. Por simplicidad, se han presentado los resultados sin validación cruzada.
+
+\subsection{Resultados}
+
+Inicialmente, utilizando el particionado experto, el árbol obtenido obtiene una precisión mayor al 
 80\% validando los datos de entrenamiento. Observando la figura \ref{fig:confusion_experto} se aprecian leves
 desviaciones fuera de la diagonal principal en la matriz de confusión, indicando que el sistema
-comete algunos errores de clasificación. Por ejemplo, la Estepa Templada Fría, sólo se 
-predicen correctamente la mitad de las veces, o, bosque boreal muy húmedo tiene un acierto del 0\%.
-El mapa de clasificación resultante \ref{fig:mapa_experto} muestra bastante parecido a la zonificación
-original obtenida con nuestro zonificador.
+comete algunos errores graves de clasificación. Por ejemplo, la estepa templada fría (ETF), sólo se 
+predice correctamente la mitad de las veces, o, bosque boreal muy húmedo tiene una tasa de acierto del 0\%.
+El mapa de clasificación resultante (\ref{fig:mapa_experto}) muestra bastante parecido a la división
+obtenida con nuestro zonificador.
 
 \begin{figure}[H]
     \centering
@@ -330,12 +345,12 @@ original obtenida con nuestro zonificador.
 	\label{fig:mapa_experto}
 \end{figure}
 
-Para comparar e intentar mejorar resultados, decidimos utilizar el particionado automático definido anteriormente.
-De esta forma, el software FID es capaz de encontrar los particionados óptimos para cada variable de entrada, maximizando la precisión del árbol resultante.
+Para comparar e intentar mejorar resultados, decidimos utilizar el particionado automático.
+De esta forma, el software FID es capaz de encontrar divisiones óptimas para cada variable de entrada.
 Esta optimización automática ha permitido alcanzar una precisión del 79\% sobre el conjunto de datos de entrenamiento; menor a la obtenida con conocimiento
-experto. Observando la matriz de confusión en la figura \ref{fig:confusion_automatico}, so observa una 
-precisión por clase bastante buena, corrigiendo los errores graves de la clasificación anterior. Sin embargo, presenta
-un ligerísimo incremento en los errores menores, lo que hace que obtenga una precisión global ligeramente menor. 
+experto. Observando la matriz de confusión en la figura \ref{fig:confusion_automatico}, se aprecia 
+la mitigación de los errores graves de la clasificación anterior. Sin embargo,
+la precisión global es ligeramente menor. 
 El mapa de clasificación resultante \ref{fig:mapa_automatico} muestra un parecido similar a la zonificación
 original obtenida con nuestro zonificador y al mapa obtenido con particionado experto.
 
@@ -353,23 +368,23 @@ original obtenida con nuestro zonificador y al mapa obtenido con particionado ex
 	\label{fig:mapa_automatico}
 \end{figure}
 
-Para mejorar aun más la precisión del sistema, se ha explorado la posibilidad de realizar un entrenamiento / construcción del árbol utilizando únicamente datos
-sintéticos generados para cada zona de vida. En total, creamos sintéticamente 9 muestras representativas para cada zona de vida, y, manteniendo el particionado
-manual inicial, construimos un árbol utilizando únicamente estos datos sintéticos. La generación de datos sintéticos
-ha seguido el siguiente procedimiento (utilizando nuestro particionado experto inicial):
+Finalmente, hemos querido poner a prueba la capacidad del software FID para recrear el sistema de reglas original a partir de datos sintéticos.
+En total, creamos 9 muestras representativas para cada zona de vida. Manteniendo el particionado
+manual inicial, construimos un árbol utilizando únicamente estos datos. El procedimiento para la generación
+ha sido el siguiente (utilizando nuestro particionado experto inicial):
 \begin{itemize}
     \item Para cada zona de vida, se obtienen las particiones difusas correspondientes a cada variable de entrada (ABT, APP).
-    \item Para cada una de las particiones difusas, se obtiene 3 valores representativos.
-    \item Se generan todas las combinaciones posibles de los valores representativos de cada variable de entrada.
+    \item Para cada una de las particiones difusas, se obtienen 3 valores representativos (valor central del intervalo teórico y dos cercanos).
+    \item Se generan todas las combinaciones posibles de los valores de cada variable de entrada.
     \item Cada combinación generada se etiqueta con la zona de vida correspondiente.
 \end{itemize}
-La única excepción en este procedimiento ha sido para las biotemperaturas extremas entre 0 y 1.5 ºC,
-que corresponden siempre a la misma zona de vida (desierto) y por tanto serán fácilmente clasificables.
+La única excepción en este procedimiento ha sido para las biotemperaturas entre 0 y 1.5 ºC,
+que corresponden siempre a la misma zona de vida (desierto polar) y se dispone de tres muestras.
 
 El árbol resultante mostró una precisión mayor al 82\% sobre los datos de 
 entrenamiento, ahora tratados únicamente como datos de test. Véase en la figura \ref{fig:confusion_sinteticos} como la matriz de confusión muestra 
 menos desviaciones notables fuera de la diagonal principal y como en el mapa de la figura \ref{fig:mapa_sinteticos} la clasificación es ya 
-muy parecida la zonificación original obtenida con nuestro zonificador.
+muy parecida la zonificación obtenida con nuestro zonificador.
 
 \begin{figure}[H]
     \centering
@@ -385,10 +400,31 @@ muy parecida la zonificación original obtenida con nuestro zonificador.
 	\label{fig:mapa_sinteticos}
 \end{figure}
 
-Hasta ahora, hemos evaluado los resultados comparando las predicciones del árbol con la etiqueta de 
+A continuación se muetra una tabla resumen con las métricas de precisión, recall y DICE-Score (media entre todas las clases) obtenidas en cada una de las configuraciones exploradas:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        Configuración & Precisión & Recall & DICE-Score \\
+        \midrule
+        Particionado experto & 0.65 & 0.66 & 0.63 \\
+        Particionado automático & 0.72 & 0.58 & 0.60 \\
+        Particionado experto con datos sintéticos & 0.78 & 0.77 & 0.76 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Resumen de métricas obtenidas}
+    \label{tab:resumen_metricas}
+\end{table}
+
+El DICE-Score mide la media armónica entre el accuracy y el recall, por lo que es una métrica
+útil para evaluar el rendimiento del sistema en términos de precisión y exhaustividad.
+Destáquese como, midiendo el DICE-Score, la configuración con datos sintéticos es 
+la que mejor rendimiento obtiene con mucha diferencia.
+
+Hasta ahora hemos evaluado los resultados comparando las predicciones del árbol con la etiqueta de 
 mayor pertenencia obtenida con nuestro zonificador. Para complementar los resultados, es interesante
 observar cual es la tasa de acierto si tomamos en cuenta tambíen las segundas y terceras etiquetas
-de mayor pertenencia obtenidas con nuestro zonificador; obteniendose los siguientes resultados:
+de mayor pertenencia.
 \begin{itemize}
     \item Particionado experto. Coincidencias totales (1ª, 2ª o 3ª etiqueta): 96.89\%.
     \begin{itemize}
@@ -410,49 +446,36 @@ de mayor pertenencia obtenidas con nuestro zonificador; obteniendose los siguien
     \end{itemize}
 \end{itemize}
 
-Se puede observar como, al considerar las segundas y terceras etiquetas de mayor pertenencia,
+Al considerar las segundas y terceras etiquetas de mayor pertenencia,
 la tasa de acierto aumenta significativamente en todas las configuraciones exploradas. En la 
-configuración con datos sintéticos, llegamos a tener más de un 99\% de acierto.
+configuración con datos sintéticos, llegamos a tener más de un 99\% de acierto. 
+Esto evidencia la existencia de zonas de vida transicionales que no se reflejan en el triángulo de clasificación,
 
 
-A continuación se muestra el DICE-Score obtenido en cada una de las configuraciones exploradas:  
-\begin{itemize}
-    \item Particionado experto: 0.63.
-    \item Particionado automático: 0.60.
-    \item Particionado experto con datos sintéticos: 0.76. 
-\end{itemize}
-El DICE-Score mide la media armónica entre el accuracy y el recall, por lo que es una métrica
-útil para evaluar el rendimiento del sistema en términos de precisión y exhaustividad.
-Destáquese como, midiendo el DICE-Score, la configuración con datos sintéticos es 
-la que mejor rendimiento obtiene con mucha diferencia.
+\clearpage
 
 \subsection{Reglas generadas}
 
-Nuestos resultados iniciales con conocimiento experto, han dejado en evidencia como el atributo
-PER no aportaba información adicional relevante para la clasificación de zonas de vida. El árbol
-generado con particionado experto en la figura \ref{fig:reglas_experto} hace una primera
-bifurcación basandose en el atributo ABT, y después utiliza APP para realizar las hojas finales.
+El árbol generado con particionado experto (\ref{fig:reglas_experto}) realiza una primera
+bifurcación basándose en el atributo ABT y después utiliza APP para realizar las hojas finales.
 Véase como para la menor biotemperatura posible, dado que tenemos pocos ejemplos en el conjunto
 de datos, el árbol no llega a bifurcarse en APP, ya que con la biotemperatura ya es posible
-inferir la zona de vida sin tener en cuenta el APP.
+inferir la zona de vida sin tener en cuenta el APP. En total se han generado 34 hojas en el árbol,
+12 más que las teóricamente necesarias para cubrir todas las zonas de vida presentes en el conjunto de datos.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.35\textwidth]{images/reglas_experto.png}
+    \includegraphics[width=0.15\textwidth]{images/reglas_experto.png}
     \caption{Árbol de reglas generado con particionado experto}
     \label{fig:reglas_experto}
 \end{figure}
 
-Véase como en la figura \ref{fig:reglas_auto},
-el árbol generado, dada la gran cantidad de hojas, resulta ser uno muy ancho. Se han generado
-más subdivisiones en las variables de entrada, lo que permite una mayor especialización
-de las reglas generadas. Sin embargo, el árbol resultante es más difícil de interpretar y
-es posible que presente problemas de sobreajuste si no existen las hojas adecuadas
-en ciertos caminos del árbol.
+En el caso del particionado automático (\ref{fig:reglas_auto}), el árbol generado
+cuenta con 112 hojas, lo que lo hace más difícil de interpretar y más propenso al sobreajuste. 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.35\textwidth]{images/reglas_auto.png}
+    \includegraphics[width=0.15\textwidth]{images/reglas_auto.png}
     \caption{Árbol de reglas generado con particionado automático}
     \label{fig:reglas_auto}
 \end{figure}
@@ -460,10 +483,13 @@ en ciertos caminos del árbol.
 Con los datos sintéticos y particionado experto, ahora el árbol en la figura 
 \ref{fig:reglas_sint} contiene reglas para todas las zonas de vida posibles, lo que hace que
 se generen todos los caminos posibles en el árbol, justificando la gran precisión obtenida.
+Resulta interesante comprobar cómo el número total de hojas es 55, lo que coincide con 
+el número de combinaciones de etiquetas de ABT y APP menos uno. Esto indica que el árbol ha aprendido
+perfectamente las reglas originales del zonificador difuso.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.35\textwidth]{images/reglas_sint.png}
+    \includegraphics[width=0.15\textwidth]{images/reglas_sint.png}
     \caption{Árbol de reglas generado con particionado experto y datos sintéticos}
     \label{fig:reglas_sint}
 \end{figure}
@@ -471,36 +497,69 @@ se generen todos los caminos posibles en el árbol, justificando la gran precisi
 \subsection{Análisis de particiones}
 
 La figura \ref{fig:particion_experta} muestra las particiones definidas manualmente para las variables de entrada,
-junto a la distribución de dichas variables en el conjunto de datos de entrenamiento. Véase como la mayoría de las muestras
-se concentran en unas pocas de las particiones, lo que afecta y dificulta la correcta clasificación de las zonas de vida.
+junto a la función de distribución de dichas variables en el conjunto de datos de entrenamiento. La mayoría de las muestras
+se concentran en pocas de particiones. 
 
 \begin{figure}[H]
     \centering
-	\includegraphics[width=0.6\textwidth]{images/particion_experta.png}
-	\caption{Particion experta de variables de entrada}
+	\includegraphics[width=0.5\textwidth]{images/particion_experta.png}
+	\caption{Partición experta de variables de entrada}
 	\label{fig:particion_experta}
 \end{figure}
 
-Es interesante descatar como, en la figura \ref{fig:particion_auto}, el particionado automático de conjuntos difusos, crea particiones más finas allí donde hay mayor densidad de muestras,
-y particiones más amplias en zonas con menor densidad de muestras. Esto permitiría al sistema, en teoría, adaptarse mejor a la distribución real de los datos.
+Si superponemos la distribución de las muestras sintéticas se aprecia con claridad uniformidad 
+con respecto a cada una de las particiones.
 
 \begin{figure}[H]
     \centering
-	\includegraphics[width=0.6\textwidth]{images/particion_auto.png}
-	\caption{Particion automática de variables de entrada}
+	\includegraphics[width=0.5\textwidth]{images/particion_sint.png}
+	\caption{Partición experta con datos sintéticos}
+	\label{fig:particion_sint}
+\end{figure}
+
+El particionado automático de conjuntos difusos (\ref{fig:particion_auto}), crea particiones más finas allí donde hay mayor densidad de muestras
+y particiones más amplias en el caso contrario. Esto permitiría al sistema, en teoría, adaptarse mejor a la distribución real de los datos. No obstante,
+como veíamos en el análisis de métricas, este particionado no ha resultado en una mejora del rendimiento del sistema sino todo lo contrario. 
+La existencia de particiones muy finas no arregla el problema de las zonas de vida transacionales.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.5\textwidth]{images/particion_auto.png}
+	\caption{Partición automática de variables de entrada}
 	\label{fig:particion_auto}
 \end{figure}
 
-Finalmente, véase como, cuando se utilizan datos sintéticos para el entrenamiento, las muestras
-están completamente adaptadas a las particiones expertas; lo que permite un aprendizaje más diverso y,
-por lo tanto, una mejor generalización del sistema aprendido.
+\subsection{Inferencia con datos parciales}
+
+Finalmente, hemos querido evaluar el rendimiento del sistema aprendido
+ante datos reales con información incompleta. Para ello, hemos utilizado los datos de las 2927 estaciones de las cuales se dispone el 
+ABT y/o el APP. 
 
 \begin{figure}[H]
     \centering
-	\includegraphics[width=0.6\textwidth]{images/particion_sint.png}
-	\caption{Particion experta con datos sintéticos}
-	\label{fig:particion_sint}
+    \includegraphics[width=0.9\textwidth]{images/mapa_all.png}
+    \caption{Mapa de clasificación con datos completos y parciales}
+    \label{fig:mapa_fused}
 \end{figure}
+
+El resultado es el mapa de la figura \ref{fig:mapa_fused}, donde las estaciones
+se han clasificado utilizando el árbol generado con particionado experto y datos reales.
+El resultado es un mapa coherente con la geografía y clima de Europa, excepto en el territorio alemán,
+donde la mayoría de las zonas de vida se clasifican como Desierto Polar. 
+
+\section{Conclusiones}
+
+A pesar de no obtener una precisión perfecta, los árboles generados con el software FID3.5
+han demostrado ser capaces de aproximar razonablemente bien el sistema de zonificación difusa. Recordemos que
+el sistema de zonificación de Holdridge cuenta con zonas de vida transicionales que no 
+se reflejan en el triángulo de clasificación. En consecuencia, tomar por deficiente un clasificador que proporciona una única etiqueta de salida con una precisión
+del 80\% no es del todo adecuado. 
+
+Hemos visto que si tenemos en cuentas las segundas y terceras etiquetas de mayor pertenencia la tasa de acierto aumenta significativamente, llegando a más del 96\% en el árbol generado
+a partir de datos reales. Esto indica que el sistema es capaz de aproximar bien las zonas de vida transicionales, aunque no pueda representarlas explícitamente en su salida.
+
+El uso de datos sintéticos ha demostrado ser una estrategia efectiva para que el sistema aprenda las reglas originales del zonificador difuso.
+Esto nos indica un buen funcionamiento del software y una validación de la metodología empleada.
 
 
 \clearpage

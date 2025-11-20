@@ -18,6 +18,8 @@ modo = args.modo
 
 CONFIGS = Path(__file__).parent.parent / "configs"
 INPUT_CSV = Path(__file__).parent.parent / "resources3" / "zonify_fused" / "zonify_fused_results.csv"
+if modo == "all":
+    INPUT_CSV = Path(__file__).parent.parent / "resources3" / "indicadores" / "all.csv"
 INPUT_FID = Path(__file__).parent.parent / "resources3" / "fid" / modo / "test.file"
 OUTPUT = Path(__file__).parent.parent / "resources3" / "fidcolor" / modo
 Path.mkdir(OUTPUT, parents=True, exist_ok=True)
@@ -182,6 +184,8 @@ print("Accuracy por clase:")
 for clase, accuracy in accuracy_per_class.items():
     print(f"{clase}: {accuracy:.2f}")
 
+print("Accuracy medio: {:.2f}".format(np.mean(list(accuracy_per_class.values()))))
+
 recall_per_class = {}
 for clase in etiquetas:
     true_positives = confusion_matrix.at[clase, clase]
@@ -191,6 +195,8 @@ for clase in etiquetas:
 print("Recall por clase:")
 for clase, recall in recall_per_class.items():
     print(f"{clase}: {recall:.2f}")
+
+print("Recall medio: {:.2f}".format(np.mean(list(recall_per_class.values()))))
 
 dice_per_class = {}
 for clase in etiquetas:
