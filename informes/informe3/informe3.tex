@@ -156,8 +156,8 @@ empírica: la temperatura disminuye aproximadamente 6 °C por cada 1000 metros d
 
 En este informe abordamos la tarea de aprendizaje difuso que permita la inferencia de la zona de vida de Holdridge correspondiente a un punto geográfico.
 Obtendremos datos meteorológicos reales desde utilizando Meteostat \cite{Meteostat}, los cuales procesaremos e introduciremos en el motor de inferencia 
-difusa desarrollado para el Informe 2 de la asignatura. A partir de estas inferencias, construiremos un set de datos etiquetados que podremos proporcionar al
-software FIDv3.5 \cite{FID} para construir un árbol de decisión difuso que permita la clasificación automática de zonas de vida de Holdridge.
+difusa desarrollado para el Informe 2 de la asignatura. A partir de estas inferencias,mediante el
+software FIDv3.5 \cite{FID}, podremos construir un árbol de decisión difuso que permita la clasificación automática de zonas de vida de Holdridge.
 
 \section{Preprocesamiento de datos meteorológicos}
 
@@ -247,7 +247,7 @@ Después de fusionar los datos completos y los datos parciales interpolados, obt
 \subsection{Clasificación}
 
 Una vez tenemos las variables bioclimáticas calculadas, podemos proceder a clasificar cada estación en su correspondiente zona de vida de Holdridge.
-utilizando nuestro zonificador desarrollado en el Informe 2.
+utilizando nuestro zonificador desarrollado en el Informe 2, quedándonos únicamente con la predicción de mayor grado de pertenencia.
 
 \begin{figure}[H]
     \centering
@@ -269,22 +269,239 @@ se han expandido los puntos en el mapa para cubrir un área mayor.
 Véase como en la Figura \ref{fig:zonify_parciales}, los resultados utilizando datos interpolados son lo suficientemente coherentes con los obtenidos a partir de datos completos,
 lo que nos permite utilizarlos para el aprendizaje difuso.
 
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=\textwidth]{images/zonify_fused.png}
+	\caption{Zonificación de estaciones fusionadas}
+	\label{fig:zonify_fused}
+\end{figure}
+
 \section{Aprendizaje difuso}
 
-\subsection{Configuración}
+\subsection{Creación del conjunto de datos}
 
 Para utilizar el software FID3.5 \cite{FID}, hemos tenido que transformar el fichero CSV final en un fichero de texto con el formato
 esperado por el software. Para ello, hemos desarrollado un script en Python \texttt{zonify2fid2.4.py} que realiza dicha transformación,
-obteniendo el fichero \texttt{.dat} que espera con muestras de entrenamiento. Aprovechando el desarrollo para el Informe 2, el script anterior también procesa la configuración de nuestro motor de inferencia difusa
-para generar el fichero de atributos \texttt{.attr} que espera el software FID.
+obteniendo el fichero \texttt{.dat} que espera con muestras de entrenamiento.
 
 Para aliviar el problema de sobre-representación e infra-representación de ciertas etiquetas en el conjunto de datos, hemos
 ajustado el peso de las muestras en función de la frecuencia de aparición de cada etiqueta en el conjunto de datos. La fórmula utilizada
 es la siguiente: $p = \sqrt{n}$, donde $p$ es el peso asignado a cada muestra y $n$ es el número de apariciones de la etiqueta 
-correspondiente en el conjunto de datos. Además, en el fichero de atributos, hemos eliminado las etiquetas de las zonas de vida que no 
-aparecen en el dataset final, para evitar que el software FID genere ramas innecesarias.
+correspondiente en el conjunto de datos. Se destaca que nuestro dataset de entrenamiento, al derivarse únicamente de datos
+meteorológicos europeos, sólo contiene 22 de las 38 zonas de vida de Holdridge posibles en las hemos dividido el espacio de salida.
+Recuerdese que nuestro zonificador es capaz de distingir entre todas las sub-zonas de vida resultantes de la 
+subdivisión según la latitud. Por ejemplo, distinguir entre Bosque Húmedo Templado Frío y Bosque Húmedo Templado Cálido.
 
-TODO RESULTADOS
+\subsection{Atributos y configuración}
+
+Atendiendo a los primeros resultados preeliminares usando nuestro conocimiento experto, decidimos eliminar la variable de entrada PER, ya que observamos que no aportaba información adicional relevante
+al estar correlacionada con las otras dos variables de entrada (ABT y APP). Incluso, llegaba a perjudicar a la generación
+del árbol introduciendo perturbaciones. Sin PER, el árbol generado es más sencillo y con mejor capacidad de generalización.
+
+Hemos explorado dos configuraciones diferentes para el particionado de las variables de entrada (ABT y APP):
+\begin{itemize}
+    \item Particionado experto: hemos definido automaticamente las particiones de los conjuntos difusos para cada una de las variables de entrada (ABT, APP)
+    utilizando la configuración de nuestro motor de inferencia difusa del Informe 2.
+    \item Particionado automático: hemos permitido que el software FID realice un particionado automático de las variables de entrada (ABT, APP),
+    ajustando la tolerancia mínima de particionado a 0 y definiendo un rango de entre 7 y 13 conjuntos difusos para cada variable.
+\end{itemize}
+
+\subsection{Resultados obtenidos}
+
+Inicialmente, utilizando el particionado experto, el árbol obtenido obtiene una precisión muy aceptable mayor al 
+80\% validando los datos de entrenamiento. Observando la figura \ref{fig:confusion_experto} se aprecian leves
+desviaciones fuera de la diagonal principal en la matriz de confusión, indicando que el sistema
+comete algunos errores de clasificación. Por ejemplo, la Estepa Templada Fría, sólo se 
+predicen correctamente la mitad de las veces, o, bosque boreal muy húmedo tiene un acierto del 0\%.
+El mapa de clasificación resultante \ref{fig:mapa_experto} muestra bastante parecido a la zonificación
+original obtenida con nuestro zonificador.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{images/confusion_normal.png}
+	\caption{Matriz de confusión con particionado experto}
+	\label{fig:confusion_experto}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{images/mapa_normal.png}
+	\caption{Mapa de clasificación con particionado experto}
+	\label{fig:mapa_experto}
+\end{figure}
+
+Para comparar e intentar mejorar resultados, decidimos utilizar el particionado automático definido anteriormente.
+De esta forma, el software FID es capaz de encontrar los particionados óptimos para cada variable de entrada, maximizando la precisión del árbol resultante.
+Esta optimización automática ha permitido alcanzar una precisión del 79\% sobre el conjunto de datos de entrenamiento; menor a la obtenida con conocimiento
+experto. Observando la matriz de confusión en la figura \ref{fig:confusion_automatico}, so observa una 
+precisión por clase bastante buena, corrigiendo los errores graves de la clasificación anterior. Sin embargo, presenta
+un ligerísimo incremento en los errores menores, lo que hace que obtenga una precisión global ligeramente menor. 
+El mapa de clasificación resultante \ref{fig:mapa_automatico} muestra un parecido similar a la zonificación
+original obtenida con nuestro zonificador y al mapa obtenido con particionado experto.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{images/confusion_auto.png}
+	\caption{Matriz de confusión con particionado automático}
+	\label{fig:confusion_automatico}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{images/mapa_auto.png}
+	\caption{Mapa de clasificación con particionado automático}
+	\label{fig:mapa_automatico}
+\end{figure}
+
+Para mejorar aun más la precisión del sistema, se ha explorado la posibilidad de realizar un entrenamiento / construcción del árbol utilizando únicamente datos
+sintéticos generados para cada zona de vida. En total, creamos sintéticamente 9 muestras representativas para cada zona de vida, y, manteniendo el particionado
+manual inicial, construimos un árbol utilizando únicamente estos datos sintéticos. La generación de datos sintéticos
+ha seguido el siguiente procedimiento (utilizando nuestro particionado experto inicial):
+\begin{itemize}
+    \item Para cada zona de vida, se obtienen las particiones difusas correspondientes a cada variable de entrada (ABT, APP).
+    \item Para cada una de las particiones difusas, se obtiene 3 valores representativos.
+    \item Se generan todas las combinaciones posibles de los valores representativos de cada variable de entrada.
+    \item Cada combinación generada se etiqueta con la zona de vida correspondiente.
+\end{itemize}
+La única excepción en este procedimiento ha sido para las biotemperaturas extremas entre 0 y 1.5 ºC,
+que corresponden siempre a la misma zona de vida (desierto) y por tanto serán fácilmente clasificables.
+
+El árbol resultante mostró una precisión mayor al 82\% sobre los datos de 
+entrenamiento, ahora tratados únicamente como datos de test. Véase en la figura \ref{fig:confusion_sinteticos} como la matriz de confusión muestra 
+menos desviaciones notables fuera de la diagonal principal y como en el mapa de la figura \ref{fig:mapa_sinteticos} la clasificación es ya 
+muy parecida la zonificación original obtenida con nuestro zonificador.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{images/confusion_sint.png}
+	\caption{Matriz de confusión con particionado experto y datos sintéticos}
+	\label{fig:confusion_sinteticos}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{images/mapa_sint.png}
+	\caption{Mapa de clasificación con particionado experto y datos sintéticos}
+	\label{fig:mapa_sinteticos}
+\end{figure}
+
+Hasta ahora, hemos evaluado los resultados comparando las predicciones del árbol con la etiqueta de 
+mayor pertenencia obtenida con nuestro zonificador. Para complementar los resultados, es interesante
+observar cual es la tasa de acierto si tomamos en cuenta tambíen las segundas y terceras etiquetas
+de mayor pertenencia obtenidas con nuestro zonificador; obteniendose los siguientes resultados:
+\begin{itemize}
+    \item Particionado experto. Coincidencias totales (1ª, 2ª o 3ª etiqueta): 96.89\%.
+    \begin{itemize}
+        \item Coincidencias con 1ª etiqueta: 80.32\%.
+        \item Coincidencias con 2ª etiqueta: 8.76\%.
+        \item Coincidencias con 3ª etiqueta: 7.82\%.
+    \end{itemize}
+    \item Particionado automático. Coincidencias totales (1ª, 2ª o 3ª etiqueta): 94.63\%.
+    \begin{itemize}
+        \item Coincidencias con 1ª etiqueta: 79.00\%.
+        \item Coincidencias con 2ª etiqueta: 11.39\%.
+        \item Coincidencias con 3ª etiqueta: 4.24\%.
+    \end{itemize}
+    \item Particionado experto con datos sintéticos. Coincidencias totales (1ª, 2ª o 3ª etiqueta): 99.11\%.
+    \begin{itemize}
+        \item Coincidencias con 1ª etiqueta: 82.67\%.
+        \item Coincidencias con 2ª etiqueta: 8.66\%.
+        \item Coincidencias con 3ª etiqueta: 7.82\%.
+    \end{itemize}
+\end{itemize}
+
+Se puede observar como, al considerar las segundas y terceras etiquetas de mayor pertenencia,
+la tasa de acierto aumenta significativamente en todas las configuraciones exploradas. En la 
+configuración con datos sintéticos, llegamos a tener más de un 99\% de acierto.
+
+
+A continuación se muestra el DICE-Score obtenido en cada una de las configuraciones exploradas:  
+\begin{itemize}
+    \item Particionado experto: 0.63.
+    \item Particionado automático: 0.60.
+    \item Particionado experto con datos sintéticos: 0.76. 
+\end{itemize}
+El DICE-Score mide la media armónica entre el accuracy y el recall, por lo que es una métrica
+útil para evaluar el rendimiento del sistema en términos de precisión y exhaustividad.
+Destáquese como, midiendo el DICE-Score, la configuración con datos sintéticos es 
+la que mejor rendimiento obtiene con mucha diferencia.
+
+\subsection{Reglas generadas}
+
+Nuestos resultados iniciales con conocimiento experto, han dejado en evidencia como el atributo
+PER no aportaba información adicional relevante para la clasificación de zonas de vida. El árbol
+generado con particionado experto en la figura \ref{fig:reglas_experto} hace una primera
+bifurcación basandose en el atributo ABT, y después utiliza APP para realizar las hojas finales.
+Véase como para la menor biotemperatura posible, dado que tenemos pocos ejemplos en el conjunto
+de datos, el árbol no llega a bifurcarse en APP, ya que con la biotemperatura ya es posible
+inferir la zona de vida sin tener en cuenta el APP.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{images/reglas_experto.png}
+    \caption{Árbol de reglas generado con particionado experto}
+    \label{fig:reglas_experto}
+\end{figure}
+
+Véase como en la figura \ref{fig:reglas_auto},
+el árbol generado, dada la gran cantidad de hojas, resulta ser uno muy ancho. Se han generado
+más subdivisiones en las variables de entrada, lo que permite una mayor especialización
+de las reglas generadas. Sin embargo, el árbol resultante es más difícil de interpretar y
+es posible que presente problemas de sobreajuste si no existen las hojas adecuadas
+en ciertos caminos del árbol.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{images/reglas_auto.png}
+    \caption{Árbol de reglas generado con particionado automático}
+    \label{fig:reglas_auto}
+\end{figure}
+
+Con los datos sintéticos y particionado experto, ahora el árbol en la figura 
+\ref{fig:reglas_sint} contiene reglas para todas las zonas de vida posibles, lo que hace que
+se generen todos los caminos posibles en el árbol, justificando la gran precisión obtenida.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{images/reglas_sint.png}
+    \caption{Árbol de reglas generado con particionado experto y datos sintéticos}
+    \label{fig:reglas_sint}
+\end{figure}
+
+\subsection{Análisis de particiones}
+
+La figura \ref{fig:particion_experta} muestra las particiones definidas manualmente para las variables de entrada,
+junto a la distribución de dichas variables en el conjunto de datos de entrenamiento. Véase como la mayoría de las muestras
+se concentran en unas pocas de las particiones, lo que afecta y dificulta la correcta clasificación de las zonas de vida.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{images/particion_experta.png}
+	\caption{Particion experta de variables de entrada}
+	\label{fig:particion_experta}
+\end{figure}
+
+Es interesante descatar como, en la figura \ref{fig:particion_auto}, el particionado automático de conjuntos difusos, crea particiones más finas allí donde hay mayor densidad de muestras,
+y particiones más amplias en zonas con menor densidad de muestras. Esto permitiría al sistema, en teoría, adaptarse mejor a la distribución real de los datos.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{images/particion_auto.png}
+	\caption{Particion automática de variables de entrada}
+	\label{fig:particion_auto}
+\end{figure}
+
+Finalmente, véase como, cuando se utilizan datos sintéticos para el entrenamiento, las muestras
+están completamente adaptadas a las particiones expertas; lo que permite un aprendizaje más diverso y,
+por lo tanto, una mejor generalización del sistema aprendido.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.6\textwidth]{images/particion_sint.png}
+	\caption{Particion experta con datos sintéticos}
+	\label{fig:particion_sint}
+\end{figure}
+
 
 \clearpage
 \section*{Uso de IA}
