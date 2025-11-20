@@ -9,8 +9,8 @@ import matplotlib.pyplot as plt
 
 CONFIGS = Path(__file__).parent.parent / "configs"
 INPUT_CSV = Path(__file__).parent.parent / "resources3" / "zonify_fused" / "zonify_fused_results.csv"
-INPUT_FID = Path(__file__).parent.parent / "resources3" / "fid" / "test.file"
-OUTPUT = Path(__file__).parent.parent / "resources3" / "fidcolor"
+INPUT_FID = Path(__file__).parent.parent / "resources3" / "fid" / "normal" / "test.file"
+OUTPUT = Path(__file__).parent.parent / "resources3" / "fidcolor" / "normal"
 Path.mkdir(OUTPUT, parents=True, exist_ok=True)
 
 def procesar_datos_texto(contenido_texto):
@@ -63,8 +63,8 @@ def procesar_datos_texto(contenido_texto):
                     #'APP': float(partes[2]),
                     #'PER': float(partes[3]),
                     # Saltamos partes[4] que es '||'
-                    'Decision': partes[4],
-                    'Actual': partes[5]
+                    'Decision': partes[5],
+                    'Actual': partes[6]
                 }
                 data.append(fila)
 

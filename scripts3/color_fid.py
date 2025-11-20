@@ -7,8 +7,8 @@ import json
 import pandas as pd 
 
 CONFIGS = Path(__file__).parent.parent / "configs"
-INPUT = Path(__file__).parent.parent / "resources3" / "fidcolor" / "fid2zonify_results.csv"
-OUTPUT = Path(__file__).parent.parent / "resources3" / "fidcolor"
+INPUT = Path(__file__).parent.parent / "resources3" / "fidcolor" / "normal" / "fid2zonify_results.csv"
+OUTPUT = Path(__file__).parent.parent / "resources3" / "fidcolor" / "normal"
 Path.mkdir(OUTPUT, parents=True, exist_ok=True)
 
 def load_lifezones(configs_folder: Path):
