@@ -6,11 +6,20 @@ from pathlib import Path
 import json
 import seaborn as sns
 import matplotlib.pyplot as plt
+import argparse
+parser = argparse.ArgumentParser(
+    prog="Zonify to FID3.5",
+    description="Transformar los resultados de Zonify a un formato compatible con FID3.5."
+)
+parser.add_argument('modo', type=str, help="Modo de operación")
+args = parser.parse_args()
+modo = args.modo
+
 
 CONFIGS = Path(__file__).parent.parent / "configs"
 INPUT_CSV = Path(__file__).parent.parent / "resources3" / "zonify_fused" / "zonify_fused_results.csv"
-INPUT_FID = Path(__file__).parent.parent / "resources3" / "fid" / "normal" / "test.file"
-OUTPUT = Path(__file__).parent.parent / "resources3" / "fidcolor" / "normal"
+INPUT_FID = Path(__file__).parent.parent / "resources3" / "fid" / modo / "test.file"
+OUTPUT = Path(__file__).parent.parent / "resources3" / "fidcolor" / modo
 Path.mkdir(OUTPUT, parents=True, exist_ok=True)
 
 def procesar_datos_texto(contenido_texto):
@@ -63,8 +72,8 @@ def procesar_datos_texto(contenido_texto):
                     #'APP': float(partes[2]),
                     #'PER': float(partes[3]),
                     # Saltamos partes[4] que es '||'
-                    'Decision': partes[5],
-                    'Actual': partes[6]
+                    'Decision': partes[4],
+                    'Actual': partes[5]
                 }
                 data.append(fila)
 
@@ -161,6 +170,41 @@ plot_confusion_matrix_with_diagonal_highlight(
     fmt="d",
     figsize=(10, 10)
 )
+
+# Analizar accuracy y recall por clase
+accuracy_per_class = {}
+for clase in etiquetas:
+    true_positives = confusion_matrix.at[clase, clase]
+    total_actual = confusion_matrix.loc[clase].sum()
+    accuracy = true_positives / total_actual if total_actual > 0 else 0
+    accuracy_per_class[clase] = accuracy
+print("Accuracy por clase:")
+for clase, accuracy in accuracy_per_class.items():
+    print(f"{clase}: {accuracy:.2f}")
+
+recall_per_class = {}
+for clase in etiquetas:
+    true_positives = confusion_matrix.at[clase, clase]
+    total_predicted = confusion_matrix[clase].sum()
+    recall = true_positives / total_predicted if total_predicted > 0 else 0
+    recall_per_class[clase] = recall
+print("Recall por clase:")
+for clase, recall in recall_per_class.items():
+    print(f"{clase}: {recall:.2f}")
+
+dice_per_class = {}
+for clase in etiquetas:
+    tp = confusion_matrix.at[clase, clase]
+    fp = confusion_matrix[clase].sum() - tp
+    fn = confusion_matrix.loc[clase].sum() - tp
+    dice = (2 * tp) / (2 * tp + fp + fn) if (2 * tp + fp + fn) > 0 else 0
+    dice_per_class[clase] = dice
+print("Dice por clase:")
+for clase, dice in dice_per_class.items():
+    print(f"{clase}: {dice:.2f}")
+
+print("Dice medio: {:.2f}".format(np.mean(list(dice_per_class.values()))))
+
 # # Save as png with heatmap
 # import seaborn as sns
 # import matplotlib.pyplot as plt 

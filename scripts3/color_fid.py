@@ -5,10 +5,19 @@ import math
 from pathlib import Path
 import json
 import pandas as pd 
+import argparse
+
+parser = argparse.ArgumentParser(
+    prog="FID2Zonify Color Inferer"
+)
+parser.add_argument('modo', type=str, help="Modo de operación")
+args = parser.parse_args()
+modo = args.modo
+
 
 CONFIGS = Path(__file__).parent.parent / "configs"
-INPUT = Path(__file__).parent.parent / "resources3" / "fidcolor" / "normal" / "fid2zonify_results.csv"
-OUTPUT = Path(__file__).parent.parent / "resources3" / "fidcolor" / "normal"
+INPUT = Path(__file__).parent.parent / "resources3" / "fidcolor" / modo / "fid2zonify_results.csv"
+OUTPUT = Path(__file__).parent.parent / "resources3" / "fidcolor" / modo
 Path.mkdir(OUTPUT, parents=True, exist_ok=True)
 
 def load_lifezones(configs_folder: Path):

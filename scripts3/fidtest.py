@@ -9,10 +9,20 @@ from pathlib import Path
 import json
 import seaborn as sns
 import matplotlib.pyplot as plt
+import argparse
+
+parser = argparse.ArgumentParser(
+    prog="Zonify to FID3.5",
+    description="Transformar los resultados de Zonify a un formato compatible con FID3.5."
+)
+parser.add_argument('modo', type=str, help="Modo de operación")
+
+args = parser.parse_args()
+modo = args.modo
 
 CONFIGS = Path(__file__).parent.parent / "configs"
 INPUT_CSV = Path(__file__).parent.parent / "resources3" / "zonify_fused" / "zonify_fused_results.csv"
-INPUT_FID = Path(__file__).parent.parent / "resources3" / "fid" / "sintetico" / "test.file"
+INPUT_FID = Path(__file__).parent.parent / "resources3" / "fid" / modo / "test.file"
 
 def procesar_datos_texto(contenido_texto):
     """

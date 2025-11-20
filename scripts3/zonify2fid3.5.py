@@ -4,13 +4,14 @@ import math
 from pathlib import Path
 import json
 import pandas as pd
+import argparse
 
 CONFIGS = Path(__file__).parent.parent / "configs"
 INPUT = Path(__file__).parent.parent / "resources3" / "zonify_fused" / "zonify_fused_results.csv"
 OUTPUT = Path(__file__).parent.parent / "resources3" / "fid"
 Path.mkdir(OUTPUT, parents=True, exist_ok=True)
 
-VARS = ['ABT', 'APP', 'PER']
+VARS = ['ABT', 'APP']
 N_VARS = len(VARS)
 
 variables_json = CONFIGS / "variables.json"

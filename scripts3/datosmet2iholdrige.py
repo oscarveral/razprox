@@ -44,8 +44,8 @@ def calcular_abt_estacion(df_input: pd.DataFrame) -> float:
         except Exception as e:
             print(f"PCHIP falló: {e}")
             
-        # Tomar solo la parte central
-        abt_monthly = abt_monthly[12:24]
+    # Tomar solo la parte central
+    abt_monthly = abt_monthly[12:24]
     
     # 5. Validación final
     if abt_monthly.isna().sum() > 0:
@@ -63,6 +63,8 @@ def calcular_app_estacion(df_input: pd.DataFrame) -> float:
     
     # 1. Calcular el PROMEDIO de esas sumas para obtener la "Normal Climática Mensual"
     app_monthly = df.groupby('Month')['prcp'].mean()
+
+    #print(f"La precipitación mensual para la estación {df_input['StationID'].iloc[0]} es:\n", app_monthly)
     
     app_monthly = app_monthly.reindex(range(1, 13))
     nans = app_monthly.isna().sum()
@@ -77,7 +79,7 @@ def calcular_app_estacion(df_input: pd.DataFrame) -> float:
         except Exception as e:
             print(f"PCHIP falló: {e}")
             
-        app_monthly = app_monthly[12:24]
+    app_monthly = app_monthly[12:24]
     
     if app_monthly.isna().sum() > 0:
         return np.nan
