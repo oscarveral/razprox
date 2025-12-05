@@ -219,9 +219,13 @@ __marimo__/
 *.toc
 *.pdf
 *.bbl-SAVE-ERROR
+*.blg
 
 # Outputs
 output/
 
 # Data files
 *.csv
+
+# Resources
+resources[1-9]/

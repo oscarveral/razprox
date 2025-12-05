@@ -68,11 +68,17 @@ if __name__ == "__main__":
     # Recorremos el dataframe evaluando FIS-Zonify para cada fila
     log("Evaluando FIS-Zonify para cada fila del dataset. Modo de inferencia: " + inference_mode)
     for index, row in data.iterrows():
+        if (pd.isna(row["ABT"]) or pd.isna(row["APP"]) or pd.isna(row["PER"])):
+            log(f"Fila {index+1} tiene valores NaN en ABT, APP o PER. Se omite.")
+            continue
         # Preparar la entrada para el sistema de inferencia
         try:
             abt_norm = math.log2(row["ABT"] / 0.75) if row["ABT"] > 0.375 else -1
             app_norm = math.log2(row["APP"] / 1000)
             per_norm = math.log2(row["PER"] / 2)
+            abt_norm = max(-1, min(5.33, abt_norm))
+            app_norm = max(-4, min(4, app_norm))
+            per_norm = max(-4, min(4, per_norm))
         except Exception as e:
             print(f"Error normalizando datos para la fila {index}: ABT={row['ABT']}, APP={row['APP']}, PER={row['PER']}")
             raise e
@@ -87,9 +93,9 @@ if __name__ == "__main__":
             color = var.defuzzify_color(output)
         except Exception as e:
             print(f"Error defuzzificando color para la fila {index+1} con datos de entrada: ABT={row['ABT']}, APP={row['APP']}, PER={row['PER']}")
-            for fs_name, degree in output.items():
-                print(f"    Fuzzy set '{fs_name}': degree of membership = {degree:.4f}")
-            raise e
+            # for fs_name, degree in output.items():
+            #     print(f"    Fuzzy set '{fs_name}': degree of membership = {degree:.4f}")
+            continue
 
         data.at[index, "r"] = color[0]
         data.at[index, "g"] = color[1]
@@ -100,6 +106,10 @@ if __name__ == "__main__":
         data.at[index, "Z2"] = sorted_zones[1][0]
         data.at[index, "Z3"] = sorted_zones[2][0]
     log("Evaluación completada.")
+
+    # Dropeamos las filas con valores NaN en r, g, b
+    data = data.dropna(subset=["r", "g", "b"])
+    log(f"Filas con valores NaN eliminadas. Filas restantes: {len(data)}")
 
     if output_folder is not None:
         log(f"Guardando resultados en carpeta {output_folder}")

@@ -28,7 +28,7 @@ if __name__ == "__main__":
                         help="Fichero shapefile para usar como máscara del mapa de colores.")
     args = parser.parse_args()
     input_csv = args.input_csv
-    output_folder = Path(args.output_folder) / "color_map"
+    output_folder = Path(args.output_folder)
     Path(output_folder).mkdir(parents=True, exist_ok=True)
 
     # Cargamos los datos de entrada desde el fichero CSV
@@ -43,8 +43,8 @@ if __name__ == "__main__":
     lon_max = data["Longitud"].max()
     lat_min = data["Latitud"].min()
     lat_max = data["Latitud"].max()
-    resolutionx = 0.01  # Grados
-    resolutiony = 0.01  # Grados
+    resolutionx = 0.025  # Grados
+    resolutiony = 0.025  # Grados
     points = data[['Longitud', 'Latitud']].values
     colors = data[['r', 'g', 'b']].values.astype(float) / 255.0
 
