@@ -1,0 +1,175 @@
+
+% Archivo: informe3.tex
+
+\documentclass[11pt,a4paper]{article}
+
+% Idioma y tipografías
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% Maquetación y tipografía fina
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+
+% Utilidades
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{float}
+\setlist{nosep,leftmargin=*,labelsep=0.5em}
+
+% Hipervínculos
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    pdftitle={Informe de Aprendizaje Difuso},
+    pdfauthor={Juan Diego Gallego Nicolás, Óscar Vera López},
+    pdfsubject={Aprendizaje Difuso},
+    pdfkeywords={Zona de Vida de Holdridge, Lógica Difusa, Inferencia Difusa}
+}
+
+% Bibliografía
+\usepackage[
+    backend=biber,
+    style=ieee,
+    sorting=nyt,
+    maxbibnames=99
+]{biblatex}
+\addbibresource{references.bib}
+
+% Subfiguras
+\usepackage{subcaption}
+
+% Código (Python)
+\usepackage{listings}
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	commentstyle=\color{green!60!black}\itshape,
+	numbers=left,
+	numberstyle=\tiny,
+	stepnumber=1,
+	numbersep=5pt,
+	showstringspaces=false,
+	breaklines=true,
+	frame=single,
+	captionpos=b
+}
+% Código JSON
+\lstdefinelanguage{JSON}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    literate=
+     *{0}{{{\color{blue}0}}}{1}
+      {1}{{{\color{blue}1}}}{1}
+      {2}{{{\color{blue}2}}}{1}
+      {3}{{{\color{blue}3}}}{1}
+      {4}{{{\color{blue}4}}}{1}
+      {5}{{{\color{blue}5}}}{1}
+      {6}{{{\color{blue}6}}}{1}
+      {7}{{{\color{blue}7}}}{1}
+      {8}{{{\color{blue}8}}}{1}
+      {9}{{{\color{blue}9}}}{1}
+      {:}{{{\color{red}:}}}{1}
+      {,}{{{\color{red},}}}{1}
+      {\{}{{{\color{orange}\{}}}{1}
+      {\}}{{{\color{orange}\}}}}{1}
+      {[}{{{\color{orange}[}}}{1}
+      {]}{{{\color{orange}]}}}{1}
+      {"}{{{\color{green}"}}}{1}
+}
+
+
+% Comandos útiles
+
+\begin{document}
+\begin{titlepage}
+    \centering
+    % \includegraphics[height=2cm]{logo.png}\par\vspace{1cm} % Descomentar si hay logo
+    {\Large Informe Técnico 4}\par\vspace{0.5cm}
+    {\huge\bfseries Aprendizaje Difuso\par}\vspace{0.5cm}
+    \begin{tabular}{@{}ll@{}}
+        Autor 1: & Juan Diego Gallego Nicolás \\
+        Contacto 1: & jdiego.gallego@um.es \\
+        Autor 2: & Óscar Vera López \\
+        Contacto 2: & oscar.veral@um.es \\
+        Profesor: & Maria del Carmen Garrido Carrera \\
+        Asignatura: & Conocimiento y Razonamiento Aproximado \\
+    \end{tabular}
+    % Include umu logo
+    \vfill
+    \includegraphics[height=8cm]{images/SelloUMU-negativo.png}\par\vspace{1cm}
+    \vfill
+    {\large \today}\par
+\end{titlepage}
+
+\pagenumbering{roman}
+\clearpage
+
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\section{Ejercicio 2}
+
+Supongamos que el Estado proporciona unos bonos de ayuda a proyectos de innovación para crear empresas
+que tengan en cuenta la sostenibilidad. Un experto en la materia nos indica su creencia para 
+obtener este bono ayuda mediante las dos reglas siguientes:
+\begin{itemize}
+    \item "Si recicado es alto entonces bonoAyuda es sí" con un intervalo de probabilidad [0.7, 0.9].
+    \item "Si emisiones es alto entoces bonoAyuda es sí" con un intervalo de probabilidad [0.75, 0.85].
+\end{itemize}
+donde ``reciclado'' (Re) es una variable que puede tomar los valores {alto, bajo}
+indicando el grado de compromiso del proyecto con el reciclado, ``emisiones'' (Em) es una 
+variable que puede tomar los valores {alto, bajo} incando el grado de compromiso
+del proyecto con el control de emisione, y ``bonoAyuda'' (bA) es la variable que puede tomar 
+dos valores {sí, no} indicando si se concede o no el bono de ayuda al proyecto. 
+
+El experto ha valorado la propuesta  de dos proyectos para la creación de dos nuevas empresas y 
+ha establecido la siguiente valoración:
+% Cita de un experto
+\begin{itemize}
+    \item[] \textit{El proyecto 1 tiene un compromiso alto con las emisiones con un intervalo
+     de probabilidad [0.8, 1] y el proyecto 2 tiene un compromiso alto con las emisiones 
+     con un intervalo de probabilidad [0.8, 1].}
+\end{itemize}
+
+Resolver la siguiente cuestión:
+
+\textbf{a) ¿Cuál es el intervalo deprobabilidad de que cada proyecto reciba el bono de ayuda?}
+
+Para  este ejercicio debemos calcular los intervalos [Credibilidad, Plausibilidad] de ambos sucesos
+usando la teoría de la evidencia de Dempster-Shafer. El marco de reglas del que disponemos es:
+
+\[R_1: Re=Alto\Rightarrow bA=Si\,(0.7, 0.9)\]
+\[R_2: Em=Alto\Rightarrow bA=Si\,(0.75, 0.85)\]
+
+
+
+\clearpage
+\section*{Uso de IA}
+Durante la elaboración de este informe, se ha utilizado ChatGPT-4 para asistir en la redacción a LaTeX de este documento
+mediante la herramienta de OpenAI integrada en Visual Studio Code. También se ha mantenido una conversación 
+con Gemini-2.5 de Google para obtener orientación y opiniones sobre la estructura y contenido del informe.
+Junto a este documento se entrega un archivo HTML con el historial de la conversación mantenida con la misma.
+
+\clearpage
+% Bibliografía
+%\printbibliography
+
+\end{document}
