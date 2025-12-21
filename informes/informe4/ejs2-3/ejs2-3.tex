@@ -140,18 +140,18 @@ variable que puede tomar los valores {alto, bajo} incando el grado de compromiso
 del proyecto con el control de emisione, y ``bonoAyuda'' (bA) es la variable que puede tomar 
 dos valores {sí, no} indicando si se concede o no el bono de ayuda al proyecto. 
 
-El experto ha valorado la propuesta  de dos proyectos para la creación de dos nuevas empresas y 
+El experto ha valorado la propuesta de dos proyectos para la creación de dos nuevas empresas y 
 ha establecido la siguiente valoración:
 % Cita de un experto
 \begin{itemize}
-    \item[] \textit{El proyecto 1 tiene un compromiso alto con las emisiones con un intervalo
+    \item[] \textit{El proyecto 1 tiene un compromiso alto con el reciclado con un intervalo
      de probabilidad [0.8, 1] y el proyecto 2 tiene un compromiso alto con las emisiones 
      con un intervalo de probabilidad [0.8, 1].}
 \end{itemize}
 
 Resolver la siguiente cuestión:
 
-\textbf{a) ¿Cuál es el intervalo deprobabilidad de que cada proyecto reciba el bono de ayuda?}
+\textbf{a) ¿Cuál es el intervalo de probabilidad de que cada proyecto reciba el bono de ayuda?}
 
 Para  este ejercicio debemos calcular los intervalos [Credibilidad, Plausibilidad] de ambos sucesos
 usando la teoría de la evidencia de Dempster-Shafer. El marco de reglas del que disponemos es:
@@ -159,6 +159,176 @@ usando la teoría de la evidencia de Dempster-Shafer. El marco de reglas del que
 \[R_1: Re=Alto\Rightarrow bA=Si\,(0.7, 0.9)\]
 \[R_2: Em=Alto\Rightarrow bA=Si\,(0.75, 0.85)\]
 
+La primera valoración del experto nos indica que el proyecto 1 tiene un compromiso alto con el reciclado
+con un intervalo de probabilidad $(0.8, 1)$, es decir, $Re=Alto\, (0.8, 1)$. Por tanto, el proyecto 1 solo cumple la
+regla $R_1$. Los dominios del hecho y la regla son, respectivamente, $\mathbb{R}=\{Alto,\, Bajo\}$ y $\mathbb{RB}=\{\text{(Alto, Si)}, \text{(Alto, No)}, \text{(Bajo, Si)}, \text{(Bajo, No)}\}$.
+Utilizando la metodología de Dempster-Shafer, obtenemos la siguiente asignación de masas:
+\begin{itemize}
+    \item $m_{1}(\{Alto\}) = 0.80$
+    \item $m_{1}(\{Alto, Bajo\}) = 0.20$
+    \item $m_{R_1}(\{(Alto, Si), (Bajo, Si), (Bajo, No)\}) = 0.70$
+    \item $m_{R_1}(\{(Alto, No)\}) = 0.1$
+    \item $m_{R_1}(\mathbb{RB}) = 0.2$
+\end{itemize}
+
+Para poder combinar ambas asignaciones de masas, debemos extender $\mathcal{R}$ al espacio $\mathcal{RB}$ obteniendo:
+\begin{itemize}
+    \item $m_{1}^{\mathcal{RB}}(\{(Alto, Si), (Alto, No)\}) = 0.80$
+    \item $m_{1}^{\mathcal{RB}}(\mathbb{RB}) = 0.20$
+\end{itemize}
+
+Ahora sí podemos presentar la tabla de combinación de Dempster-Shafer $m_{1}^{\mathcal{RB}}\bigoplus m_{R_1}$:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l|c|c}
+         & $\{(Alto, Si), (Alto, No)\}\,0.80$ & $\mathbb{RB}$\,0.20 \\
+        \hline
+        $\{(Alto,Si), (Bajo, Si), (Bajo, No)\}\,0.7$ & $\{(Alto, Si)\}\,0.56$ & 0.14 \\
+        \hline
+        $\{(Alto,No)\}\,0.1$ & $\{(Alto, No)\}\,0.08$ & $\{(Alto, No)\}\,0.02$ \\
+        \hline
+        $\mathbb{RB}\,0.2$ & 0.16 & 0.04 \\
+    \end{tabular}
+    \caption{Combinación de Dempster-Shafer para la evidencia 1.}
+    \subcaption{Los números sin subconjunto corresponden a proyecciones sobre el total.}
+    \label{tab:ds_proyecto1}
+\end{table}
+
+La masa resultante tras realizar la proyección sobre la variable $bA$ es:
+\begin{itemize}
+    \item $m_{bA}(\{Si\}) = 0.56$
+    \item $m_{bA}(\{No\}) = 0.08 + 0.02 = 0.10$
+    \item $m_{bA}(\{Si, No\}) = 0.14 + 0.16 + 0.04 = 0.34$
+\end{itemize}
+
+Por tanto, el intervalo de probabilidad de que el proyecto 1 reciba el bono de ayuda es:
+\[Credibilidad(bA=Si) = m_{bA}(\{Si\}) = 0.56\]
+\[Plausibilidad(bA=Si) = m_{bA}(\{Si\}) + m_{bA}(\{Si, No\}) = 0.56 + 0.34 = 0.90\]
+\[\Rightarrow [Credibilidad, Plausibilidad] = [0.56, 0.90]\]
+
+
+La segunda valoración del experto nos indica que el proyecto 2 tiene un compromiso alto con las emisiones
+con un intervalo de probabilidad $(0.8, 1)$, es decir, $Em=Alto\, (0.8, 1)$. Por tanto, el proyecto 2 solo cumple la
+regla $R_2$. Los dominios del hecho y la regla son, respectivamente, $\mathbb{E}=\{Alto,\, Bajo\}$ y $\mathbb{EB}=\{\text{(Alto, Si)}, \text{(Alto, No)}, \text{(Bajo, Si)}, \text{(Bajo, No)}\}$.
+Utilizando la metodología anterior, obtenemos la siguiente asignación de masas:
+\begin{itemize}
+    \item $m_{3}(\{Alto\}) = 0.8$
+    \item $m_{3}(\{Alto, Bajo\}) = 0.2$
+    \item $m_{R_2}(\{(Alto, Si), (Bajo, Si), (Bajo, No)\}) = 0.75$
+    \item $m_{R_2}(\{(Alto, No)\}) = 0.15$
+    \item $m_{R_2}(\mathbb{EB}) = 0.10$
+\end{itemize}
+
+Para poder combinar ambas asignaciones de masas, debemos extender $\mathcal{E}$ al espacio $\mathcal{EB}$ obteniendo:
+\begin{itemize}
+    \item $m_{3}^{\mathcal{EB}}(\{(Alto, Si), (Alto, No)\}) = 0.80$
+    \item $m_{3}^{\mathcal{EB}}(\mathbb{EB}) = 0.20$
+\end{itemize}
+
+Ahora sí podemos presentar la tabla de combinación de Dempster-Shafer $m_{3}^{\mathcal{EB}}\bigoplus m_{R_2}$:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l|c|c}
+         & $\{(Alto, Si), (Alto, No)\}\, 0.8$ & $\mathbb{EB}$\,0.20 \\
+        \hline
+        $\{(Alto,Si), (Bajo, Si), (Bajo, No)\}\,0.75$ & $\{(Alto, Si)\}\,0.6$ & 0.15 \\
+        \hline
+        $\{(Alto,Si)\}\,0.15$ & $\{(Alto, No)\}\,0.12$ & $\{(Alto, No)\}\,0.03$ \\
+        \hline
+        $\mathbb{EB}\,0.10$ & 0.08 & 0.02 \\
+    \end{tabular}
+    \caption{Combinación de Dempster-Shafer para la evidencia 2.}
+    \subcaption{Los números sin subconjunto corresponden a proyecciones sobre el total.}
+    \label{tab:ds_proyecto2}
+\end{table}
+
+La masa resultante tras realizar la proyección sobre la variable $bA$ es:
+\begin{itemize}
+    \item $m_{bA}(\{Si\}) = 0.6$
+    \item $m_{bA}(\{No\}) = 0.12 + 0.03 = 0.15$
+    \item $m_{bA}(\{Si, No\}) = 0.15 + 0.08 + 0.02 = 0.25$
+\end{itemize}
+
+Por tanto, el intervalo de probabilidad de que el proyecto 2 reciba el bono de ayuda es:
+\[Credibilidad(bA=Si) = m_{bA}(\{Si\}) = 0.6\]
+\[Plausibilidad(bA=Si) = m_{bA}(\{Si\}) + m_{bA}(\{Si, No\}) = 0.6 + 0.25 = 0.85\]
+\[\Rightarrow [Credibilidad, Plausibilidad] = [0.6, 0.85]\]
+
+Por tanto, la solución final al ejercicio es:
+\begin{itemize}
+    \item Proyecto 1: intervalo de probabilidad de recibir el bono de ayuda = $[0.56, 0.90]$.
+    \item Proyecto 2: intervalo de probabilidad de recibir el bono de ayuda = $[0.6, 0.85]$.
+\end{itemize}
+
+\section{Ejercicio 3}
+
+Supongamos el conocimiento proporcionado por el experto del ejercicio anterior (las dos reglas y los dos
+hechos). En este ejercicio, a este conocimiento le asignamos los valores inferiores de los intervalos de
+probabilidad del ejercicio anterior como la credibilidad/incredulidad en los factores de certeza. Además,
+añadimos el siguiente conocimiento: \\
+
+\textit{R3: "Si emisiones es alto y reciclado es alto entonces bonoAyuda es si" con una credibilidad del 0.95} \\
+
+Además, el experto ha valorado dos nuevos proyectos: 
+\textit{El proyecto 3 tiene un compromiso alto con el reciclado
+con una credibilidad del 0.7 y un compromiso alto con las emisiones con una credibilidad del 0.5. El proyecto 4
+tiene un compromiso alto con las emisiones con una credibilidad del 0.9 y se tiene una incredulidad de que tiene
+un compromiso alto con el reciclado con un grado del 0.7.}
+
+Resolver las siguientes cuestiones:
+
+\textbf{a) Representar las reglas y los hechos con los factores de certeza.}
+
+En este ejercicio $Re$, $Em$ y $bA$ aparecen afirmadas cuando toman el valor "Alto" o "Si", respectivamente.
+
+La base de conocimeinto queda de la siguiente forma:
+\begin{itemize}
+    \item $R_1: Re=Alto\Rightarrow bA=Si$ con $CF(R1)=0.7$
+    \item $R_2: Em=Alto\Rightarrow bA=Si$ con $CF(R2)=0.75$
+    \item $R_3: Re=Alto \wedge Em=Alto \Rightarrow bA=Si$ con $CF(R3)=0.95$
+\end{itemize}
+
+Los hechos para los proyectos 3 y 4 son:
+\begin{itemize}
+    \item Proyecto 3:
+    \begin{itemize}
+        \item $Re=Alto$ con $CF(Re|E_3)=0.7$
+        \item $Em=Alto$ con $CF(Em|E_3)=0.5$
+    \end{itemize}
+    \item Proyecto 4:
+    \begin{itemize}
+        \item $Em=Alto$ con $CF(Em|E_4)=0.9$
+        \item $Re=Alto$ con $CF(Re|E_4)=-0.7$
+    \end{itemize}
+\end{itemize}
+
+\textbf{b) ¿Qué proyecto tiene una mayor certeza de recibir el bono ayuda?}
+
+Aplicando las reglas de propagación y combinación de factores de certeza:
+\begin{itemize}
+    \item Proyecto 3:
+    \begin{itemize}
+        \item $CF(bA|R_1, E_3) = CF(Re|E_3) * CF(R_1) = 0.7 * 0.7 = 0.49$
+        \item $CF(bA|R_2, E_3) = CF(Em|E_3) * CF(R_2) = 0.5 * 0.75 = 0.375$
+        \item $CF(bA|R_3, E_3) = min(CF(Re|E_3), CF(Em|E_3)) * CF(R_3) = min(0.7, 0.5) * 0.95 = 0.475$
+        \item Combinando:
+        \[CF(bA|R_1,R_2, E_3) = CF(bA|R_1, E_3) + CF(bA|R_2, E_3) * (1 - CF(bA|R_1, E_3))=\]
+        \[= 0.49 + 0.375 * (1 - 0.49) = 0.49 + 0.19125 = 0.68125\]
+        \[CF(bA|E_3) = CF(bA|R_1,R_2, E_3) + CF(bA|R_3, E_3) * (1 - CF(bA|R_1,R_2, E_3))\]
+        \[= 0.68125 + 0.475 * (1 - 0.68125) = 0.68125 + 0.15140625 = 0.83265625\]
+    \end{itemize}
+    \item Proyecto 4:
+    \begin{itemize}
+        \item $CF(bA|R_1, E_4) = 0$ (La evidencia va en contra del antecedente. No se dispara.)
+        \item $CF(bA|R_2, E_4) = CF(Em|E_4) * CF(R_2) = 0.9 * 0.75 = 0.675$
+        \item $CF(bA|R_3, E_4) = 0$ (El antecedente tiene un factor de certeza negativo $min\{-0.7, 0.9\}$)
+        \item Combinando:
+        \[CF(bA|E_4) = CF(bA|R_2, E_4) = 0.675\]
+    \end{itemize}
+\end{itemize}
+
+En conclusión, ambos proyectos tienen un factor de certeza positivo para recibir el bono de ayuda, pero el proyecto 3
+tiene un mayor factor de certeza ($CF(bA|E_3) = 0.83265625$ frente a $CF(bA|E_4) = 0.675$). Por tanto, el proyecto 3 tiene una mayor certeza de recibir el bono de ayuda.
 
 
 \clearpage
